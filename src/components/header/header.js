@@ -16,8 +16,13 @@ export default class Header extends Component {
          nickname: '',// user.nickname,
          like: 0,// user.like
       }, // 로그인한 유저의 정보
+      popupWindow: null,
+      token: null,
+      signingIn: false,
+      userInfo: null,
     };
   }
+  
   logout = () => {
     this.setState({ 
       isLogin: !this.state.isLogin,
@@ -29,19 +34,26 @@ export default class Header extends Component {
       },
     })
   }
-
+  componentDidMount = () => {
+    window.addEventListener('message', this.tokenHandler)
+  }
+  tokenHandler = (e) => {
+    console.log(e);
+  }
   loginWithFacebook = () => {
-    fetch('http://localhost:3000/auth/facebook', {
-      // headers: {
-      //   // 'Accept': 'application/json',
-      //   // 'Access-Control-Allow-Origin': '*',
-      //   // 'Content-type': 'application/json',
-      // },
+    const popupWindow = window.open('http://192.168.1.151:3000/auth/facebook');
+    fetch('http://192.168.1.151:3000/auth/facebook', {
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Content-type': 'application/json',
+      },
       method: 'GET',
     })
     .then((resp) => resp.json())
-    .then( (data) => 
-      console.log(data)
+    .then( (data) => {
+        console.log(data)
+      }
     )
   }
   
