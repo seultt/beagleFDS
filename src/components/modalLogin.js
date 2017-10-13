@@ -5,42 +5,6 @@ import google from '../images/icon_google.svg';
 
 
 export default class ModalLogin extends React.Component {
-  // onSubmit = () => {
-  //   this.setState({
-  //     isPending: true,
-  //   })
-  //   const requestBody = {};
-  //   requestBody['title'] = this.state.title;
-  //   requestBody['description'] = this.state.description;
-
-  //   fetch(`${SERVER_HOSTNAME}/wordLists`,
-  //   {
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //       },
-  //       method: "POST",
-  //       body: JSON.stringify(requestBody)
-  //   })
-  //   .then((res) => res.json())
-  //   .then((result) => {
-  //     // this.toggleInputState();
-  //     this.setState({
-  //       isPending: false,
-  //       wordLists: [
-  //         result,          
-  //         ...this.state.wordLists,
-  //       ]
-  //     })
-  //   })
-  //   .catch((res) => { 
-  //     console.log(res)
-  //     this.setState({
-  //       isPending: false,
-  //     })
-  //   })
-  // }
-  
 
   render() {
     return (
@@ -52,14 +16,14 @@ export default class ModalLogin extends React.Component {
       <div className="join__container">
         <a 
           className="join__facebook--btn"
-          onClick={this.loginWithFacebook}
+          onClick={this.props.loginWithFacebook}
         >
           <img src={facebook} />
           페이스북으로 계속하기
         </a>
         <a 
           className="join__google--btn"
-          onClick={this.loginWithGoogle}
+          onClick={this.props.loginWithGoogle}
         >
           <img src={google} />
           구글로 계속하기
