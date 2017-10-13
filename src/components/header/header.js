@@ -31,23 +31,18 @@ export default class Header extends Component {
   }
 
   loginWithFacebook = () => {
-    fetch('https://localhost:4000/auth/facebook')
+    fetch('http://localhost:3000/auth/facebook', {
+      // headers: {
+      //   // 'Accept': 'application/json',
+      //   // 'Access-Control-Allow-Origin': '*',
+      //   // 'Content-type': 'application/json',
+      // },
+      method: 'GET',
+    })
     .then((resp) => resp.json())
-    .then( (data) => {
-      this.setState({
-        currentUser: {
-          id: data.id,
-          photo: data.profile_photo,
-          nickname: data.nickname,
-          like: data.like,
-        },
-        isLogin: true,
-        showModal: false,
-      })
+    .then( (data) => 
       console.log(data)
-    }
     )
-    .catch()
   }
   
   toggleLogin = () => {
