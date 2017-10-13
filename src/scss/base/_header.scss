@@ -1,0 +1,109 @@
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #d9d9d9;
+  .__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+    @include respond-to(small-screens) { 
+      min-width: 320px; 
+      height: 50px;
+      .menu__login-after {
+        display: flex;
+        justify-content: space-between;
+        width: 120px;
+        a.menu__createChat-mobile {
+          width: 35px;
+          line-height: 35px;
+          background-color: #0099ff;
+          color: #fff;
+          font-size: 15px;
+        }
+        a.menu__createChat-mobile {
+          display: block;
+        }
+        a.menu__createChat {
+          display: none;
+        }
+      }  
+    }
+    @include respond-to(regular-screens) { 
+      min-width: 480px; 
+      height: 50px; 
+    }
+    @include respond-to(medium-screens) { 
+      min-width: 650px; 
+      height: 60px;
+      .menu__login-after {
+        display: flex;
+        justify-content: space-between;
+        width: 212px;
+        a.menu__createChat {
+          width: 120px;
+          line-height: 35px;
+          background-color: #0099ff;
+          color: #fff;
+          font-size: 15px;
+        }
+        a.menu__createChat {
+          display: block;
+        }
+        a.menu__createChat-mobile {
+          display: none;
+        }
+      } 
+    }
+    @include respond-to(large-screens) { 
+      min-width: 998px; 
+      height: 60px; 
+    }
+  }
+}
+
+.menu {
+  .btn.menu__login-before {
+    width: 100px;
+    height: 32px;
+    line-height: 28px;
+    border: 1px solid $main_color;
+    color: $main_color;
+    &:hover, 
+    &:active,
+    &:focus {
+      background-color: $main_color;
+      color: #fff;
+    }
+  }
+
+  .menu__login-after {
+    li {
+      position: relative;
+      a span.red_circle {
+        position: absolute;
+        top: 20px;
+        right: 0;
+        height: 15px;
+        padding: 1px 5px;
+        border-radius: 50px;
+        line-height: 15px;
+        background-color: #ff5d5d;
+        font-size: 10px;
+        letter-spacing: -0.02em;
+        color: #fff;
+      }
+      .menu__profile img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+      .menu__message img {
+        width: 32px;
+      }
+    }
+  }
+  
+  
+}
