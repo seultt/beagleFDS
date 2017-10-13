@@ -1,0 +1,97 @@
+/* 회원가입 */
+.join {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+.join__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.join__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  .join__facebook--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 390px;
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #3366cc;
+    color: #fff;
+    img {
+      width: 20px;
+    }
+  }
+  .join__google--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 390px;
+    height: 80px;
+    margin-bottom: 10px;
+    border: 1px solid #d6d2d1;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #666;
+    text-align: center;
+    img {
+      width: 20px;
+    }
+  }
+  .join__naver--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 390px;
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #00c73c;
+    color: #fff;
+    text-align: center;
+  }
+  .join__kakao--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 390px;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #fae22f;
+    color: #fff;
+    text-align: center;
+  }
+  p {
+    width: 360px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22rpx;
+    span {
+      color :#3366cc;
+    }
+  }
+}
+.join--closeBtn {
+  // display: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+}

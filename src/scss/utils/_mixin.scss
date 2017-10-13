@@ -1,0 +1,27 @@
+// 미디어 쿼리 MIXIN
+// --------------------------------------------------
+ 
+// Break Point (오름차순 설정)
+
+$break-small: 320px;
+$break-regular: 480px;
+$break-medium: 650px;
+$break-large: 998px;
+
+
+@mixin respond-to($media) {
+  @if $media == small-screens {
+    @media only screen and (min-width: $break-small){ @content; }
+  }
+  @else if $media == regular-screens {
+    @media only screen and (min-width: $break-regular){ @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-medium){ @content; }
+  }
+  @else if $media == large-screens {
+    @media only screen and (min-width: $break-large){ @content; }
+  }
+ 
+}
+
