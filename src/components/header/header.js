@@ -11,17 +11,43 @@ export default class Header extends Component {
       showModal: false,
       isLogin: false,
       currentUser: {
-        id: 0,// user.id,
-        photo: 'https://randomuser.me/api/portraits/men/89.jpg',// user.profile_photo,
-        nickname: '이슬기',// user.nickname,
-        like: 0,// user.like
+         id: 0,// user.id,
+         photo: '',// user.profile_photo,
+         nickname: '',// user.nickname,
+         like: 0,// user.like
       }, // 로그인한 유저의 정보
     };
   }
   logout = () => {
     this.setState({ 
       isLogin: !this.state.isLogin,
+      currentUser: {
+        id: '',// user.id,
+        photo: '',// user.profile_photo,
+        nickname: '',// user.nickname,
+        like: '',// user.like
+      },
     })
+  }
+
+  loginWithFacebook = () => {
+    fetch('https://localhost:4000/auth/facebook')
+    .then((resp) => resp.json())
+    .then( (data) => {
+      this.setState({
+        currentUser: {
+          id: data.id,
+          photo: data.profile_photo,
+          nickname: data.nickname,
+          like: data.like,
+        },
+        isLogin: true,
+        showModal: false,
+      })
+      console.log(data)
+    }
+    )
+    .catch()
   }
   
   toggleLogin = () => {
@@ -45,6 +71,8 @@ export default class Header extends Component {
           showModal={this.state.showModal}
           toggleLogin={this.toggleLogin}
           handleModalCloseLogin={this.handleModalCloseLogin}
+          currentUser={this.currentUser}
+          loginWithFacebook={this.loginWithFacebook}
         />
         <div className="__container">
           <h1><img src={logo} /></h1>
