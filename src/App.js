@@ -9,8 +9,8 @@ class App extends Component {
     return (
       <div>
         <Header />
-        {/* <Main /> */}
-        <Chat />
+        {<Main />}
+        {/* <Chat /> */}
       </div>
     );
   }
