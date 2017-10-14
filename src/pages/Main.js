@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import arrow from '../images/icon_arrow_down.svg';
 import like from '../images/icon_like.svg';
 import travel from '../images/icon_travel.svg';
@@ -10,6 +10,7 @@ export default class Main extends Component {
     this.state = {
       chatList: [
         {
+          chatId: 1,
           userName: 'peter',
           userImage: 'https://randomuser.me/api/portraits/men/89.jpg',
           like: 2300,
@@ -21,6 +22,7 @@ export default class Main extends Component {
           currentUsers: 3,
         },
         {
+          chatId: 2,
           userName: 'seult',
           userImage: 'https://randomuser.me/api/portraits/women/64.jpg',
           like: 2300,
@@ -32,6 +34,7 @@ export default class Main extends Component {
           currentUsers: 4,
         },
         {
+          chatId: 3,
           userName: 'younghea',
           userImage: 'https://randomuser.me/api/portraits/men/79.jpg',
           like: 2300,
@@ -111,9 +114,11 @@ export default class Main extends Component {
                     <span>{list.date}</span>
                     <p>{list.description}</p>
                   </div>
-                  <div className="main__chat-list__card--content--btn">
-                    <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
-                  </div>
+                  <Link to={`/chat/${list.chatId}`}>
+                    <div className="main__chat-list__card--content--btn">
+                      <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                    </div>
+                  </Link>
                   <p>{list.currentUsers} / 5명</p>
                 </div>
               </article>
