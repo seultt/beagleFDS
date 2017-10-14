@@ -5,6 +5,46 @@ import like from '../images/icon_like.svg';
 import travel from '../images/icon_travel.svg';
 
 export default class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chatList: [
+        {
+          userName: 'peter',
+          userImage: 'https://randomuser.me/api/portraits/men/89.jpg',
+          like: 2300,
+          chatImage: 'http://corporate.mystays.com/k/column/images/mv_009.jpg',
+          title: '교토로 3박4일 가실분!',
+          cityName: 'Kyoto',
+          date: '10월 14일',
+          description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.',
+          currentUsers: 3,
+        },
+        {
+          userName: 'seult',
+          userImage: 'https://randomuser.me/api/portraits/women/64.jpg',
+          like: 2300,
+          chatImage: 'http://tourimage.interpark.com/product/tour/00161/A10/500/A1016460_7_480.jpg',
+          title: '방콕으로 3박4일 가실분!',
+          cityName: 'Bangkok',
+          date: '10월 18일',
+          description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.',
+          currentUsers: 4,
+        },
+        {
+          userName: 'younghea',
+          userImage: 'https://randomuser.me/api/portraits/men/79.jpg',
+          like: 2300,
+          chatImage: 'http://www.yeeum.com/wp-content/uploads/2015/03/%EB%B3%B4%EB%9D%BC%EC%B9%B4%EC%9D%B4-%EB%A9%94%EC%9D%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg',
+          title: '보라카이로 3박4일 가실분!',
+          cityName: 'Boracay',
+          date: '12월 11일',
+          description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.',
+          currentUsers: 4,
+        },
+      ]
+    }
+  }
   render() {
     return (
     <main className="main">
@@ -49,90 +89,37 @@ export default class Main extends Component {
       <section className="main__chat-list">
         <div className="main__chat-list__container">
           {/* main__chat-list__card */}
-          <article className="main__chat-list__card">
-            <div className="main__chat-list__card--header">
-              <div className="main__chat-list__card--header--profile">
-                <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="대화방 개설자 프로필 사진" />
-                <strong>Username</strong>
-              </div>
-              <div className="main__chat-list__card--header--like">
-                <img src={like} alt="좋아요" />
-                <span>2,300</span>
-              </div>
-            </div>
-            <div className="main__chat-list__card--image">
-              <img alt="대화방 사진" />
-            </div>
-            <div className="main__chat-list__card--content">
-              <div className="main__chat-list__card--content--text">
-                <strong>Kyoto</strong>
-                <span>10월 14일</span>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.
-                </p>
-              </div>
-              <div className="main__chat-list__card--content--btn">
-                <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
-              </div>
-              <p>1 / 5명</p>
-            </div>
-          </article>
-          <article className="main__chat-list__card">
-            <div className="main__chat-list__card--header">
-              <div className="main__chat-list__card--header--profile">
-                <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="대화방 개설자 프로필 사진" />
-                <strong>Username</strong>
-              </div>
-              <div className="main__chat-list__card--header--like">
-                <img src={like} alt="좋아요" />
-                <span>2,300</span>
-              </div>
-            </div>
-            <div className="main__chat-list__card--image">
-              <img alt="대화방 사진" />
-            </div>
-            <div className="main__chat-list__card--content">
-              <div className="main__chat-list__card--content--text">
-                <strong>Kyoto</strong>
-                <span>10월 14일</span>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.
-                </p>
-              </div>
-              <div className="main__chat-list__card--content--btn">
-                <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
-              </div>
-              <p>1 / 5명</p>
-            </div>
-          </article>
-          <article className="main__chat-list__card">
-            <div className="main__chat-list__card--header">
-              <div className="main__chat-list__card--header--profile">
-                <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="대화방 개설자 프로필 사진" />
-                <strong>Username</strong>
-              </div>
-              <div className="main__chat-list__card--header--like">
-                <img src={like} alt="좋아요" />
-                <span>2,300</span>
-              </div>
-            </div>
-            <div className="main__chat-list__card--image">
-              <img alt="대화방 사진" />
-            </div>
-            <div className="main__chat-list__card--content">
-              <div className="main__chat-list__card--content--text">
-                <strong>Kyoto</strong>
-                <span>10월 14일</span>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.
-                </p>
-              </div>
-              <div className="main__chat-list__card--content--btn">
-                <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
-              </div>
-              <p>1 / 5명</p>
-            </div>
-          </article>
+          {this.state.chatList.map( (list) => {
+            return(
+              <article className="main__chat-list__card">
+                <div className="main__chat-list__card--header">
+                  <div className="main__chat-list__card--header--profile">
+                    <img src={list.userImage} alt="대화방 개설자 프로필 사진" />
+                    <strong>{list.userName}</strong>
+                  </div>
+                  <div className="main__chat-list__card--header--like">
+                    <img src={like} alt="좋아요" />
+                    <span>{list.like}</span>
+                  </div>
+                </div>
+                <div className="main__chat-list__card--image">
+                  <img src={list.chatImage} alt="대화방 사진" />
+                </div>
+                <div className="main__chat-list__card--content">
+                  <div className="main__chat-list__card--content--text">
+                    <strong>{list.cityName}</strong>
+                    <span>{list.data}</span>
+                    <p>{list.description}</p>
+                  </div>
+                  <div className="main__chat-list__card--content--btn">
+                    <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                  </div>
+                  <p>{list.currentUsers} / 5명</p>
+                </div>
+              </article>
+            )
+          })
+          }
         </div>
         {/* main__chat-list__card */}
       </section>
