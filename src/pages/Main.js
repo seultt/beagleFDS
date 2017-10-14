@@ -39,7 +39,7 @@ export default class Main extends Component {
           title: '보라카이로 3박4일 가실분!',
           cityName: 'Boracay',
           date: '12월 11일',
-          description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.',
+          description: '군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 외국인은 국제법과 조약이 정하는 바에 의하여 그 지위가 보장된다. 제1항의 해임건의는 국회재적의원 3분의 1 이상의 발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다. 군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 외국인은 국제법과 조약이 정하는 바에 의하여 그 지위가 보장된다. 제1항의 해임건의는 국회재적의원 3분의 1 이상의 발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다.',
           currentUsers: 4,
         },
       ]
@@ -108,7 +108,7 @@ export default class Main extends Component {
                 <div className="main__chat-list__card--content">
                   <div className="main__chat-list__card--content--text">
                     <strong>{list.cityName}</strong>
-                    <span>{list.data}</span>
+                    <span>{list.date}</span>
                     <p>{list.description}</p>
                   </div>
                   <div className="main__chat-list__card--content--btn">

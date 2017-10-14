@@ -123,6 +123,7 @@
   padding-top: 20px;
   color: #484848;
   background-color: #f8f8f8;
+  border-top: 1px solid #d9d9d9;
   .main__chat-list__container{
     display: flex;
     justify-content: flex-start;
@@ -185,9 +186,18 @@
             font-size: 15px;
           }
           p {
+            width: 284px;
+            height: 126px;
             margin-top: 20px;
             font-size: 15px;
             color: #777;
+            line-height: 21px;
+            overflow: hidden;
+            white-space: wrap;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical; 
           }
         }
         .main__chat-list__card--content--btn {
