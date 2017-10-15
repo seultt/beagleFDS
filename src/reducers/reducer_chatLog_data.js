@@ -4,31 +4,31 @@ export default function() {
     chatLog: [
       {
         id: 1,
-        userid: 1,
+        userId: 1,
         message: '홍콩이 좋다.', 
         created_at: '9시 30분'
       },
       {
         id: 2,
-        userid: 2,
+        userId: 2,
         message: '10월 27일에 다들 시간되시나여?', 
         created_at: '9시 31분'
       },
       {
         id: 3,
-        userid: 2,
+        userId: 2,
         message: '안되는 분들은 지금 말해주세여', 
         created_at: '9시 31분'
       },
       {
         id: 4,
-        userid: 3,
+        userId: 3,
         message: '저는 되긴하는데 아마 8시 이후에 출발해야 될거 같아요', 
         created_at: '9시 45분'
       },
       {
         id: 5,
-        userid: 1,
+        userId: 1,
         message: '넹 그러면 그때 보는걸로 합시다', 
         created_at: '10시 1분'
       },
