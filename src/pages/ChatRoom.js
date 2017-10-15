@@ -30,7 +30,7 @@ class ChatRoom extends Component {
             return(
               <article className="contents__another">
                 <div className="contents__another--box">
-                  <span><img src="https://randomuser.me/api/portraits/women/94.jpg"/>{this.props.participants.find( id => id.userId === isCurrentUser.userId )}</span>
+                  <span><img src="https://randomuser.me/api/portraits/women/94.jpg"/>{this.props.participants.find( id => id.userId === isCurrentUser.userId ).nickname}</span>
                   <div className="text-field">
                     <p>{isCurrentUser.message}</p>
                     <span className="chat-date">{isCurrentUser.created_at}</span>
@@ -48,7 +48,7 @@ class ChatRoom extends Component {
 const mapChatLogToProps = (state) => ({
   chatLogs: state.mockupData.chatLog,
   currentUser: state.mockupData.currentUser,
-  participants: state.mockupData.chatRoom.participants
+  participants: state.mockupData.chatRoom[0].participants
 })
 
 export default connect(mapChatLogToProps)(ChatRoom);
