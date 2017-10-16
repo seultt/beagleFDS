@@ -46,17 +46,17 @@ export default function() {
           {
             userId: 1, 
             nickname: '수박', 
-            profilePhoto: 'creator_url'
+            profilePhoto: 'https://randomuser.me/api/portraits/women/94.jpg'
           },
           {
             userId: 2, 
             nickname: '레몬', 
-            profilePhoto: 'another_url'
+            profilePhoto: 'https://randomuser.me/api/portraits/women/19.jpg'
           },
           {
             userId: 3,
             nickname: '자몽',
-            profilePhoto: 'some_url'
+            profilePhoto: 'https://randomuser.me/api/portraits/men/96.jpg'
           }
         ]
       },

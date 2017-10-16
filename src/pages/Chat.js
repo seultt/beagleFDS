@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChatRoom from './ChatRoom'
+import ChatInfo from './ChatInfo'
 
 import message from '../images/icon_message.svg';
 import profile from '../images/icon_profile.svg';
@@ -32,42 +33,7 @@ export default class Chat extends Component {
               <input type="text" />
               <button><img src={search} alt="검색" /></button>
             </div>
-            {/* 채팅방 정보 */}
-            <div className="info__description">
-              <div className="description__travel">
-                <div className="description__travel--about">
-                  <h3>
-                    <p><span><img src="https://randomuser.me/api/portraits/women/94.jpg"/></span>Kristina Holmes</p>
-                    <a href="/"><img src={like} alt="좋아요 버튼"/></a>
-                  </h3>
-                  <div>
-                    <p><span><img src={calendar} alt="여행 날짜"/></span>10월 06일</p>
-                  인생을 것은 때까지 있는가? 이성은 열락의 방황하여도, 같으며, 유소년에게서 끓는 것이다.
-                  </div>
-                </div>
-                <div className="description__travel--map">
-                  <h3>
-                    <p><span><img src={point}/></span>Tokyo</p>
-                    <a href="/">+ 자세히 보기</a>
-                  </h3>
-                  <div></div>
-                </div>
-              </div>     
-              <div className="info__users">
-                <h3>사람</h3>
-                <ul>
-                  <li>
-                    <span><img src="https://randomuser.me/api/portraits/women/94.jpg"/></span>Kristina Holmes
-                  </li>
-                  <li>
-                    <span><img src="https://randomuser.me/api/portraits/women/19.jpg"/></span>Georgia Morrison
-                  </li>
-                  <li>
-                    <span><img src="https://randomuser.me/api/portraits/men/96.jpg"/></span>Alexander Pena
-                  </li>
-                </ul>
-              </div>         
-            </div>
+            <ChatInfo />
           </section>
         </div>
       </main>
