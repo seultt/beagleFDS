@@ -65,6 +65,9 @@ header {
 
 .menu {
   .btn.menu__login-before {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100px;
     height: 32px;
     line-height: 28px;

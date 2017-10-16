@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import 'react-dates/initialize';
+import { SingleDatePicker } from 'react-dates';
 import arrow from '../images/icon_arrow_down.svg';
 import like from '../images/icon_like.svg';
 import travel from '../images/icon_travel.svg';
+import 'react-dates/lib/css/_datepicker.css';
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedCity: '',
+      selectedDate: '',
       chatList: [
         {
           chatId: 1,
@@ -31,7 +36,7 @@ export default class Main extends Component {
           cityName: 'Bangkok',
           date: '10월 18일',
           description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero ut neque impedit? Pariatur natus delectus aspernatur mollitia soluta architecto tenetur. Cumque omnis doloribus delectus? Exercitationem sed quasi nihil magni odit.',
-          currentUsers: 4,
+          currentUsers: 5,
         },
         {
           chatId: 3,
@@ -48,6 +53,18 @@ export default class Main extends Component {
       ]
     }
   }
+  
+  onSearchHandler = () => {
+    let defaultURI = '/api/chatList';
+    if (this.state.selectedCity) {
+      defaultURI += `?city=${this.state.selectedCity}`
+    }
+    if (this.state.selectedDate) {
+      defaultURI += `&date=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+    }
+    // console.log(defaultURI)
+  }
+
   render() {
     return (
     <main className="main">
@@ -65,25 +82,43 @@ export default class Main extends Component {
       {/* main__filter */}
       <section className="main__filter">
         <article>
-          <form>
-            <div className="main__filter--chat">
-              <div className="main__filter--where">
-                <strong>도시</strong>
-                <a><p>어디로 가세요?</p><img src={arrow} alt="도시 선택" /></a>
-              </div>
-              <div className="main__filter--date">
-                <strong>일정</strong>
-                <a><p>여행 날짜</p><img src={arrow} alt="출발 여행날짜 선택" /></a>
-              </div>
-              <div className="main__filter--list">
-                <strong>대화방 리스트</strong>
-                <a><p>인기순</p><img src={arrow} alt="대화방 리스트 선택" /></a>
-              </div>
-              <div className="main__filter--search">
-                <button type="button">검색</button>
-              </div>
+          <div className="main__filter--chat">
+            <div className="main__filter--where">
+              <strong>도시</strong>
+              <a><p>어디로 가세요?</p><img src={arrow} alt="도시 선택" /></a>
+              <select 
+                value={this.state.selectedCity}
+                onChange={
+                  (e) => {
+                  this.setState({
+                    selectedCity: e.target.value,
+                  })}
+                }
+              >
+                <option value="">선택해주세요</option>
+                <option value="osaka">오사카</option>
+                <option value="bangkok">방콕</option>
+                <option value="brocay">보라카이</option>
+              </select>
             </div>
-          </form>
+            <div className="main__filter--date">
+              <strong>일정</strong>
+              {/* <a><p>여행 날짜</p><img src={arrow} alt="출발 여행날짜 선택" /></a> */}
+              <SingleDatePicker
+                date={this.state.selectedDate} // momentPropTypes.momentObj or null
+                onDateChange={date => this.setState({ selectedDate: date })} // PropTypes.func.isRequired
+                focused={this.state.focused} // PropTypes.bool
+                onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+              />
+            </div>
+            <div className="main__filter--list">
+              <strong>대화방 리스트</strong>
+              <a><p>인기순</p><img src={arrow} alt="대화방 리스트 선택" /></a>
+            </div>
+            <div className="main__filter--search">
+              <button type="button" onClick={this.onSearchHandler}>검색</button>
+            </div>
+          </div>
         </article>
       </section>
       {/* main__filter */}
@@ -114,11 +149,17 @@ export default class Main extends Component {
                     <span>{list.date}</span>
                     <p>{list.description}</p>
                   </div>
-                  <Link to={`/chat/${list.chatId}`}>
+                  {list.currentUsers < 5 ? (
+                    <Link to={`/chat/${list.chatId}`}>
+                      <div className="main__chat-list__card--content--btn">
+                        <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                      </div>
+                    </Link>
+                  ) : (
                     <div className="main__chat-list__card--content--btn">
-                      <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                      <a><img src={travel} alt="대화버튼" />꽉찬 대화방</a>
                     </div>
-                  </Link>
+                  )}
                   <p>{list.currentUsers} / 5명</p>
                 </div>
               </article>
