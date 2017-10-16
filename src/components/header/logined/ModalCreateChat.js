@@ -10,8 +10,15 @@ class ModalCreateChat extends Component {
 
     this.state = {
       date: '',
-      focused: ''
+      focused: '',
+      cityId: 0
     }
+  }
+
+  selectedCity = (e) => {
+    this.setState({
+      cityId: e.target.value
+    })
   }
 
   render () {
@@ -22,7 +29,7 @@ class ModalCreateChat extends Component {
         overlayClassName="join__overlay"
       >
         <div>
-          <form>
+          <div>
             <SingleDatePicker
               date={this.state.date} // momentPropTypes.momentObj or null
               onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
@@ -34,7 +41,12 @@ class ModalCreateChat extends Component {
                 return (
                   <div>
                     {city.city_name}
-                    <input type="radio" name="city" key={city.id}/>
+                    <input 
+                      type="radio" 
+                      name="city" 
+                      value={city.id}
+                      onChange={this.selectedCity}
+                    />
                   </div>
                 )
               })}
@@ -49,7 +61,7 @@ class ModalCreateChat extends Component {
                 <input type="text" />
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </ReactModal>
     )
