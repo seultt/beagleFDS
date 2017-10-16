@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ModalLogin from '../modalLogin';
+
+import Logined from './logined'
+
 import logo from '../../images/logo.svg'
-import message from '../../images/icon_message.svg';
 
 
 export default class Header extends Component {
@@ -9,7 +11,7 @@ export default class Header extends Component {
     super();
     this.state = {
       showModal: false,
-      isLogin: false,
+      isLogin: true,
       currentUser: {
          id: 0,// user.id,
          photo: '',// user.profile_photo,
@@ -94,31 +96,9 @@ export default class Header extends Component {
               </a>
               ) : (
                 // 로그인 후
-              <ul className="menu__login-after">
-                <li>
-                  <a className="menu__profile menu_icon">
-                    <img src={this.state.currentUser.photo} alt="프로필" />
-                  </a>
-                </li>
-                <li>
-                  <a className="menu__message menu_icon">
-                    <img src={message} alt="메시지 알림" />
-                    <span className="red_circle">97</span>
-                  </a>
-                </li>
-                <li>
-                  <a className="menu__createChat btn">Travel Chat +</a>
-                  <a className="menu__createChat-mobile btn">+</a>
-                </li>
-                <li>
-                  <a
-                    className="menu__createChat btn"
-                    onClick={this.logout}
-                  >
-                  TEST LOGOUT
-                  </a>
-                </li>
-              </ul>
+                <Logined 
+                  logout = {this.logout}
+                />
               )
             }
           </div>
