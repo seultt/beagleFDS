@@ -6,9 +6,6 @@ import message from '../images/icon_message.svg';
 import profile from '../images/icon_profile.svg';
 import arrow from '../images/icon_arrow_down.svg';
 import search from '../images/icon_search.svg';
-import like from '../images/icon_like.svg';
-import point from '../images/icon_point.svg';
-import calendar from '../images/icon_calendar.svg';
 
 export default class Chat extends Component {
   render() {
