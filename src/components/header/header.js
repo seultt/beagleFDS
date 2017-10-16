@@ -1,74 +1,137 @@
 import React, { Component } from 'react';
-import ModalLogin from '../modalLogin';
-
-import Logined from './logined'
-
-import logo from '../../images/logo.svg'
-
+import axios from 'axios';
+import ModalLogin from './loginModal/modalLogin';
+import Logined from './logined';
+import logo from '../../images/logo.svg';
+// const API_URI = 'https://test.swtpumpkin.com/';
+// const SNS_NAME = [
+//   {
+//     facebook: 'auth/facebook',
+//     google: 'auth/google',
+//     naver: 'auth/naver',
+//     kakao: 'auth/kakao',
+//   }
+// ]
 
 export default class Header extends Component {
   constructor () {
     super();
     this.state = {
-      showModal: false,
-      isLogin: true,
-      currentUser: {
-         id: 0,// user.id,
-         photo: '',// user.profile_photo,
-         nickname: '',// user.nickname,
-         like: 0,// user.like
-      }, // 로그인한 유저의 정보
       popupWindow: null,
-      token: null,
-      signingIn: false,
-      userInfo: null,
+      showModal: false,
+      currentUser: {
+        id: 0,// user.id,
+        photo: '',// user.profile_photo,
+        nickname: '',// user.nickname,
+        like: 0,// user.like
+      }, // 로그인한 유저의 정보
+      isLogin: false, // 로그인 여부
+      token: null,  // 토큰 여부
+      signingIn: false, // 회원가입 여부
+      complete: true,
+      userInfo: null, // 유저의 정보
     };
   }
   
-  logout = () => {
-    this.setState({ 
-      isLogin: !this.state.isLogin,
-      currentUser: {
-        id: '',// user.id,
-        photo: '',// user.profile_photo,
-        nickname: '',// user.nickname,
-        like: '',// user.like
-      },
-    })
-  }
-  componentDidMount = () => {
-    window.addEventListener('message', this.tokenHandler)
-  }
+  // logout = () => {
+  //   this.setState({ 
+  //     isLogin: !this.state.isLogin,
+  //     currentUser: {
+  //       id: '',// user.id,
+  //       photo: '',// user.profile_photo,
+  //       nickname: '',// user.nickname,
+  //       like: '',// user.like
+  //     },
+  //   })
+  // }
+
+  // 토큰 핸들러
   tokenHandler = (e) => {
-    console.log(e);
+    const token = e.data
+    localStorage.setItem('jwtToken', token);
+    if (token) {
+      window.localStorage.token = token;
+    }
+    this.setState({
+      token,
+      signingIn: false,
+      complete: true,
+      popupWindow: null,
+    });
+    this.updateUserInfo();
   }
-  loginWithFacebook = () => {
-    const popupWindow = window.open('http://192.168.1.151:3000/auth/facebook');
-    fetch('http://192.168.1.151:3000/auth/facebook', {
+
+  // 유저정보 AJAX 업데이트
+  updateUserInfo = () => {
+    axios.get('https://test.swtpumpkin.com/auth/facebook', {
       headers: {
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Content-type': 'application/json',
-      },
-      method: 'GET',
-    })
-    .then((resp) => resp.json())
-    .then( (data) => {
-        console.log(data)
+        'Authorization': `Bearer ${this.state.token}`,
       }
-    )
+    })
+      .then( 
+        (res) => {
+          console.log(res);
+          const {provider, providerUserId} = res.data;
+          this.setState({
+            isLogin: true,
+          })
+        }
+      )
+      .catch(
+        (error) => {
+          console.error(error);
+        }
+      )
   }
-  
+
+  componentWillMount() {
+    if (localStorage.token) {
+      this.setState({
+        token: localStorage.token
+      })
+      console.log(localStorage.token);
+    }
+  }
+
+  componentDidMount() {
+    if (this.state.token) {
+      this.updateUserInfo()
+    }
+  }
+
+  // 로그인 클릭시
+  login = (e) => {
+    window.addEventListener('message', this.tokenHandler)
+    const popupWindow = window.open('https://test.swtpumpkin.com/auth/facebook');
+    this.setState({
+      popupWindow,
+      signingIn: true,
+    });
+  }
+
+  // 로그아웃 클릭시
+  logOut = (e) => {
+    delete localStorage.token
+    this.setState({
+      token: null,
+      isLogin: false,
+    })
+  }
+
+  // 로그인 토글(모달창 오픈, isLogin 변경)
   toggleLogin = () => {
     this.setState({ 
       isLogin: !this.state.isLogin,
       showModal: !this.state.showModal,
     })
   }
+
+  // 로그인 모달창 열기
   handleModalOpenLogin = () => {
     this.setState({ showModal: true });
   }
 
+  // 로그인 모달창 닫기
   handleModalCloseLogin = () => {
     this.setState({ showModal: false });
   }
@@ -81,7 +144,7 @@ export default class Header extends Component {
           toggleLogin={this.toggleLogin}
           handleModalCloseLogin={this.handleModalCloseLogin}
           currentUser={this.currentUser}
-          loginWithFacebook={this.loginWithFacebook}
+          loginWithFacebook={this.login}
         />
         <div className="__container">
           <h1><img src={logo} /></h1>
