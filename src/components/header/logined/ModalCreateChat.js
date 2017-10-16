@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactModal from 'react-modal';
+import 'react-dates/initialize';
+import { SingleDatePicker } from 'react-dates';
 
 class ModalCreateChat extends Component {
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      date: '',
+      focused: ''
+    }
+  }
 
   render () {
     return (
@@ -14,6 +23,12 @@ class ModalCreateChat extends Component {
       >
         <div>
           <form>
+            <SingleDatePicker
+              date={this.state.date} // momentPropTypes.momentObj or null
+              onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
+              focused={this.state.focused} // PropTypes.bool
+              onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+            />
             <fieldset className="selectCity">
               {this.props.cities.map(city => {
                 return (
