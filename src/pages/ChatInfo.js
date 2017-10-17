@@ -17,7 +17,7 @@ class ChatInfo extends Component {
             </h3>
             <div>
               <p><span><img src={calendar} alt="여행 날짜"/></span>10월 06일</p>
-            인생을 것은 때까지 있는가? 이성은 열락의 방황하여도, 같으며, 유소년에게서 끓는 것이다.
+            {this.props.getTheRoom.description}
             </div>
           </div>
           <div className="description__travel--map">
@@ -31,13 +31,13 @@ class ChatInfo extends Component {
         <div className="info__users">
           <h3>사람</h3>
           <ul>
-            {this.props.participants.map((partici, i) => {
+            {/* {this.props.participants.map((partici, i) => {
               return (
                 <li>
                   <span><img src={partici.profilePhoto}/></span>{partici.nickname}
                 </li>
               )
-            })}
+            })} */}
           </ul>
         </div>         
       </div>
@@ -46,8 +46,14 @@ class ChatInfo extends Component {
 }
 
 const chatInfoToProps = (state) => ({
-  participants: state.mockupData.chatRoom[0].participants,
-  
-}) 
+  getTheRoom: {
+    name: state.getTheRoom.name,
+    id: state.getTheRoom.id,
+    description: state.getTheRoom.description,
+    photo: state.getTheRoom.photo,
+    start_at: state.getTheRoom.start_at,
+    city_id: state.getTheRoom.city_id
+  }
+})
 
 export default connect(chatInfoToProps)(ChatInfo)

@@ -14,3 +14,24 @@ export const postCreateToDB = (create) => {
   }
 }
 
+export const getChatRoomFromDB = (id) => {
+  return (dispatch) => {
+
+    dispatch({
+      type: 'GET_A_ROOM_REQUEST',
+    })
+
+    axios.get(`http://192.168.0.217:9494/api/chat-rooms/${id}`, {
+      params: {id}
+    })
+    .then(res => {
+      console.log(res)
+
+       dispatch({
+        type: 'GET_A_ROOM',
+        payload: res
+      })
+    })
+    .catch(e => console.log(e.message))
+  }
+}
