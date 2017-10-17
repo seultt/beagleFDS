@@ -6,6 +6,8 @@ import {
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 // import ReduxPromise from 'redux-promise';
 
 import reducers from './reducers'
@@ -14,7 +16,7 @@ import Chat from './pages/Chat';
 import './scss/main.scss';
 import Header from './components/header/header';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 class App extends Component {
   render() {

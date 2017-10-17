@@ -1,23 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import ReactModal from 'react-modal';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 
-import postCreateToDB from '../../../action/action_createChat'
+import {postCreateToDB} from '../../../action/action_createChat'
 
 class ModalCreateChat extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      start_at: '',
+      date: '',
       city_id: 0,
       photo: null,
       name: '',
       description: '',
       focused: false,
     }
+  }
+
+  dateObjectToString = (date) => {
+ 
+    const preDate = date._d.toString()
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const year = preDate.slice(11, 15)
+    let selectedMonth = '';
+    const day = preDate.slice(8, 10)
+    
+    months.map((month, i) => {
+      if(month === preDate.slice(4, 7)) {
+        selectedMonth = (i + 1).toString()
+      }
+    })
+    
+    return `${year}-${selectedMonth}-${day}`
   }
 
   selectedCity = (e) => {
@@ -37,13 +55,27 @@ class ModalCreateChat extends Component {
       description: e.target.value
     })
   }
+  closeAndResetValue = () => {
+    this.setState({
+      date: '',
+      city_id: 0,
+      photo: null,
+      name: '',
+      description: '',
+      focused: false,
+    })
+    this.props.shwModalCreateClose()
+  }
 
   createPayloadAndPostToDB = () => {
-    if (!this.state.start_at || !this.state.city_id || !this.state.photo || !this.state.name || !this.state.description ) {
+    if (!this.state.date || !this.state.city_id || !this.state.name || !this.state.description ) {
       return;
     }
-    this.prop.spostCreateToDB({
-      start_at: this.state.start_at,
+    
+    const start_at = this.dateObjectToString(this.state.date)
+
+    this.props.postCreateToDB({
+      start_at: start_at,
       city_id: this.state.city_id,
       photo: this.state.photo,
       name: this.state.name,
@@ -51,7 +83,7 @@ class ModalCreateChat extends Component {
       creator: 1,
     })
 
-    this.props.shwModalCreateClose()
+    this.closeAndResetValue();
   }
 
   render () {
@@ -113,8 +145,18 @@ class ModalCreateChat extends Component {
 }
 
 
+// function mapStateToProps(state) {
+//   return {cities: state.cities,}
+// }
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({postCreateToDB}, dispatch)
+// }
+
 export default connect ((state) => ({
   cities: state.cities,
 }), (dispatch) => ({
   postCreateToDB: (create) => dispatch(postCreateToDB(create))
 }))(ModalCreateChat);
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateChat)
