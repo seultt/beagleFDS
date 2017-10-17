@@ -3,15 +3,6 @@ import axios from 'axios';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
-// const API_URI = 'https://test.swtpumpkin.com/';
-// const SNS_NAME = [
-//   {
-//     facebook: 'auth/facebook',
-//     google: 'auth/google',
-//     naver: 'auth/naver',
-//     kakao: 'auth/kakao',
-//   }
-// ]
 
 export default class Header extends Component {
   constructor(props) {
