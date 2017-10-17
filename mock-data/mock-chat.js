@@ -71,11 +71,11 @@ const currentUser = [
 
 // 백으로 넘겨주는 챗룸 데이터 구성 
 const createdChat = {
-  startAt: '2017:10:10',
+  start_at: '2017:10:10',
   name: 'chatroom',
   description: '10월 10일에 여행가는 채팅방입니다.',
   // creator는 숫자로 전달. city도 숫자로 전달되면 좋지만 아니여도 무관 
   creator: 1,
-  city: 1,
+  city_id: 1,
   photo: 'some_url'
 }
