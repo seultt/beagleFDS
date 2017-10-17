@@ -36,7 +36,7 @@ export default class ModalLogin extends React.Component {
         </a>
         <a 
           className="join__kakao--btn"
-          onClick={this.props.toggleLogin}
+          onClick={this.props.loginWithKakao}
         >
           카카오로 계속하기
         </a>
