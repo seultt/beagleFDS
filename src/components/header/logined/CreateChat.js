@@ -15,12 +15,18 @@ export default class CreateChat extends Component {
       isToggleCreate : true,
     })
   }
+  shwModalCreateClose = () => {
+    this.setState({
+      isToggleCreate : false,
+    })
+  }
 
   render () {
     return (
       <li>
         <ModalCreateChat 
           showModal={this.state.isToggleCreate}
+          shwModalCreateClose={this.shwModalCreateClose}
         />
         <a 
           className="menu__createChat btn"
