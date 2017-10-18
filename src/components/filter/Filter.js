@@ -19,6 +19,7 @@ class Filter extends Component {
     this.state = {
       selectedCity: '',
       selectedDate: '',
+      sort: 'like',
     }
   }
 
@@ -63,7 +64,13 @@ class Filter extends Component {
             </div>
             <div className="main__filter--list">
               <strong>대화방 리스트</strong>
-              <a><p>인기순</p><img src={arrow} alt="대화방 리스트 선택" /></a>
+              <VirtualizedSelect
+                placeholder="인기순"
+                options={this.props.sort}
+                onChange={(sort) => this.setState({ sort })}
+                value={this.state.sort}
+              />
+              <img src={arrow} alt="대화방 리스트 선택" />
             </div>
             <div className="main__filter--search">
               <button type="button" onClick={this.onSearchHandler}>검색</button>
@@ -76,7 +83,8 @@ class Filter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cities: state.cities
+  cities: state.cities,
+  sort: state.sort,
 })
 
 export default connect(mapStateToProps)(Filter)
