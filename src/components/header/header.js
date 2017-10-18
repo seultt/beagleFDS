@@ -4,6 +4,7 @@ import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
 
+
 export default class Header extends Component {
   constructor(props) {
     super(props);
