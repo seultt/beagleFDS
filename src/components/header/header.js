@@ -78,39 +78,10 @@ c
   }
 
   // 페이스북 로그인 클릭시
-  facebook_login = (e) => {
+  login = (e) => {
+    const SNS_NAME = e.target.value;
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.younghea.com/auth/facebook');
-    this.setState({
-      popupWindow,
-      signingIn: true,
-      showModal: false,
-    });
-  }
-  // 구글 로그인 클릭시
-  google_login = (e) => {
-    window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.younghea.com/auth/google');
-    this.setState({
-      popupWindow,
-      signingIn: true,
-      showModal: false,
-    });
-  }
-  // 네이버 로그인 클릭시
-  naver_login = (e) => {
-    window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.younghea.com/auth/naver');
-    this.setState({
-      popupWindow,
-      signingIn: true,
-      showModal: false,
-    });
-  }
-  // 카카오 로그인 클릭시
-  kakao_login = (e) => {
-    window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.younghea.com/auth/kakao');
+    const popupWindow = window.open(`https://test.younghea.com/auth/${SNS_NAME}`);
     this.setState({
       popupWindow,
       signingIn: true,
@@ -153,13 +124,10 @@ c
           toggleLogin={this.toggleLogin}
           handleModalCloseLogin={this.handleModalCloseLogin}
           currentUser={this.currentUser}
-          loginWithFacebook={this.facebook_login}
-          loginWithGoogle={this.google_login}
-          loginWithNaver={this.naver_login}
-          loginWithKakao={this.kakao_login}
+          login={this.login}
         />
         <div className="__container">
-          <h1><img src={logo} alt="Beagle 로고" /></h1>
+          <h1><img src={logo} /></h1>
           <div className="menu">
             { !this.state.isLogin ? (
               // 로그인 전
