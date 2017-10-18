@@ -1,15 +1,20 @@
 import axios from 'axios';
 
-export const postCreateToDB = (create) => {
+export const postCreateToDB = (create, callback) => {
   return (dispatch) => {
-    axios.post('http://192.168.0.217:9494/api/chat-rooms', create)
+    dispatch({
+      type: 'GET_A_ROOM_REQUEST',
+    })
+    axios.post('http://192.168.1.132:9494/api/chat-rooms', create)
     .then(res => {
       console.log(res)
 
        dispatch({
-        type: 'CREATE_ROOM',
+        type: 'GET_A_ROOM_SUCCESS',
         payload: res
       })
+
+      callback(res.data[2].id)
     })
   }
 }
