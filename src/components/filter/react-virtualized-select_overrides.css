@@ -1,8 +1,13 @@
 .Select-control {
+  cursor: pointer;
   background-color: #fff;
   border-color: none;
   border-radius: 0px;
   border: none;
+}
+.Select--single:hover, .is-clearable:hover, .is-searchable:hover,
+.Select:hover, .Select-placeholder:hover {
+  border: none !important;
 }
 .is-open > .Select-control {
   border-color: none !important;
