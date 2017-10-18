@@ -29,7 +29,7 @@ export default class Chat extends Component {
             <div className="info__search">
               <input type="text" />
               <button><img src={search} alt="검색" /></button>
-              <button onClick={() => this.props.history.push("/")}>홈으로 가기</button>
+              {/* <button onClick={() => this.props.history.push("/")}>홈으로 가기</button> */}
               </div>
             <ChatInfo />
           </section>

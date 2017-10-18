@@ -12,17 +12,24 @@ class ChatInfo extends Component {
         <div className="description__travel">
           <div className="description__travel--about">
             <h3>
-              <p><span><img src="https://randomuser.me/api/portraits/women/94.jpg"/></span>Kristina Holmes</p>
+              <p><span><img src="https://randomuser.me/api/portraits/women/94.jpg"/></span>
+                {
+                  this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator)
+                    ? this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator).nickname
+                    : 'user not found'
+                  }
+                </p>
               <a href="/"><img src={like} alt="좋아요 버튼"/></a>
             </h3>
             <div>
-              <p><span><img src={calendar} alt="여행 날짜"/></span>10월 06일</p>
+              <p><span><img src={calendar} alt="여행 날짜"/></span>{this.props.getTheRoom.start_at}</p>
             {this.props.getTheRoom.description}
             </div>
           </div>
           <div className="description__travel--map">
             <h3>
-              <p><span><img src={point}/></span>Tokyo</p>
+              <p>
+                <span><img src={point}/></span>{this.props.cities.find(city => city.value === this.props.getTheRoom.city_id).label}</p>
               <a href="/">+ 자세히 보기</a>
             </h3>
             <div></div>
@@ -31,13 +38,14 @@ class ChatInfo extends Component {
         <div className="info__users">
           <h3>사람</h3>
           <ul>
-            {/* {this.props.participants.map((partici, i) => {
+            {this.props.getTheRoom.currentUser.map((user, i) => {
               return (
                 <li>
-                  <span><img src={partici.profilePhoto}/></span>{partici.nickname}
+                  <span><img src={user.photo} alt="photoo"/></span>
+                  {user.nickname}
                 </li>
               )
-            })} */}
+            })}
           </ul>
         </div>         
       </div>
@@ -47,13 +55,16 @@ class ChatInfo extends Component {
 
 const chatInfoToProps = (state) => ({
   getTheRoom: {
-    name: state.getTheRoom.name,
-    id: state.getTheRoom.id,
-    description: state.getTheRoom.description,
-    photo: state.getTheRoom.photo,
-    start_at: state.getTheRoom.start_at,
-    city_id: state.getTheRoom.city_id
-  }
+    currentUser: state.getTheRoom.currentUser,
+    name: state.getTheRoom.chattingInfo.name,
+    id: state.getTheRoom.chattingInfo.id,
+    description: state.getTheRoom.chattingInfo.description,
+    photo: state.getTheRoom.chattingInfo.photo,
+    start_at: state.getTheRoom.chattingInfo.start_at,
+    city_id: state.getTheRoom.chattingInfo.city_id,
+    creator: state.getTheRoom.chattingInfo.creator
+  },
+  cities : state.cities
 })
 
 export default connect(chatInfoToProps)(ChatInfo)

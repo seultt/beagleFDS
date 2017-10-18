@@ -62,7 +62,7 @@ export default function() {
       },
     ],
     currentUser: {
-      userId: 3,
+      userId: 1,
       nickname: '자몽'
     },
   }
