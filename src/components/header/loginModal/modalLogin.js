@@ -20,7 +20,7 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="facebook"
           >
-            <img src={facebook} />
+            <img src={facebook} alt="페이스북 로고" />
             페이스북으로 계속하기
           </button>
           <button 
@@ -29,7 +29,7 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="google"
           >
-            <img src={google} />
+            <img src={google} alt="구글 로고" />
             구글로 계속하기
           </button>
           <button 
