@@ -27,9 +27,6 @@ export default class Header extends Component {
   tokenHandler = (e) => {
     const token = e.data;
     localStorage.setItem('jwtToken', token);
-    if (token) {
-      window.localStorage.token = token;
-    }
     this.state.popupWindow.close();
     this.setState({
       token,
@@ -41,7 +38,7 @@ export default class Header extends Component {
 
   // 유저정보 AJAX 업데이트
   updateUserInfo = () => {
-    axios.get(`https://test.swtpumpkin.com/login`, {
+    axios.get(`https://test.younghea.com/login`, {
       headers: {
         'Authorization': `Bearer ${this.state.token}`,
         'Access-Control-Allow-Origin': '*',
@@ -82,7 +79,7 @@ c
   // 페이스북 로그인 클릭시
   facebook_login = (e) => {
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.swtpumpkin.com/auth/facebook');
+    const popupWindow = window.open('https://test.younghea.com/auth/facebook');
     this.setState({
       popupWindow,
       signingIn: true,
@@ -92,7 +89,7 @@ c
   // 구글 로그인 클릭시
   google_login = (e) => {
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.swtpumpkin.com/auth/google');
+    const popupWindow = window.open('https://test.younghea.com/auth/google');
     this.setState({
       popupWindow,
       signingIn: true,
@@ -102,7 +99,7 @@ c
   // 네이버 로그인 클릭시
   naver_login = (e) => {
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.swtpumpkin.com/auth/naver');
+    const popupWindow = window.open('https://test.younghea.com/auth/naver');
     this.setState({
       popupWindow,
       signingIn: true,
@@ -112,7 +109,7 @@ c
   // 카카오 로그인 클릭시
   kakao_login = (e) => {
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open('https://test.swtpumpkin.com/auth/kakao');
+    const popupWindow = window.open('https://test.younghea.com/auth/kakao');
     this.setState({
       popupWindow,
       signingIn: true,

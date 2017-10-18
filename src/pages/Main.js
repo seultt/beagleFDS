@@ -15,12 +15,8 @@ export default class Main extends Component {
     return (
     <main className="main">
       <MainBanner />
-      <Filter
-        selectValue={this.state.selectValue}
-      />
-      <ChatList 
-        chatList={this.state.chatList}
-      />
+      <Filter />
+      <ChatList />
     </main>
     );
   }
