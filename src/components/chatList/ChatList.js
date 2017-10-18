@@ -17,7 +17,7 @@ class ChatList extends Component {
           {/* main__chat-list__card */}
           {this.props.ChatList.map( (list) => {
             return(
-              <article className="main__chat-list__card">
+              <article className="main__chat-list__card" key={list.id}>
                 <div className="main__chat-list__card--header">
                   <div className="main__chat-list__card--header--profile">
                     <img src={list.profile_photo} alt="대화방 개설자 프로필 사진" />

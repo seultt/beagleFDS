@@ -7,23 +7,23 @@ export const getChatList = () => {
       type: 'GET_CHAT_LIST_REQUEST',
     })
 
-    axios.get(`https://test.younghea.com/`)
-    .then(
-      (res) => {
-        console.log(res);
-        dispatch({
-          type: 'GET_CHAT_LIST_SUCCESS',
-          payload: res,
-        })
-      }
-    ).catch(
-      (error) => {
-        console.error(error)
-        dispatch({
-          type: 'GET_CHAT_LIST_FAILED',
-        }) 
-      }
-    )
+    // axios.get(`https://test.younghea.com/`)
+    // .then(
+    //   (res) => {
+    //     // console.log(res);
+    //     dispatch({
+    //       type: 'GET_CHAT_LIST_SUCCESS',
+    //       payload: res,
+    //     })
+    //   }
+    // ).catch(
+    //   (error) => {
+    //     console.error(error)
+    //     dispatch({
+    //       type: 'GET_CHAT_LIST_FAILED',
+    //     }) 
+    //   }
+    // )
   }
 }
 
