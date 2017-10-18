@@ -159,7 +159,7 @@ c
           loginWithKakao={this.kakao_login}
         />
         <div className="__container">
-          <h1><img src={logo} /></h1>
+          <h1><img src={logo} alt="Beagle 로고" /></h1>
           <div className="menu">
             { !this.state.isLogin ? (
               // 로그인 전
