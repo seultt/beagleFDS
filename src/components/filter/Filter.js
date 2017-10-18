@@ -19,7 +19,10 @@ class Filter extends Component {
     this.state = {
       selectedCity: '',
       selectedDate: '',
-      selectedSort: 'like',
+      selectedSort: {
+        label: '인기순',
+        value: 'like',
+      },
     }
   }
 
@@ -27,12 +30,15 @@ class Filter extends Component {
     let defaultURI = '/api/chat-list';
     if (this.state.selectedCity) {
       defaultURI += `?city=${this.state.selectedCity.value}`;
-      console.log(defaultURI);
     }
     if (this.state.selectedDate) {
       defaultURI += `&date=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+    }
+    if (this.state.selectedSort) {
+      defaultURI += `&sort=${this.state.selectedSort}`
       console.log(defaultURI);
     }
+    // this.props.getCitiesAction(defaultURI)
   }
 
   render() {
