@@ -34,7 +34,7 @@ class ChatList extends Component {
                 <div className="main__chat-list__card--content">
                   <div className="main__chat-list__card--content--text">
                     <strong>{list.city_name}</strong>
-                    <span>{list.start_at}</span>
+                    <span>{list.start_at.slice(0,4)}년 {list.start_at.slice(5,7)}월 {list.start_at.slice(8,10)}일</span>
                     <p>{list.description}</p>
                   </div>
                   <Link to={`/chat/${list.chatId}`}>

@@ -5,10 +5,11 @@ import sortBy from 'lodash/sortBy';
 import arrow from '../../images/icon_arrow_down.svg';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-dates/initialize';
+import './react_dates_overrides.css';
 import { SingleDatePicker } from 'react-dates';
-import 'react-select/dist/react-select.css'
-import 'react-virtualized/styles.css'
-import 'react-virtualized-select/styles.css'
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
 
 
 class Filter extends Component {
@@ -49,15 +50,15 @@ class Filter extends Component {
             </div>
             <div className="main__filter--date">
               <strong>일정</strong>
-              {/* <a><p>여행 날짜</p><img src={arrow} alt="출발 여행날짜 선택" /></a> */}
               <SingleDatePicker
                 date={this.state.selectedDate}
                 onDateChange={selectedDate => this.setState({ selectedDate })}
                 focused={this.state.focused}
                 onFocusChange={({ focused }) => this.setState({ focused })}
-                displayFormat="YYYY-MM-DD"
+                displayFormat="YYYY년 MM월 DD일"
                 placeholder="여행 날짜"
               />
+              <img src={arrow} alt="출발 여행날짜 선택" />
             </div>
             <div className="main__filter--list">
               <strong>대화방 리스트</strong>

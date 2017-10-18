@@ -80,7 +80,18 @@
       vertical-align: middle;
       border-left: 1px solid #e4e4e4;
       border-right: 1px solid #e4e4e4;
-      @include filter-common;
+      strong {
+        line-height: 18px;
+        font-size: 15px;
+        letter-spacing: 0.2px;
+      }
+      img {
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        width: 11px;
+        height: 7px;
+      }
     }
     .main__filter--list {
       position: relative;

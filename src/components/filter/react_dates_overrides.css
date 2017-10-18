@@ -1,0 +1,26 @@
+.SingleDatePicker {
+  display: block !important;
+}
+.SingleDatePickerInput {
+  border: none !important;
+}
+.DateInput_displayText {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.DateInput {
+  padding: 0px !important;
+  font-size: 19px !important;
+  font-weight: 300 !important;
+  padding-top: 5px !important;
+  width: 140px !important;
+}
+.DateInput_input {
+  font-weight: 300 !important;
+}
+.DateInput_displayText__focused {
+  background: none !important;
+  border-color: none !important;
+  border-radius: 0px !important;
+  color: #484848 !important;
+}
