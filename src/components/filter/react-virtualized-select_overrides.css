@@ -1,0 +1,35 @@
+.Select-control {
+  background-color: #fff;
+  border-color: none;
+  border-radius: 0px;
+  border: none;
+}
+.is-open > .Select-control {
+  border-color: none !important;
+}
+.Select-placeholder {
+  margin-top: 5px;
+  padding-left: 0;
+  font-weight: 300;
+  font-size: 19px;
+  color: #484848;
+}
+.Select-clear {
+  display: none;
+}
+.Select-arrow-zone {
+  display: none;
+}
+.Select-control:hover {
+  box-shadow: 0;
+}
+.Select-arrow-zone:hover > .Select-arrow {
+  border-top-color: none;
+}
+.Select-value {
+  margin-top: 5px;
+  padding-left: 0 !important;
+  font-size: 19px;
+  font-weight: 300;
+  color: #484848;
+}

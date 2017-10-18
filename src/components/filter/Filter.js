@@ -10,6 +10,7 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
+import './react-virtualized-select_overrides.css';
 
 
 class Filter extends Component {
@@ -40,13 +41,13 @@ class Filter extends Component {
           <div className="main__filter--chat">
             <div className="main__filter--where">
               <strong>도시</strong>
-              {/* <a><p>어디로 가세요?</p><img src={arrow} alt="도시 선택" /></a> */}
               <VirtualizedSelect
                 placeholder="어디로 가세요?"
                 options={this.props.cities}
                 onChange={(selectedCity) => this.setState({ selectedCity })}
                 value={this.state.selectedCity}
               />
+              <img src={arrow} alt="도시 선택" />
             </div>
             <div className="main__filter--date">
               <strong>일정</strong>
