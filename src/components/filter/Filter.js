@@ -19,7 +19,7 @@ class Filter extends Component {
     this.state = {
       selectedCity: '',
       selectedDate: '',
-      sort: 'like',
+      selectedSort: 'like',
     }
   }
 
@@ -67,8 +67,8 @@ class Filter extends Component {
               <VirtualizedSelect
                 placeholder="인기순"
                 options={this.props.sort}
-                onChange={(sort) => this.setState({ sort })}
-                value={this.state.sort}
+                onChange={(selectedSort) => this.setState({ selectedSort })}
+                value={this.state.selectedSort}
               />
               <img src={arrow} alt="대화방 리스트 선택" />
             </div>
