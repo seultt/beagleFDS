@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import sortBy from 'lodash/sortBy';
 import arrow from '../../images/icon_arrow_down.svg';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-dates/initialize';
@@ -14,7 +15,20 @@ class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectCity: '',
+      selectedCity: '',
+      selectedDate: '',
+    }
+  }
+
+  onSearchHandler = () => {
+    let defaultURI = '/api/chat-list';
+    if (this.state.selectedCity) {
+      defaultURI += `?city=${this.state.selectedCity.value}`;
+      console.log(defaultURI);
+    }
+    if (this.state.selectedDate) {
+      defaultURI += `&date=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+      console.log(defaultURI);
     }
   }
 
@@ -22,39 +36,37 @@ class Filter extends Component {
     return (
       <section className="main__filter">
         <article>
-          <form>
-            <div className="main__filter--chat">
-              <div className="main__filter--where">
-                <strong>도시</strong>
-                {/* <a><p>어디로 가세요?</p><img src={arrow} alt="도시 선택" /></a> */}
-                <VirtualizedSelect
-                  placeholder="어디로 가세요?"
-                  options={this.props.cities}
-                  onChange={(selectCity) => this.setState({ selectCity })}
-                  value={this.state.selectCity}
-                />
-              </div>
-              <div className="main__filter--date">
-                <strong>일정</strong>
-                {/* <a><p>여행 날짜</p><img src={arrow} alt="출발 여행날짜 선택" /></a> */}
-                <SingleDatePicker
-                  date={this.state.date}
-                  onDateChange={date => this.setState({ date })}
-                  focused={this.state.focused}
-                  onFocusChange={({ focused }) => this.setState({ focused })}
-                  displayFormat="YYYY-MM-DD"
-                  placeholder="여행 날짜"
-                />
-              </div>
-              <div className="main__filter--list">
-                <strong>대화방 리스트</strong>
-                <a><p>인기순</p><img src={arrow} alt="대화방 리스트 선택" /></a>
-              </div>
-              <div className="main__filter--search">
-                <button type="button">검색</button>
-              </div>
+          <div className="main__filter--chat">
+            <div className="main__filter--where">
+              <strong>도시</strong>
+              {/* <a><p>어디로 가세요?</p><img src={arrow} alt="도시 선택" /></a> */}
+              <VirtualizedSelect
+                placeholder="어디로 가세요?"
+                options={this.props.cities}
+                onChange={(selectedCity) => this.setState({ selectedCity })}
+                value={this.state.selectedCity}
+              />
             </div>
-          </form>
+            <div className="main__filter--date">
+              <strong>일정</strong>
+              {/* <a><p>여행 날짜</p><img src={arrow} alt="출발 여행날짜 선택" /></a> */}
+              <SingleDatePicker
+                date={this.state.selectedDate}
+                onDateChange={selectedDate => this.setState({ selectedDate })}
+                focused={this.state.focused}
+                onFocusChange={({ focused }) => this.setState({ focused })}
+                displayFormat="YYYY-MM-DD"
+                placeholder="여행 날짜"
+              />
+            </div>
+            <div className="main__filter--list">
+              <strong>대화방 리스트</strong>
+              <a><p>인기순</p><img src={arrow} alt="대화방 리스트 선택" /></a>
+            </div>
+            <div className="main__filter--search">
+              <button type="button" onClick={this.onSearchHandler}>검색</button>
+            </div>
+          </div>
         </article>
       </section>
     )

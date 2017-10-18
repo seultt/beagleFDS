@@ -10,6 +10,7 @@ class ChatList extends Component {
     this.props.getChatList();
   }
   render() {
+    console.log(this.props.ChatList);
     return (
       <section className="main__chat-list">
         <div className="main__chat-list__container">
@@ -19,8 +20,8 @@ class ChatList extends Component {
               <article className="main__chat-list__card">
                 <div className="main__chat-list__card--header">
                   <div className="main__chat-list__card--header--profile">
-                    <img src={list.userImage} alt="대화방 개설자 프로필 사진" />
-                    <strong>{list.userName}</strong>
+                    <img src={list.profile_photo} alt="대화방 개설자 프로필 사진" />
+                    <strong>{list.nickname}</strong>
                   </div>
                   <div className="main__chat-list__card--header--like">
                     <img src={like} alt="좋아요" />
@@ -28,12 +29,12 @@ class ChatList extends Component {
                   </div>
                 </div>
                 <div className="main__chat-list__card--image">
-                  <img src={list.chatImage} alt="대화방 사진" />
+                  <img src={list.photo} alt="대화방 사진" />
                 </div>
                 <div className="main__chat-list__card--content">
                   <div className="main__chat-list__card--content--text">
-                    <strong>{list.cityName}</strong>
-                    <span>{list.date}</span>
+                    <strong>{list.city_name}</strong>
+                    <span>{list.start_at}</span>
                     <p>{list.description}</p>
                   </div>
                   <Link to={`/chat/${list.chatId}`}>
@@ -41,7 +42,7 @@ class ChatList extends Component {
                       <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
                     </div>
                   </Link>
-                  <p>{list.currentUsers} / 5명</p>
+                  <p>{list.current_users} / 5명</p>
                 </div>
               </article>
             )
