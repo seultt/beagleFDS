@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import{
+  withRouter,
+} from 'react-router-dom';
 // import { bindActionCreators } from 'redux';
 import ReactModal from 'react-modal';
 import 'react-dates/initialize';
@@ -81,7 +84,7 @@ class ModalCreateChat extends Component {
       name: this.state.name,
       description: this.state.description,
       creator: 1,
-    })
+    }, (id) => this.props.history.push(`/chat/${id}`))
 
     this.closeAndResetValue();
   }
@@ -166,9 +169,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  postCreateToDB: (create) => dispatch(postCreateToDB(create))
+  postCreateToDB: (create, callback ) => dispatch(postCreateToDB(create, callback))
 })
 
-export default connect (mapStateToProps, mapDispatchToProps)(ModalCreateChat);
+export default connect (mapStateToProps, mapDispatchToProps)(withRouter(ModalCreateChat));
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateChat)
