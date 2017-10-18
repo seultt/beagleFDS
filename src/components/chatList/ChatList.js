@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getChatList } from '../../action/action_getChatList';
 import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
 
-export default class ChatList extends Component {
+class ChatList extends Component {
+  componentWillMount = () => {
+    this.props.getChatList();
+  }
   render() {
     return (
       <section className="main__chat-list">
         <div className="main__chat-list__container">
           {/* main__chat-list__card */}
-          {this.props.chatList.map( (list) => {
+          {this.props.ChatList.map( (list) => {
             return(
               <article className="main__chat-list__card">
                 <div className="main__chat-list__card--header">
@@ -48,3 +53,11 @@ export default class ChatList extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  ChatList: state.ChatListData.chatList,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getChatList: () => dispatch(getChatList())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

@@ -1,11 +1,32 @@
-const databaseReducer = (state = null, action = null) => {
+const INITIAL_STATE = {
+  isLoading: false,
+  errorState: false,
+  chatList: [],
+}
 
-  if (action.type === 'CREATE_ROOM')  {
+const databaseReducer = (state = INITIAL_STATE, action = null) => {
+
+  if (action.type === 'GET_CHAT_LIST_REQUEST')  {
    return {
      ...state,
-     chat_rooms: [ ...action.payload ],
+     isLoading: true,
    } 
   }
+  if (action.type === 'GET_CHAT_LIST_SUCCESS') {
+    return {
+      ...state,
+      isLoading: false,
+      chatLIst: action.payload,
+    }
+  }
+  if (action.type === 'GET_CHAT_LIST_FAILED') {
+    return {
+      ...state,
+      isLoading: false,
+      errorState: true,
+    }
+  }
+
   return {
     ...state,
   }
