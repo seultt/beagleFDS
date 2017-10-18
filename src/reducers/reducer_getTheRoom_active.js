@@ -18,7 +18,7 @@ const getTheRoom = (state = null, action = null) => {
     } 
   }
 
-  if (action.type === 'GET_A_ROOM')  {
+  if (action.type === 'GET_A_ROOM_SUCCESS')  {
      
     return {
       ...state,
