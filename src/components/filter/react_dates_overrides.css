@@ -1,5 +1,6 @@
 .SingleDatePicker {
   display: block !important;
+  cursor: pointer !important;
 }
 .SingleDatePickerInput {
   border: none !important;
@@ -17,6 +18,7 @@
 }
 .DateInput_input {
   font-weight: 300 !important;
+  cursor: pointer !important;
 }
 .DateInput_displayText__focused {
   background: none !important;
