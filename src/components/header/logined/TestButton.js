@@ -7,13 +7,13 @@ class LogOut extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: 5,
+      id: 1,
     }
   }
 
   render () {
     return (
-      <Link to={`/chat/5`}>
+      <Link to={`/chat/1`}>
       <li>
         <a
           className="menu__createChat btn"

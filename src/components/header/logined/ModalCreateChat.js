@@ -64,7 +64,7 @@ class ModalCreateChat extends Component {
       description: '',
       focused: false,
     })
-    this.props.shwModalCreateClose()
+    this.props.showModalCreateClose()
   }
 
   createPayloadAndPostToDB = () => {
@@ -105,11 +105,11 @@ class ModalCreateChat extends Component {
               {this.props.cities.map(city => {
                 return (
                   <div>
-                    {city.city_name}
+                    {city.label}
                     <input 
                       type="radio" 
                       name="city" 
-                      value={city.id}
+                      value={city.value}
                       onChange={this.selectedCity}
                     />
                   </div>
@@ -122,12 +122,14 @@ class ModalCreateChat extends Component {
                 <input 
                   type="text"
                   onChange = {this.inputName} 
+                  value = {this.state.name}
                 />
               </div>
               <div>
                 <label>title</label>
                 <input type="text" 
                   onChange = {this.inputDescript}
+                  value = { this.state.description}
                 />
               </div>
             </div>
@@ -136,6 +138,12 @@ class ModalCreateChat extends Component {
               onClick={this.createPayloadAndPostToDB}
             >
               채팅방 생성
+            </button>
+            <button 
+              type="button"
+              onClick={this.props.showModalCreateClose}
+            >
+              취소
             </button>
           </div>
         </div>
@@ -153,10 +161,14 @@ class ModalCreateChat extends Component {
 //   return bindActionCreators({postCreateToDB}, dispatch)
 // }
 
-export default connect ((state) => ({
+const mapStateToProps = (state) => ({
   cities: state.cities,
-}), (dispatch) => ({
+})
+
+const mapDispatchToProps = (dispatch) => ({
   postCreateToDB: (create) => dispatch(postCreateToDB(create))
-}))(ModalCreateChat);
+})
+
+export default connect (mapStateToProps, mapDispatchToProps)(ModalCreateChat);
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ModalCreateChat)
