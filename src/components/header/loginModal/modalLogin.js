@@ -2,6 +2,8 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import facebook from '../../../images/icon_facebook.svg';
 import google from '../../../images/icon_google.svg';
+import naver from '../../../images/icon_naver.svg';
+import kakao from '../../../images/icon_kakao.svg';
 
 
 export default class ModalLogin extends React.Component {
@@ -38,6 +40,7 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="naver"
           >
+            <img src={naver} alt="네이버 로고" />
             네이버로 계속하기
           </button>
           <button 
@@ -46,6 +49,7 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="kakao"
           >
+            <img src={kakao} alt="카카오 로고" />
             카카오로 계속하기
           </button>
           <p>

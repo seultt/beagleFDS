@@ -1,3 +1,20 @@
+@mixin login_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 390px;
+  height: 75px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  img {
+    position: absolute;
+    left: 40px;
+    width: 20px;
+  }
+}
+
 /* 회원가입 */
 .join {
   position: absolute;
@@ -26,61 +43,25 @@
   align-items: center;
   text-align: center;
   .join__facebook--btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 390px;
-    height: 80px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    background-color: #3366cc;
+    background-color: #3e71d6;
     color: #fff;
-    font-size: 16px;
-    img {
-      width: 20px;
-    }
+    @include login_btn;
   }
   .join__google--btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 390px;
-    height: 80px;
-    margin-bottom: 10px;
     border: 1px solid #d6d2d1;
-    border-radius: 10px;
     background-color: #fff;
     color: #666;
-    text-align: center;
-    font-size: 16px;
-    img {
-      width: 20px;
-    }
+    @include login_btn;
   }
   .join__naver--btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 390px;
-    height: 80px;
-    margin-bottom: 10px;
-    border-radius: 10px;
     background-color: #00c73c;
     color: #fff;
-    text-align: center;
-    font-size: 16px;
+    @include login_btn;
   }
   .join__kakao--btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 390px;
-    height: 80px;
-    border-radius: 10px;
     background-color: #fae22f;
     color: #fff;
-    text-align: center;
-    font-size: 16px;
+    @include login_btn;
   }
   p {
     width: 360px;
