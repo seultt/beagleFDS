@@ -13,13 +13,7 @@ class ChatRoom extends Component {
   }
 
   componentDidMount () {
-    this.props.chatLogs.map( (log, i)=> {
-      if(log.user_id === this.props.me.userId) {
-        return this.showMyMSG(log)
-      } else {
-        return this.showYourMSG(log)
-      }
-    })
+    
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
       this.showUserEnter(data.nickname)
@@ -100,7 +94,14 @@ class ChatRoom extends Component {
     return (
       <section className="chatting">
         <div className="chatting__contents">
-          
+          {this.props.chatLogs.map( (log, i)=> {
+            if(log.user_id === this.props.me.userId) {
+              return this.showMyMSG(log)
+            } else {
+              return this.showYourMSG(log)
+            }
+          })}
+          {}
         </div>
         <div className="chatting__input">
           <input 
