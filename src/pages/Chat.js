@@ -13,7 +13,7 @@ import arrow from '../images/icon_arrow_down.svg';
 import search from '../images/icon_search.svg';
 
 //  {'query': 'token=' + localStorage.getItem('jwtToken')}
-const socket = io('http://192.168.0.41:9494/chat')
+const socket = io('http://192.168.0.7:9494/chat')
 
 class Chat extends Component {
 

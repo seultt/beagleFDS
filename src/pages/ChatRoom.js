@@ -14,6 +14,7 @@ class ChatRoom extends Component {
         created_at: '',
         user_id: 0
       }],
+      entryUser: ''
     }
 
     // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
@@ -73,15 +74,9 @@ class ChatRoom extends Component {
   }
 
   showUserEnter = (nickname) => {
-    return (
-      <article>
-        <div>
-          <div className="text-field">
-            <p>{`${nickname}님이 접속하거나 나갔습니다.`}</p>
-          </div>
-        </div>
-      </article>      
-    )
+    this.setState({
+      entryUser: nickname
+    })
   }
 
   // 입력값이 변할 때마다 state값 변경
@@ -95,8 +90,8 @@ class ChatRoom extends Component {
   sendMessage = (e) => {
     e.preventDefault();
     // 서버에 채팅로그 저장
-    const token = localStorage.getItem('jwtToken');
-    this.props.sendMessageFromDB({message: this.state.message, token, id: this.props.id});
+    // const token = localStorage.getItem('jwtToken');
+    this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
 
     let newMessage = this.state.message
     const hour = new Date().getHours();
@@ -141,14 +136,26 @@ class ChatRoom extends Component {
             const message = log.message
             const created_at = log.created_at
 
+            // user_id가 없다면(0이라면) return
+            if(!log.user_id) { return }
+
             if(log.user_id === this.props.me.userId) {
               return this.showMyMSG({message, created_at})
-            } else if(log.user_id !== this.props.me.userId) {
-              return this.showYourMSG({message, created_at, user_id})
             } else {
-              return
+              return this.showYourMSG({message, created_at, user_id})
             }
           })}
+          { 
+            (
+              <article>
+                <div>
+                  <div className="text-field">
+                    <p>{`${this.state.entryUser}님이 접속하거나 나갔습니다.`}</p>
+                  </div>
+                </div>
+              </article>      
+            )
+           }
         </div>
         <div className="chatting__input">
           <input 
@@ -180,7 +187,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendMessageFromDB: ({message, token, id}) => (dispatch(sendMessageFromDB({message, token, id})))
+  sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 
