@@ -127,7 +127,7 @@ c
           login={this.login}
         />
         <div className="__container">
-          <h1><img src={logo} /></h1>
+          <h1><a href="/"><img src={logo} /></a></h1>
           <div className="menu">
             { !this.state.isLogin ? (
               // 로그인 전
