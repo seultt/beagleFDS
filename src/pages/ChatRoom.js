@@ -9,11 +9,24 @@ class ChatRoom extends Component {
     super(props)
     this.state = {
       message: '',
+      messages: [{
+        message: '',
+        created_at: '',
+        user_id: 0
+      }],
     }
-  }
 
-  componentDidMount () {
-    
+    // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
+    // render 후 e 가 발생될 때 마다 실행 
+    this.props.socket.on('received chat', data => {
+      console.log('received chat!!')
+      console.log(data)
+
+      this.setState({
+        messages: [...this.state.messages, {message: data.message, created_at: data.created_at, user_id: data.user_id}],
+
+      })
+    })
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
       this.showUserEnter(data.nickname)
@@ -25,29 +38,34 @@ class ChatRoom extends Component {
     })
   }
 
-  showMyMSG = (log) => {
+  
+  
+
+
+  // render 함수들 (나, 너, 입장/퇴장)
+  showMyMSG = ({message, created_at}) => {
     return (
       <article className="contents__me">
         <div className="contents__me--box">
           <div className="text-field">
-            <p>{log.message}</p>
-            <span className="chat-date">{log.created_at}</span>
+            <p>{message}</p>
+            <span className="chat-date">{created_at}</span>
           </div>
         </div>
       </article>
     )
   }
 
-  showYourMSG = (log) => {
+  showYourMSG = ({user_id, message, created_at}) => {
     return (
       <article className="contents__another">
         <div className="contents__another--box">
           <span><img src="https://randomuser.me/api/portraits/women/94.jpg"/>{
-            this.props.currentUser.find( another => another.id === log.user_id ) ? this.props.currentUser.find( another => another.id === log.user_id ).nickname : 'user waiting...'
+            this.props.currentUser.find( another => another.id === user_id ) ? this.props.currentUser.find( another => another.id === user_id ).nickname : 'user waiting...'
             }</span>
           <div className="text-field">
-            <p>{log.message}</p>
-            <span className="chat-date">{log.created_at}</span>
+            <p>{message}</p>
+            <span className="chat-date">{created_at}</span>
           </div>
         </div>
       </article>
@@ -66,18 +84,31 @@ class ChatRoom extends Component {
     )
   }
 
+  // 입력값이 변할 때마다 state값 변경
   onTextChange = (e) => {
     this.setState({
       message: e.target.value
     })
   }
 
+  // 메세지 보내기
   sendMessage = (e) => {
     e.preventDefault();
+    // 서버에 채팅로그 저장
     const token = localStorage.getItem('jwtToken');
     this.props.sendMessageFromDB({message: this.state.message, token, id: this.props.id});
+
+    let newMessage = this.state.message
+    const hour = new Date().getHours();
+    const minutes = new Date().getMinutes();
+    // 내 페이지에 나의 새 메세지를 표시
     this.setState({
-      message:'',
+      message: '',
+      messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}],
+    })
+    // 다른 사용자에게 새 메시지를 전달
+    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}, data => {
+      // css 변경 
     })
   }
 
@@ -95,13 +126,29 @@ class ChatRoom extends Component {
       <section className="chatting">
         <div className="chatting__contents">
           {this.props.chatLogs.map( (log, i)=> {
+            const user_id = log.user_id
+            const message = log.message
+            const created_at = log.created_at
+
             if(log.user_id === this.props.me.userId) {
-              return this.showMyMSG(log)
+              return this.showMyMSG({message, created_at})
             } else {
-              return this.showYourMSG(log)
+              return this.showYourMSG({message, created_at, user_id})
             }
           })}
-          {}
+          {this.state.messages.map( (log, i)=> {
+            const user_id = log.user_id
+            const message = log.message
+            const created_at = log.created_at
+
+            if(log.user_id === this.props.me.userId) {
+              return this.showMyMSG({message, created_at})
+            } else if(log.user_id !== this.props.me.userId) {
+              return this.showYourMSG({message, created_at, user_id})
+            } else {
+              return
+            }
+          })}
         </div>
         <div className="chatting__input">
           <input 
