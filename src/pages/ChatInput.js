@@ -17,9 +17,13 @@ class ChatInput extends Component {
     })
   }
 
-  sendMessage = () => {
+  sendMessage = (e) => {
+    e.preventDefault();
     const token = localStorage.getItem('jwtToken');
-    this.props.sendMessageFromDB({message: this.state.message, token, id: this.props.id})
+    this.props.sendMessageFromDB({message: this.state.message, token, id: this.props.id});
+    this.setState({
+      message:'',
+    })
   }
 
   render() {

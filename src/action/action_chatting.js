@@ -6,7 +6,7 @@ export const sendMessageFromDB = ({message, token, id}) => {
       type: 'GET_A_SEND_MESSAGE',
     })
 
-    axios.post(`http://192.168.0.41:9494/api/chat-rooms/${id}`, {message, token, id})
+    axios.post(`http://192.168.0.41:9494/api/chat-rooms/${id}`, {message, id}, {Authorization: `Bearer ${token}`})
     .then(res => {
       console.log('ok')
     })

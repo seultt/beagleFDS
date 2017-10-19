@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import io from 'socket.io-client';
+import socketIoJWT from 'socketio-jwt';
+
 import ChatRoom from './ChatRoom'
 import ChatInput from './ChatInput'
 import ChatInfo from './ChatInfo'
@@ -8,17 +12,30 @@ import profile from '../images/icon_profile.svg';
 import arrow from '../images/icon_arrow_down.svg';
 import search from '../images/icon_search.svg';
 
-export default class Chat extends Component {
+const socket = io.connect('http://192.168.0.41:9494/chat', {
+  'query': 'token=' + localStorage.getItem('jwtToken')
+})
+
+class Chat extends Component {
+
+  componentDidMount() {  
+    if (this.props.id == undefined) {
+       console.log('room-id not found')
+     } else {
+       socket.emit('room', {room: this.props.id});
+     }
+   }
+   
+   componentWillReceiveProps(nextProps) {  
+     socket.emit('room', {room: nextProps.id})
+   }
+
   render() {
     return (
       <main className="chat-main">
         <div className="__container">
-          <section className="chatting">
             {/* 채팅 대화창 */}
-            <ChatRoom />
-            {/*  채팅 입력란 */}
-            <ChatInput />
-          </section>
+            <ChatRoom socket={socket}/>
           {/* 채팅 정보창 */}
           <section className="info">
             {/*  대화 검색 */}
@@ -34,3 +51,10 @@ export default class Chat extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  id: state.getTheRoom.chattingInfo.id,
+})
+
+export default connect(mapStateToProps)(Chat); 
+
