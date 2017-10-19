@@ -5,7 +5,7 @@ export const postCreateToDB = (create, callback) => {
     dispatch({
       type: 'GET_A_ROOM_REQUEST',
     })
-    axios.post('http://192.168.1.132:9494/api/chat-rooms', create)
+    axios.post('http://192.168.0.41:9494/api/chat-rooms', create)
     .then(res => {
       console.log(res)
 
@@ -26,7 +26,7 @@ export const getChatRoomFromDB = (id) => {
       type: 'GET_A_ROOM_REQUEST',
     })
 
-    axios.get(`http://192.168.1.132:9494/api/chat-rooms/${id}`, {
+    axios.get(`http://192.168.0.41:9494/api/chat-rooms/${id}`, {
       params: {id}
     })
     .then(res => {

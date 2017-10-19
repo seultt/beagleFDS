@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChatRoom from './ChatRoom'
+import ChatInput from './ChatInput'
 import ChatInfo from './ChatInfo'
 
 import message from '../images/icon_message.svg';
@@ -16,12 +17,7 @@ export default class Chat extends Component {
             {/* 채팅 대화창 */}
             <ChatRoom />
             {/*  채팅 입력란 */}
-            <div className="chatting__input">
-              <input type="text" placeholder="type your message..."/>
-              <div className="chatting-__input--buttons">
-                <button className="buttons-send" type="button">send</button>
-              </div>
-            </div>
+            <ChatInput />
           </section>
           {/* 채팅 정보창 */}
           <section className="info">
