@@ -3,7 +3,7 @@ import axios from 'axios';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
-
+import SERVER_ADDRESS from '../../config';
 
 export default class Header extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class Header extends Component {
 
   // 유저정보 AJAX 업데이트
   updateUserInfo = () => {
-    axios.get(`https://test.younghea.com/login`, {
+    axios.get(`${SERVER_ADDRESS}/login`, {
       headers: {
         'Authorization': `Bearer ${this.state.token}`,
         'Access-Control-Allow-Origin': '*',
@@ -77,11 +77,11 @@ c
     window.removeEventListener('message', this.tokenHandler)
   }
 
-  // 페이스북 로그인 클릭시
+  // 로그인 클릭시
   login = (e) => {
     const SNS_NAME = e.target.value;
     window.addEventListener('message', this.tokenHandler)
-    const popupWindow = window.open(`https://test.younghea.com/auth/${SNS_NAME}`);
+    const popupWindow = window.open(`${SERVER_ADDRESS}/auth/${SNS_NAME}`);
     this.setState({
       popupWindow,
       signingIn: true,
