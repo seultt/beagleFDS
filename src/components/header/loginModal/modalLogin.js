@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import facebook from '../../../images/icon_facebook.svg';
 import google from '../../../images/icon_google.svg';
+import naver from '../../../images/icon_naver.svg';
+import kakao from '../../../images/icon_kakao.svg';
+import btn_close from '../../../images/btn_close.svg';
 
 
-export default class ModalLogin extends React.Component {
+export default class ModalLogin extends Component {
 
   render() {
     return (
@@ -38,6 +41,7 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="naver"
           >
+            <img src={naver} alt="네이버 로고" />
             네이버로 계속하기
           </button>
           <button 
@@ -46,13 +50,14 @@ export default class ModalLogin extends React.Component {
             onClick={this.props.login}
             value="kakao"
           >
+            <img src={kakao} alt="카카오 로고" />
             카카오로 계속하기
           </button>
           <p>
           회원 가입 또는 계속하기를 클릭하면 비글의 <span>서비스 약관, 개인정보 보호정책</span>에 동의하는 것 입니다.
           </p>
         </div>
-        <button type="button" className="join--closeBtn" onClick={this.props.handleModalCloseLogin}>닫기</button>
+        <a type="button" className="join--closeBtn" onClick={this.props.handleModalCloseLogin}><img src={btn_close} alt="닫기 버튼" /></a>
       </ReactModal>
     )
   }
