@@ -72,7 +72,7 @@ export default class Header extends Component {
       this.updateUserInfo()
     }
   }
-c
+
   componentWillUnmount() {
     window.removeEventListener('message', this.tokenHandler)
   }
