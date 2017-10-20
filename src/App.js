@@ -15,6 +15,7 @@ import Main from './pages/Main';
 import Chat from './pages/Chat';
 import './scss/main.scss';
 import Header from './components/header/header';
+import Profile from './pages/Profile';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -25,9 +26,10 @@ class App extends Component {
       <Provider store={createStoreWithMiddleware(reducers)}>
         <div>
           <Header />
-          <Route exact path="/" component={Main} />
-          <Route path="/chat/:chatId" component={Chat} />
+          {/* <Route exact path="/" component={Main} />
+          <Route path="/chat/:chatId" component={Chat} /> */}
           {/* <Chat /> */}
+          <Profile />
         </div>
       </Provider>
       </BrowserRouter>
