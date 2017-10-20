@@ -26,10 +26,9 @@ class App extends Component {
       <Provider store={createStoreWithMiddleware(reducers)}>
         <div>
           <Header />
-          {/* <Route exact path="/" component={Main} />
-          <Route path="/chat/:chatId" component={Chat} /> */}
-          {/* <Chat /> */}
-          <Profile />
+          <Route exact path="/" component={Main} />
+          <Route path="/chat/:chatId" component={Chat} />
+          <Route path="/profile" component={Profile} />
         </div>
       </Provider>
       </BrowserRouter>
