@@ -3,7 +3,6 @@ const DEFAULT_STATE = {
   currentUser: {
     id: 0,// user.id,
     like: 0,// user.like
-    nickname: '',// user.nickname,
     photo: '',// user.profile_photo,
   }, // 로그인한 유저의 정보
   signingIn: false, // 회원가입 여부

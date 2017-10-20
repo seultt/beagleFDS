@@ -18,7 +18,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  userImage: state.user.currentUser.id,
+  userImage: state.userData.currentUser.photo,
 })
 
 export default connect(mapStateToProps, null)(Profile)

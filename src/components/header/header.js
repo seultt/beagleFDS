@@ -26,7 +26,6 @@ class Header extends Component {
     this.setState({
       popupWindow: null,
       token,
-      signingIn: false,
       complete: true,
     });
     this.props.updateUserInfo(this.state.token);
@@ -38,7 +37,8 @@ class Header extends Component {
   componentWillMount() {
     if (localStorage.token) {
       this.setState({
-        token: localStorage.token
+        token: localStorage.token,
+        isLogin: true,
       })
     }
   }
