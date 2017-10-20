@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
 import SERVER_ADDRESS from '../../config';
+import { updateUserInfo } from '../../action/action_login';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       popupWindow: null,
       showModal: false,
-      currentUser: {
-        id: 0,// user.id,
-        photo: '',// user.profile_photo,
-        nickname: '',// user.nickname,
-        like: 0,// user.like
-      }, // 로그인한 유저의 정보
       isLogin: false, // 로그인 여부
       token: null,  // 토큰 여부
-      signingIn: false, // 회원가입 여부
-      complete: true,
     };
   }
 
@@ -30,33 +24,15 @@ export default class Header extends Component {
     localStorage.setItem('jwtToken', token);
     this.state.popupWindow.close();
     this.setState({
+      popupWindow: null,
       token,
       signingIn: false,
       complete: true,
     });
-    this.updateUserInfo();
-  }
-
-  // 유저정보 AJAX 업데이트
-  updateUserInfo = () => {
-    axios.get(`${SERVER_ADDRESS}/login`, {
-      headers: {
-        'Authorization': `Bearer ${this.state.token}`,
-        'Access-Control-Allow-Origin': '*',
-      }
+    this.props.updateUserInfo(this.state.token);
+    this.setState({
+      isLogin: true,
     })
-      .then( 
-        (res) => {
-          this.setState({
-            isLogin: true,
-          })
-        }
-      )
-      .catch(
-        (error) => {
-          console.error(error);
-        }
-      )
   }
 
   componentWillMount() {
@@ -69,7 +45,7 @@ export default class Header extends Component {
 
   componentDidMount() {
     if (this.state.token) {
-      this.updateUserInfo()
+      this.props.updateUserInfo(this.state.token)
     }
   }
 
@@ -80,11 +56,10 @@ export default class Header extends Component {
   // 로그인 클릭시
   login = (e) => {
     const SNS_NAME = e.target.value;
-    window.addEventListener('message', this.tokenHandler)
+    window.addEventListener('message', this.tokenHandler);
     const popupWindow = window.open(`${SERVER_ADDRESS}/auth/${SNS_NAME}`);
     this.setState({
       popupWindow,
-      signingIn: true,
       showModal: false,
     });
   }
@@ -150,3 +125,11 @@ export default class Header extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateUserInfo: (token) => dispatch(updateUserInfo(token))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Header);

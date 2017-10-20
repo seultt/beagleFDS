@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+// import profile from '../../../images/icon_profile.svg';
 
-export default class Profile extends Component {
+class Profile extends Component {
   render () {
     return (
       <Link to={`/profile`}>
         <li>
           <a className="menu__profile menu_icon">
-            <img alt="프로필" />
+            <img src={this.props.userImage} alt="프로필" />
           </a>
         </li>
       </Link>
@@ -15,4 +17,8 @@ export default class Profile extends Component {
   }
 }
 
-// src={this.state.currentUser.photo}
+const mapStateToProps = (state) => ({
+  userImage: state.user.currentUser.id,
+})
+
+export default connect(mapStateToProps, null)(Profile)
