@@ -83,7 +83,7 @@ class ModalCreateChat extends Component {
       photo: this.state.photo,
       name: this.state.name,
       description: this.state.description,
-      creator: 1,
+      creator: this.props.creator.id,
     }, (id) => this.props.history.push(`/chat/${id}`))
 
     this.closeAndResetValue();
@@ -166,6 +166,7 @@ class ModalCreateChat extends Component {
 
 const mapStateToProps = (state) => ({
   cities: state.cities,
+  creator: state.userData.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

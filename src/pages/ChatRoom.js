@@ -109,10 +109,10 @@ class ChatRoom extends Component {
     // 내 페이지에 나의 새 메세지를 표시
     this.setState({
       message: '',
-      messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}],
+      messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}],
     })
     // 다른 사용자에게 새 메시지를 전달
-    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}, data => {
+    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
       // css 변경 
     })
   }
@@ -135,7 +135,7 @@ class ChatRoom extends Component {
             const message = log.message
             const created_at = log.created_at
 
-            if(log.user_id === this.props.me.userId) {
+            if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at})
             } else {
               return this.showYourMSG({message, created_at, user_id})
@@ -149,7 +149,7 @@ class ChatRoom extends Component {
             // user_id가 없다면(0이라면) return
             if(!log.user_id) { return }
 
-            if(log.user_id === this.props.me.userId) {
+            if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at})
             } else {
               return this.showYourMSG({message, created_at, user_id})
@@ -186,7 +186,7 @@ class ChatRoom extends Component {
 const mapStateToProps = (state) => ({
   id: state.getTheRoom.chattingInfo.id,
   chatLogs: state.getTheRoom.chattingLog,
-  me: state.mockupData.currentUser,
+  me: state.userData.currentUser.id,
   currentUser: state.getTheRoom.currentUser,
 })
 
