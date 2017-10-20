@@ -31,14 +31,14 @@ class ChatRoom extends Component {
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
       this.setState({
-        entryUsers: [...this.state.entryUsers, data.nickname]
+        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 접속했습니다.`]
       })
     })
 
     // (user disconnected) 사용자의 연결이 끊어졌다는 사실을 출력
     this.props.socket.on('user disconnected', data => {
       this.setState({
-        entryUsers: [...this.state.entryUsers, data.nickname]
+        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 나갔습니다.`]
       })
     })
   }
@@ -77,12 +77,12 @@ class ChatRoom extends Component {
     )
   }
 
-  showUserEnter = (nickname) => {
+  showUserEnter = (alert) => {
     return (
       <article>
         <div>
           <div className="text-field">
-            <p>{`${nickname}님이 접속하거나 나갔습니다.`}</p>
+            <p>{alert}</p>
           </div>
         </div>
       </article>      
@@ -155,8 +155,8 @@ class ChatRoom extends Component {
               return this.showYourMSG({message, created_at, user_id})
             }
           })}
-          {this.state.entryUsers.map(nickname => {
-            return this.showUserEnter(nickname)
+          {this.state.entryUsers.map(alert => {
+            return this.showUserEnter(alert)
           })
             
            }
