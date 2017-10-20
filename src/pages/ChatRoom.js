@@ -14,7 +14,7 @@ class ChatRoom extends Component {
         created_at: '',
         user_id: 0
       }],
-      entryUser: ''
+      entryUsers: []
     }
 
     // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
@@ -30,12 +30,16 @@ class ChatRoom extends Component {
     })
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
-      this.showUserEnter(data.nickname)
+      this.setState({
+        entryUsers: [...this.state.entryUsers, data.nickname]
+      })
     })
 
     // (user disconnected) 사용자의 연결이 끊어졌다는 사실을 출력
     this.props.socket.on('user disconnected', data => {
-      this.showUserEnter(data.nickname)
+      this.setState({
+        entryUsers: [...this.state.entryUsers, data.nickname]
+      })
     })
   }
 
@@ -74,9 +78,15 @@ class ChatRoom extends Component {
   }
 
   showUserEnter = (nickname) => {
-    this.setState({
-      entryUser: nickname
-    })
+    return (
+      <article>
+        <div>
+          <div className="text-field">
+            <p>{`${nickname}님이 접속하거나 나갔습니다.`}</p>
+          </div>
+        </div>
+      </article>      
+    )
   }
 
   // 입력값이 변할 때마다 state값 변경
@@ -91,7 +101,7 @@ class ChatRoom extends Component {
     e.preventDefault();
     // 서버에 채팅로그 저장
     // const token = localStorage.getItem('jwtToken');
-    this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
+    // this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
 
     let newMessage = this.state.message
     const hour = new Date().getHours();
@@ -145,16 +155,10 @@ class ChatRoom extends Component {
               return this.showYourMSG({message, created_at, user_id})
             }
           })}
-          { 
-            (
-              <article>
-                <div>
-                  <div className="text-field">
-                    <p>{`${this.state.entryUser}님이 접속하거나 나갔습니다.`}</p>
-                  </div>
-                </div>
-              </article>      
-            )
+          {this.state.entryUsers.map(nickname => {
+            return this.showUserEnter(nickname)
+          })
+            
            }
         </div>
         <div className="chatting__input">
@@ -186,8 +190,8 @@ const mapStateToProps = (state) => ({
   currentUser: state.getTheRoom.currentUser,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 
+export default connect(mapStateToProps, null)(ChatRoom); 
