@@ -35,12 +35,19 @@ class Header extends Component {
   }
 
   componentWillMount() {
-    if (localStorage.token) {
+    const ExistedToken = localStorage.getItem('jwtToken')
+    if (ExistedToken) {
       this.setState({
-        token: localStorage.token,
+        token: ExistedToken,
         isLogin: true,
       })
     }
+    // if (localStorage.jwtToken) {
+    //   this.setState({
+    //     token: localStorage.jwtToken,
+    //     isLogin: true,
+    //   })
+    // }
   }
 
   componentDidMount() {
