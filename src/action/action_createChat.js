@@ -20,7 +20,7 @@ export const postCreateToDB = (create, callback) => {
   }
 }
 
-export const getChatRoomFromDB = (id) => {
+export const getChatRoomFromDB = ({id, user_id}) => {
   return (dispatch) => {
 
     dispatch({
@@ -28,7 +28,7 @@ export const getChatRoomFromDB = (id) => {
     })
 
     axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${id}`, {
-      params: {id},
+      params: {id, user_id},
       // {Authorization: `Bearer ${token}`} // 지금 토큰이 없으므로...
     })
     .then(res => {
