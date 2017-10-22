@@ -14,7 +14,7 @@ class ChatRoom extends Component {
         created_at: '',
         user_id: 0
       }],
-      entryUser: ''
+      entryUsers: []
     }
 
     // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
@@ -30,12 +30,16 @@ class ChatRoom extends Component {
     })
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
-      this.showUserEnter(data.nickname)
+      this.setState({
+        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 접속했습니다.`]
+      })
     })
 
     // (user disconnected) 사용자의 연결이 끊어졌다는 사실을 출력
     this.props.socket.on('user disconnected', data => {
-      this.showUserEnter(data.nickname)
+      this.setState({
+        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 나갔습니다.`]
+      })
     })
   }
 
@@ -73,10 +77,16 @@ class ChatRoom extends Component {
     )
   }
 
-  showUserEnter = (nickname) => {
-    this.setState({
-      entryUser: nickname
-    })
+  showUserEnter = (alert) => {
+    return (
+      <article>
+        <div>
+          <div className="text-field">
+            <p>{alert}</p>
+          </div>
+        </div>
+      </article>      
+    )
   }
 
   // 입력값이 변할 때마다 state값 변경
@@ -91,7 +101,7 @@ class ChatRoom extends Component {
     e.preventDefault();
     // 서버에 채팅로그 저장
     // const token = localStorage.getItem('jwtToken');
-    this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
+    // this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
 
     let newMessage = this.state.message
     const hour = new Date().getHours();
@@ -99,10 +109,10 @@ class ChatRoom extends Component {
     // 내 페이지에 나의 새 메세지를 표시
     this.setState({
       message: '',
-      messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}],
+      messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}],
     })
     // 다른 사용자에게 새 메시지를 전달
-    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me.userId}, data => {
+    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
       // css 변경 
     })
   }
@@ -125,7 +135,7 @@ class ChatRoom extends Component {
             const message = log.message
             const created_at = log.created_at
 
-            if(log.user_id === this.props.me.userId) {
+            if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at})
             } else {
               return this.showYourMSG({message, created_at, user_id})
@@ -139,22 +149,16 @@ class ChatRoom extends Component {
             // user_id가 없다면(0이라면) return
             if(!log.user_id) { return }
 
-            if(log.user_id === this.props.me.userId) {
+            if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at})
             } else {
               return this.showYourMSG({message, created_at, user_id})
             }
           })}
-          { 
-            (
-              <article>
-                <div>
-                  <div className="text-field">
-                    <p>{`${this.state.entryUser}님이 접속하거나 나갔습니다.`}</p>
-                  </div>
-                </div>
-              </article>      
-            )
+          {this.state.entryUsers.map(alert => {
+            return this.showUserEnter(alert)
+          })
+            
            }
         </div>
         <div className="chatting__input">
@@ -182,12 +186,12 @@ class ChatRoom extends Component {
 const mapStateToProps = (state) => ({
   id: state.getTheRoom.chattingInfo.id,
   chatLogs: state.getTheRoom.chattingLog,
-  me: state.mockupData.currentUser,
+  me: state.userData.currentUser.id,
   currentUser: state.getTheRoom.currentUser,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 
+export default connect(mapStateToProps, null)(ChatRoom); 

@@ -1,11 +1,12 @@
 import axios from 'axios';
+import SERVER_ADDRESS from '../config'
 
 export const postCreateToDB = (create, callback) => {
   return (dispatch) => {
     dispatch({
       type: 'GET_A_ROOM_REQUEST',
     })
-    axios.post('http://192.168.0.41:9494/api/chat-rooms', create)
+    axios.post(`${SERVER_ADDRESS}/api/chat-rooms`, create)
     .then(res => {
       console.log(res)
 
@@ -19,17 +20,14 @@ export const postCreateToDB = (create, callback) => {
   }
 }
 
-export const getChatRoomFromDB = (id) => {
+export const getChatRoomFromDB = ({id, user_id}) => {
   return (dispatch) => {
 
     dispatch({
       type: 'GET_A_ROOM_REQUEST',
     })
 
-    axios.get(`http://192.168.0.7:9494/api/chat-rooms/${id}`, {
-      params: {id},
-      // {Authorization: `Bearer ${token}`} // 지금 토큰이 없으므로...
-    })
+    axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${id}/?user_id=${user_id}`)
     .then(res => {
       console.log(res)
 

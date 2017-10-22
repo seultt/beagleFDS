@@ -3,7 +3,8 @@ const INITIAL_DATA = {
   isError: false,
   currentUser: [{
     user_id: 0,
-    nickname: 'loading....'
+    nickname: 'loading....',
+    profile_photo: ''
   }],
   chattingLog: [
     {
