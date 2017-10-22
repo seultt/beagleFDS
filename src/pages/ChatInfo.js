@@ -12,7 +12,7 @@ class ChatInfo extends Component {
         <div className="description__travel">
           <div className="description__travel--about">
             <h3>
-              <p><span><img src="https://randomuser.me/api/portraits/women/94.jpg"/></span>
+              <p><span><img src={this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator).profile_photo}/></span>
                 {
                   this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator)
                     ? this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator).nickname
