@@ -27,10 +27,7 @@ export const getChatRoomFromDB = ({id, user_id}) => {
       type: 'GET_A_ROOM_REQUEST',
     })
 
-    axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${id}`, {
-      params: {id, user_id},
-      // {Authorization: `Bearer ${token}`} // 지금 토큰이 없으므로...
-    })
+    axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${id}/?user_id=${user_id}`)
     .then(res => {
       console.log(res)
 
