@@ -27,13 +27,12 @@ export const updateUserInfo = (token) => {
         }
       )
       .catch(
-        // (error) => {
-        //   dispatch({
-        //     type: 'LOGIN_USER_FAILED',
-        //   })
-        //   console.error(error);
-        // }
-        e => console.log(e.message)
+        (error) => {
+          dispatch({
+            type: 'LOGIN_USER_FAILED',
+          })
+          console.error(error);
+        }
       )
   }
 }
