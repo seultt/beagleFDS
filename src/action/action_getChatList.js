@@ -8,7 +8,7 @@ export const getChatList = () => {
     //   type: 'GET_CHAT_LIST_REQUEST',
     // })
 
-    axios.get(`${SERVER_ADDRESS}/main`, {
+    axios.get(`${SERVER_ADDRESS}/api/chat-list`, {
       // cors 문제 해결하려면 아래 header를 넣어줘야한다.
       headers: {
         'Access-Control-Allow-Origin': '*',
