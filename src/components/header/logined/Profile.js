@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import profile from '../../../images/icon_profile.svg';
+import {getMyRooms} from '../../../action/action_profile'
 
 class Profile extends Component {
   render () {
     return (
       <Link to={`/profile`}>
         <li>
-          <a className="menu__profile menu_icon">
-            <img src={this.props.userImage} alt="프로필" />
+          <a 
+            className="menu__profile menu_icon"
+            onClick={() => {this.props.getMyRooms(this.props.user_id)}}>
+            <img src={this.props.photo} alt="프로필" />
           </a>
         </li>
       </Link>
@@ -18,7 +21,12 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  userImage: state.userData.currentUser.photo,
+  photo: state.userData.currentUser.photo,
+  user_id: state.userData.currentUser.id,
 })
 
-export default connect(mapStateToProps, null)(Profile)
+const mapDispatchToProps = (dispatch) => ({
+  getMyRooms: (user_id) => dispatch(getMyRooms(user_id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

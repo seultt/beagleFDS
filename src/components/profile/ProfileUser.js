@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import like from '../../images/icon_like.svg';
 import setting from '../../images/btn_set.svg';
-
 
 class ProfileUser extends Component {
   render() {
@@ -11,14 +11,14 @@ class ProfileUser extends Component {
           <article className="profile__user--info">
             <ul>
               <li className="profile__user--info__image">
-                <img src="https://randomuser.me/api/portraits/women/64.jpg" alt="사용자 이미지" />
+                <img src={this.props.currentUser.photo} alt="사용자 이미지" />
               </li>
               <li className="profile__user--info__name">
-                <strong>이슬기</strong>
+                <strong>{this.props.currentUser.id}</strong>
               </li>
               <li className="profile__user--info__like">
                 <img src={like} alt="좋아요" />
-                <span>1,234</span>
+                <span>{this.props.currentUser.like}</span>
               </li>
               <li className="profile__user--info__btn">
                 <a>Logout</a>
@@ -38,4 +38,8 @@ class ProfileUser extends Component {
   }
 }
 
-export default ProfileUser;
+const mapStateToProps = (state) => ({
+  currentUser: state.userData.currentUser
+})
+
+export default connect(mapStateToProps)(ProfileUser)

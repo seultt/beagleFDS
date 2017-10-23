@@ -7,6 +7,7 @@ import getTheRoom from './reducer_getTheRoom_active';
 import ChatListData from './reducer_chatList_data';
 import databaseReducer from './reducer_database_active';
 import userData from './reducer_login_active';
+import myRooms from './reducer_profile'
 
 const reducers = combineReducers ({
   chatLogs: ChatLogReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers ({
   getTheRoom: getTheRoom,
   ChatListData,
   userData,
+  myRooms
 })
 
 export default reducers;
