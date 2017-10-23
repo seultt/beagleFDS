@@ -12,9 +12,8 @@ class ChatRoom extends Component {
       messages: [{
         message: '',
         created_at: '',
-        user_id: 0
+        user_id: 0,
       }],
-      entryUsers: []
     }
 
     // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
@@ -30,16 +29,18 @@ class ChatRoom extends Component {
     })
     // (user connected) 새 사용자가 접속한 사실을 출력
     this.props.socket.on('user connected', data => {
-      this.setState({
-        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 접속했습니다.`]
-      })
+      // this.setState({
+      //   messages: [...this.state.messages, {message: data.message, user_id: data.user_id}]
+      // })
+      console.log(`${data.nickname}이 접속하였습니다.`)
     })
 
     // (user disconnected) 사용자의 연결이 끊어졌다는 사실을 출력
     this.props.socket.on('user disconnected', data => {
-      this.setState({
-        entryUsers: [...this.state.entryUsers, `${data.nickname}님이 나갔습니다.`]
-      })
+      // this.setState({
+      //   messages: [...this.state.messages, {message: data.message, user_id: data.user_id}]
+      // })
+      console.log(`${data.nickname}이 나갔습니다.`)
     })
   }
 
@@ -65,7 +66,9 @@ class ChatRoom extends Component {
     return (
       <article className="contents__another">
         <div className="contents__another--box">
-          <span><img src="https://randomuser.me/api/portraits/women/94.jpg"/>{
+          <span><img src={
+            this.props.currentUser.find( another => another.id === user_id ) ? this.props.currentUser.find( another => another.id === user_id ).profile_photo : ''
+            } alt="사용자"/>{
             this.props.currentUser.find( another => another.id === user_id ) ? this.props.currentUser.find( another => another.id === user_id ).nickname : 'user waiting...'
             }</span>
           <div className="text-field">
@@ -155,11 +158,6 @@ class ChatRoom extends Component {
               return this.showYourMSG({message, created_at, user_id})
             }
           })}
-          {this.state.entryUsers.map(alert => {
-            return this.showUserEnter(alert)
-          })
-            
-           }
         </div>
         <div className="chatting__input">
           <input 
@@ -188,6 +186,7 @@ const mapStateToProps = (state) => ({
   chatLogs: state.getTheRoom.chattingLog,
   me: state.userData.currentUser.id,
   currentUser: state.getTheRoom.currentUser,
+  profile_photo: state.getTheRoom.currentUser.profile_photo,
 })
 
 // const mapDispatchToProps = (dispatch) => ({
