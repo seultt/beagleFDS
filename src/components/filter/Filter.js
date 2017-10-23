@@ -66,6 +66,7 @@ class Filter extends Component {
                 onFocusChange={({ focused }) => this.setState({ focused })}
                 displayFormat="YYYY년 MM월 DD일"
                 placeholder="여행 날짜"
+                isOutsideRange={() => false}
               />
               <img src={arrow} alt="출발 여행날짜 선택" />
             </div>
