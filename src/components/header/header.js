@@ -72,11 +72,11 @@ class Header extends Component {
   }
 
   // 로그아웃 클릭시 (테스트)
-  logout = (e) => {
-    delete localStorage.token
+  logout = () => {
+    delete localStorage.jwtToken
     this.setState({
       token: null,
-      userInfo: null,
+      isLogin: false,
     });
   }
 

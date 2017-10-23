@@ -25,11 +25,14 @@
   flex-direction: column;
   justify-content: space-between;
   width:700px;
-  min-height: 600px;
+  // overflow: hidden;
+  max-height: 700px;
 }
 
 // 채팅 대화 방
 .chatting__contents {
+  overflow-y: auto;
+  height: 650px;
   padding: 26px 30px;
   .contents__another--box {
     margin-bottom: 40px;

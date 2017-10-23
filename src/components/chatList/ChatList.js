@@ -56,7 +56,7 @@ class ChatList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ChatList: state.ChatListData.chatList,
+  ChatList: state.databaseReducer.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
   getChatList: () => dispatch(getChatList())
