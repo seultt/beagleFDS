@@ -41,7 +41,7 @@ class ChatInfo extends Component {
             {this.props.getTheRoom.currentUser.map((user, i) => {
               return (
                 <li>
-                  <span><img src={user.photo} alt="photoo"/></span>
+                  <span><img src={user.profile_photo} alt="photoo"/></span>
                   {user.nickname}
                 </li>
               )
