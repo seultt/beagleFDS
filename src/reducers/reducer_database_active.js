@@ -20,7 +20,6 @@ const databaseReducer = (state = INITIAL_STATE, action = null) => {
       ...state,
     }
   }
-
   return {
     ...state,
   }
