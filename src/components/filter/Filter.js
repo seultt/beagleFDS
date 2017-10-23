@@ -10,6 +10,7 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import './react-virtualized-select_overrides.css';
+import { getChatList } from '../../action/action_getChatList';
 
 
 class Filter extends Component {
@@ -26,17 +27,18 @@ class Filter extends Component {
   }
 
   onSearchHandler = () => {
-    let defaultURI = '/api/chat-list';
+    let defaultURI = '';
     if (this.state.selectedCity) {
-      defaultURI += `?city=${this.state.selectedCity.value}`;
+      defaultURI += `city_id=${this.state.selectedCity.value}`;
     }
     if (this.state.selectedDate) {
-      defaultURI += `&date=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+      defaultURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
     }
     if (this.state.selectedSort) {
-      defaultURI += `&sort=${this.state.selectedSort}`
+      defaultURI += `&sort=${this.state.selectedSort.value}`
       console.log(defaultURI);
     }
+    this.props.getChatList(defaultURI);
     // this.props.getCitiesAction(defaultURI)
   }
 
@@ -92,4 +94,8 @@ const mapStateToProps = (state) => ({
   sort: state.sort,
 })
 
-export default connect(mapStateToProps)(Filter)
+const mapDispatchToProps = (dispatch) => ({
+  getChatList: (filterURI) => dispatch(getChatList(filterURI))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter)
