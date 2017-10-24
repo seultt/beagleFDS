@@ -6,13 +6,13 @@ const INITIAL_DATA = {
     nickname: 'loading....',
     profile_photo: ''
   }],
-  chattingLog: [
-    {
-      user_id: '',
-      nickname: '',
-      photo: '',
-    }
-  ],
+  // chattingLog: [
+  //   {
+  //     user_id: '',
+  //     nickname: '',
+  //     photo: '',
+  //   }
+  // ],
   chattingInfo: {
     id: 0,
     name: '',
@@ -39,15 +39,14 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
       ...state,
       isLoading: false,
       currentUser: action.payload.data[0],
-      chattingLog: action.payload.data[1],
       chattingInfo: {
-        id: action.payload.data[2].id,
-        name: action.payload.data[2].name,
-        description: action.payload.data[2].description,
-        photo: action.payload.data[2].photo,
-        start_at: action.payload.data[2].start_at,
-        city_id: action.payload.data[2].city_id,
-        creator: action.payload.data[2].creator
+        id: action.payload.data[1].id,
+        name: action.payload.data[1].name,
+        description: action.payload.data[1].description,
+        photo: action.payload.data[1].photo,
+        start_at: action.payload.data[1].start_at,
+        city_id: action.payload.data[1].city_id,
+        creator: action.payload.data[1].creator
       }
     } 
   }

@@ -12,24 +12,24 @@ class ChatInfo extends Component {
         <div className="description__travel">
           <div className="description__travel--about">
             <h3>
-              <p><span><img src={this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator).profile_photo}/></span>
+              <p><span><img src={this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator).profile_photo}/></span>
                 {
-                  this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator)
-                    ? this.props.getTheRoom.currentUser.find(user => user.user_id === this.props.getTheRoom.creator).nickname
+                  this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator)
+                    ? this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator).nickname
                     : 'user not found'
                   }
                 </p>
               <a href="/"><img src={like} alt="좋아요 버튼"/></a>
             </h3>
             <div>
-              <p><span><img src={calendar} alt="여행 날짜"/></span>{this.props.getTheRoom.start_at}</p>
-            {this.props.getTheRoom.description}
+              <p><span><img src={calendar} alt="여행 날짜"/></span>{this.props.theRoom.start_at}</p>
+            {this.props.theRoom.description}
             </div>
           </div>
           <div className="description__travel--map">
             <h3>
               <p>
-                <span><img src={point}/></span>{this.props.cities.find(city => city.value === this.props.getTheRoom.city_id).label}</p>
+                <span><img src={point}/></span>{this.props.cities.find(city => city.value === this.props.theRoom.city_id).label}</p>
               <a href="/">+ 자세히 보기</a>
             </h3>
             <div></div>
@@ -38,7 +38,7 @@ class ChatInfo extends Component {
         <div className="info__users">
           <h3>사람</h3>
           <ul>
-            {this.props.getTheRoom.currentUser.map((user, i) => {
+            {this.props.theRoom.currentUser.map((user, i) => {
               return (
                 <li>
                   <span><img src={user.profile_photo} alt="photoo"/></span>
@@ -54,15 +54,15 @@ class ChatInfo extends Component {
 }
 
 const chatInfoToProps = (state) => ({
-  getTheRoom: {
-    currentUser: state.getTheRoom.currentUser,
-    name: state.getTheRoom.chattingInfo.name,
-    id: state.getTheRoom.chattingInfo.id,
-    description: state.getTheRoom.chattingInfo.description,
-    photo: state.getTheRoom.chattingInfo.photo,
-    start_at: state.getTheRoom.chattingInfo.start_at,
-    city_id: state.getTheRoom.chattingInfo.city_id,
-    creator: state.getTheRoom.chattingInfo.creator
+  theRoom: {
+    currentUser: state.theRoom.currentUser,
+    name: state.theRoom.chattingInfo.name,
+    id: state.theRoom.chattingInfo.id,
+    description: state.theRoom.chattingInfo.description,
+    photo: state.theRoom.chattingInfo.photo,
+    start_at: state.theRoom.chattingInfo.start_at,
+    city_id: state.theRoom.chattingInfo.city_id,
+    creator: state.theRoom.chattingInfo.creator
   },
   cities : state.cities
 })

@@ -3,7 +3,7 @@ import ChatLogReducer from './reducer_chatLog_active';
 import ChatLogData from './reducer_chatLog_data'
 import initialCities from './reducer_initial_cities';
 import iniialSort from './reducer_initial_sort';
-import getTheRoom from './reducer_getTheRoom_active';
+import TheRoom from './reducer_TheRoom_active';
 import ChatListData from './reducer_chatList_data';
 import databaseReducer from './reducer_database_active';
 import userData from './reducer_login_active';
@@ -15,7 +15,7 @@ const reducers = combineReducers ({
   cities: initialCities,
   sort: iniialSort,
   databaseReducer,
-  getTheRoom: getTheRoom,
+  theRoom: TheRoom,
   ChatListData,
   userData,
   myRooms
