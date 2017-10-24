@@ -10,20 +10,22 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import './react-virtualized-select_overrides.css';
-import { getChatList } from '../../action/action_getChatList';
+import { getChatList, doQuery } from '../../action/action_getChatList';
 
 
 class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      defaultURI: '',
       selectedCity: '',
       selectedDate: '',
       selectedSort: {
         label: '인기순',
         value: 'like',
       },
-      // per_page: 5,
+      // page: page++,
+      per_page: 5,
       requestSent: false,
     }
   }
@@ -36,13 +38,14 @@ class Filter extends Component {
   }
   
   querySearchResult = () => {
+    let sentQueryString = this.state.defaultURI;
     if (this.state.requestSent) {
       return;
     }
-
+    
     // enumerate a slow query
-    setTimeout(this.props.getChatList, 1000);
-
+    setTimeout(this.props.doQuery('city_id=1&start_at=2016-03-10&sort=latest&per_page=5'), 1000);
+    console.log('스크롤 내려왔나')
     this.setState({requestSent: true});
   }
 
@@ -69,9 +72,6 @@ class Filter extends Component {
       defaultURI += `&sort=${this.state.selectedSort.value}`;
       console.log(defaultURI);
     }
-    // if (this.state.perPage) {
-    //   defaultURI += `&per_page=${this.state.per_page}`;
-    // }
     this.props.getChatList(defaultURI);
   }
 
@@ -130,6 +130,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getChatList: (filterURI) => dispatch(getChatList(filterURI)),
+  doQuery: (infinityScrollURI) => dispatch(doQuery(infinityScrollURI))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

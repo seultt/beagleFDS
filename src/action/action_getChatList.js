@@ -19,7 +19,7 @@ export const getChatList = (filterURI) => {
         (res) => {
           dispatch({
             type: 'GET_CHAT_LIST_SUCCESS',
-            payload: res,
+            payload: res.data,
           })
         }
       )
@@ -37,6 +37,31 @@ export const getChatList = (filterURI) => {
             type: 'GET_CHAT_LIST_FAILED',
             payload: console.log(error),
           }) 
+        }
+      )
+  }
+}
+export const doQuery = (infinityScrollURI) => {
+  return (dispatch) => {
+    axios.get(`${SERVER_ADDRESS}/api/chat-list?${infinityScrollURI}` , {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
+      .then(
+        (res) => {
+          dispatch({
+            type: 'GET_INFINITY_SCROLL_SUCCESS',
+            payload: res,
+          })
+        }
+      )
+      .catch(
+        (error) => {
+          dispatch({
+            type: 'GET_INFINITY_SCROLL_FAILED',
+            payload: console.log(error),
+          })
         }
       )
   }
