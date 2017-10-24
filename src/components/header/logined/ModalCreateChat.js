@@ -7,6 +7,7 @@ import{
 import ReactModal from 'react-modal';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
+import VirtualizedSelect from 'react-virtualized-select';
 
 import {postCreateToDB} from '../../../action/action_createChat'
 
@@ -16,7 +17,7 @@ class ModalCreateChat extends Component {
 
     this.state = {
       date: '',
-      city_id: 0,
+      selectedCity: 0,
       photo: null,
       name: '',
       description: '',
@@ -43,7 +44,7 @@ class ModalCreateChat extends Component {
 
   selectedCity = (e) => {
     this.setState({
-      city_id: e.target.value
+      selectedCity: e.target.value
     })
   }
 
@@ -61,7 +62,7 @@ class ModalCreateChat extends Component {
   closeAndResetValue = () => {
     this.setState({
       date: '',
-      city_id: 0,
+      selectedCity: 0,
       photo: null,
       name: '',
       description: '',
@@ -71,7 +72,7 @@ class ModalCreateChat extends Component {
   }
 
   createPayloadAndPostToDB = () => {
-    if (!this.state.date || !this.state.city_id || !this.state.name || !this.state.description ) {
+    if (!this.state.date || !this.state.selectedCity || !this.state.name || !this.state.description ) {
       return;
     }
     
@@ -79,7 +80,7 @@ class ModalCreateChat extends Component {
 
     this.props.postCreateToDB({
       start_at: start_at,
-      city_id: this.state.city_id,
+      city_id: this.state.selectedCity,
       photo: this.state.photo,
       name: this.state.name,
       description: this.state.description,
@@ -96,15 +97,11 @@ class ModalCreateChat extends Component {
         className="join"
         overlayClassName="join__overlay"
       >
-        <div>
-          <div>
-            <SingleDatePicker
-              date={this.state.date} // momentPropTypes.momentObj or null
-              onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
-              focused={this.state.focused} // PropTypes.bool
-              onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-            />
-            <fieldset className="selectCity">
+        <div className="create-chat">
+          <h2>Create Chat</h2>
+          <div>채팅방 사진첨부</div>
+          <div className="selecboxes">
+            {/* <fieldset className="selectCity">
               {this.props.cities.map(city => {
                 return (
                   <div>
@@ -118,24 +115,44 @@ class ModalCreateChat extends Component {
                   </div>
                 )
               })}
-            </fieldset>
-            <div className="inputRoomInfo">
-              <div>
-                <label>title</label>
-                <input 
-                  type="text"
-                  onChange = {this.inputName} 
-                  value = {this.state.name}
-                />
-              </div>
-              <div>
-                <label>title</label>
-                <input type="text" 
-                  onChange = {this.inputDescript}
-                  value = { this.state.description}
-                />
-              </div>
+            </fieldset> */}
+            <div className="selecBox__where"> 
+            <VirtualizedSelect 
+              placeholder="여행장소"
+              options={this.props.cities}
+              onChange={(selectedCity) => this.setState({ selectedCity })}
+              value={this.state.selectedCity}
+            />
             </div>
+            <div className="selecBox__when">
+            <SingleDatePicker
+              date={this.state.date} // momentPropTypes.momentObj or null
+              onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
+              focused={this.state.focused} // PropTypes.bool
+              onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+            />
+            </div>
+          </div>
+          <div className="inputRoomInfo">
+            <div className="roomInfo_name">
+              <label>title</label>
+              <input 
+                type="text"
+                placeholder="제목"
+                onChange = {this.inputName} 
+                value = {this.state.name}
+              />
+            </div>
+            <div className="roomInfo_content">
+              <label>content</label>
+              <textarea 
+                placeholder="내용"
+                onChange = {this.inputDescript}
+                value = { this.state.description}
+              />
+            </div>
+          </div>
+          <div>
             <button 
               type="button"
               onClick={this.createPayloadAndPostToDB}

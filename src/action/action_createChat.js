@@ -29,7 +29,7 @@ export const getChatRoomFromDB = ({id, user_id}) => {
 
     axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${id}/?user_id=${user_id}`)
     .then(res => {
-      console.log(res)
+      // console.log(res)
 
        dispatch({
         type: 'GET_A_ROOM_SUCCESS',
