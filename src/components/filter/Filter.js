@@ -23,6 +23,37 @@ class Filter extends Component {
         label: '인기순',
         value: 'like',
       },
+      // per_page: 5,
+      requestSent: false,
+    }
+  }
+  componentDidMount = () => {
+    window.addEventListener('scroll', this.handleOnScroll);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('scroll', this.handleOnScroll);
+  }
+  
+  querySearchResult = () => {
+    if (this.state.requestSent) {
+      return;
+    }
+
+    // enumerate a slow query
+    setTimeout(this.props.getChatList, 1000);
+
+    this.setState({requestSent: true});
+  }
+
+  handleOnScroll = () => {
+    var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+    var clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+    if (scrolledToBottom) {
+      this.querySearchResult();
     }
   }
 
@@ -35,11 +66,13 @@ class Filter extends Component {
       defaultURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
     }
     if (this.state.selectedSort) {
-      defaultURI += `&sort=${this.state.selectedSort.value}`
+      defaultURI += `&sort=${this.state.selectedSort.value}`;
       console.log(defaultURI);
     }
+    // if (this.state.perPage) {
+    //   defaultURI += `&per_page=${this.state.per_page}`;
+    // }
     this.props.getChatList(defaultURI);
-    // this.props.getCitiesAction(defaultURI)
   }
 
   render() {
@@ -96,7 +129,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: (filterURI) => dispatch(getChatList(filterURI))
+  getChatList: (filterURI) => dispatch(getChatList(filterURI)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter)
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
