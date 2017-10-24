@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import io from 'socket.io-client';
 import socketIoJWT from 'socketio-jwt';
 
+import {enterTheChat} from '../action/action_chatting'
+
 import ChatRoom from './ChatRoom'
-import ChatInput from './ChatInput'
 import ChatInfo from './ChatInfo'
 import SERVER_ADDRESS from '../config'
 
@@ -21,13 +22,12 @@ class Chat extends Component {
   componentDidMount() {  
     if (!this.props.id) {
        console.log('room-id not found')
-     } else {
-       socket.emit('room', {room: this.props.id});
      }
    }
    
    componentWillReceiveProps(nextProps) {  
-     socket.emit('room', {room: nextProps.id})
+     socket.emit('room', {room: nextProps.id}, data => this.props.enterTheChat(data.logs.reverse()))
+     
    }
 
   render() {
@@ -56,5 +56,13 @@ const mapStateToProps = (state) => ({
   id: state.theRoom.chattingInfo.id,
 })
 
-export default connect(mapStateToProps)(Chat); 
+const mapDispatchToProps = (dispatch) => ({
+  enterTheChat: (logs) => (dispatch(enterTheChat(logs)))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat); 
+
+
+
+
 
