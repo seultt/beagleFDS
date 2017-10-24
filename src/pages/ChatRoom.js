@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {responsivMessage} from '../action/action_chatting'
-import io from 'socket.io-client';
-import socketIoJWT from 'socketio-jwt';
-import SERVER_ADDRESS from '../config'
-
-//  {'query': 'token=' + localStorage.getItem('jwtToken')}
-const socket = io.connect(`${SERVER_ADDRESS}/chat`, {'query': 'token=' + localStorage.jwtToken})
+// import {sendMessageFromDB} from '../action/action_chatting'
 
 class ChatRoom extends Component {
 
@@ -22,21 +16,9 @@ class ChatRoom extends Component {
       }],
     }
 
-
-  }
-
-
-
-  componentDidMount() {  
-    console.log(this.props.id)
-    if (!this.props.id) {
-       console.log('room-id not found')
-     } else {
-       socket.emit('room', {room: this.props.id});
-     }
-         // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
+    // 다른 사용자의 메세지를 받아서 내 페이지에 보여줌 
     // render 후 e 가 발생될 때 마다 실행 
-    socket.on('received chat', data => {
+    this.props.socket.on('received chat', data => {
       console.log('received chat!!')
       console.log(data)
 
@@ -45,28 +27,23 @@ class ChatRoom extends Component {
 
       })
     })
-    // (user connected) 입장시 최근 채팅로그 3개 보여줌
-    socket.on('user connected', data => {
+    // (user connected) 새 사용자가 접속한 사실을 출력
+    this.props.socket.on('user connected', data => {
       // this.setState({
       //   messages: [...this.state.messages, {message: data.message, user_id: data.user_id}]
       // })
-      console.log(data)
+      console.log(`${data.nickname}이 접속하였습니다.`)
     })
 
     // (user disconnected) 사용자의 연결이 끊어졌다는 사실을 출력
-    socket.on('user disconnected', data => {
+    this.props.socket.on('user disconnected', data => {
       // this.setState({
       //   messages: [...this.state.messages, {message: data.message, user_id: data.user_id}]
       // })
       console.log(`${data.nickname}이 나갔습니다.`)
-
     })
-   }
-   
-   componentWillReceiveProps(nextProps) {  
-     console.log(nextProps.id)
-     socket.emit('room', {room: nextProps.id})
-   }
+  }
+
   
   
 
@@ -138,7 +115,7 @@ class ChatRoom extends Component {
       messages: [ ...this.state.messages, {message: this.state.message, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}],
     })
     // 다른 사용자에게 새 메시지를 전달
-    socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
+    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
       // css 변경 
     })
   }
@@ -212,8 +189,8 @@ const mapStateToProps = (state) => ({
   profile_photo: state.theRoom.currentUser.profile_photo,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  responsivMessage: ({message, user_id, id}) => (dispatch(responsivMessage({message, user_id, id})))
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   sendMessageFromDB: ({message, user_id, id}) => (dispatch(sendMessageFromDB({message, user_id, id})))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 
+export default connect(mapStateToProps, null)(ChatRoom); 
