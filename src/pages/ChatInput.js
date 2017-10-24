@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {sendMessageFromDB} from '../action/action_chatting'
+import {responsivMessage} from '../action/action_chatting'
 
 class ChatInput extends Component {
   constructor (props) {
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => ({
   id: state.getTheRoom.chattingInfo.id,
 })
 const mapDispatchToProps = (dispatch) => ({
-  sendMessageFromDB: ({message, token, id}) => (dispatch(sendMessageFromDB({message, token, id})))
+  responsivMessage: ({message, token, id}) => (dispatch(responsivMessage({message, token, id})))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatInput); 
