@@ -5,7 +5,6 @@ const token = localStorage.getItem('jwtToken')
 
 export const getMyRooms = (user_id) => {
   return (dispatch) => {
-    console.log(user_id)
 
     dispatch({
       type: 'PROFILE_ROOMS_REQUEST'
@@ -23,5 +22,40 @@ export const getMyRooms = (user_id) => {
       })
     })
     .catch(e => console.log('failed!!!!', e.message))
+  }
+}
+
+// 궁금증, 스토어를 바꾸지 않는 ajax함수는 어디에 넣어야 하는가? query를 하나 만들어야 하는가?
+export const deleteMyRoom = (user_id, room_id) => {
+  return (dispatch) => {
+    
+    return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
+      Authorization: `Bearer ${token}`
+    })
+    .then(res => {
+      console.log('삭제되어따', res)
+
+      // dispatch({
+      //   type: 'PROFILE_ROOM_DELETE'
+      // })
+    })
+    .catch(e => console.log(e.message))
+  }
+}
+
+export const exitTheRoom = (user_id, room_id) => {
+  return (dispatch) => {
+    
+    return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
+      Authorization: `Bearer ${token}`
+    })
+    .then(res => {
+      console.log('방나옴', res)
+
+      // dispatch({
+      //   type: 'PROFILE_ROOM_DELETE'
+      // })
+    })
+    .catch(e => console.log(e.message))
   }
 }
