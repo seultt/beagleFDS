@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import calendar from '../../images/icon_calendar.svg';
+// 프로필 작성 해야한다.
+import {deleteMyRoom, exitTheRoom} from '../../action/action_profile'
 
 class ProfileChatList extends Component {
   constructor(props) {
@@ -10,25 +12,31 @@ class ProfileChatList extends Component {
     this.exitRoom = this.exitRoom.bind(this)
   }
 
-  deleteRoom() {
+  deleteButton(id) {
     return (
       <div className="profile__chat-list--card--footer--right">
-        <a><img />삭제하기</a>
+        <Link to={`/chat/${id}`}>
+          <a>들어가기</a>
+        </ Link>
+        <a onClick={}>삭제하기</a>
       </div>
     )
   }
 
-  exitRoom() {
+  exitButton(id) {
     return (
       <div className="profile__chat-list--card--footer--right">
-        <a><img />나가기</a>
+        <Link to={`/chat/${id}`}>
+          <a>들어가기</a>
+        </ Link>
+        <a onClick={}>나가기</a>
       </div>
     )
   }
 
   showRooms(room, footer) {
     return (
-      <article className="profile__chat-list--card">
+      <article key={room.id} className="profile__chat-list--card">
         <div className="profile__chat-list--card--header">
           <div className="profile__chat-list--card--header--left">
             <strong>{room.name}</strong>
@@ -62,10 +70,10 @@ class ProfileChatList extends Component {
       <section className="profile__chat-list">
         <div className="profile__chat-list--container">
         {this.props.ownedRooms.map(room => {
-          return this.showRooms(room, this.deleteRoom)
+          return this.showRooms(room, this.deleteButton)
         })}
         {this.props.participatedRooms.map(room => {
-          return this.showRooms(room, this.exitRoom)
+          return this.showRooms(room, this.exitButton)
         })}
         </div>
       </section>
@@ -78,5 +86,9 @@ const mapStateToProps = (state) => ({
   participatedRooms: state.myRooms[1],
   cities: state.cities
 })
+
+// const mapDispatchToProps = (dispatch) => ({
+  
+// })
 
 export default connect(mapStateToProps)(ProfileChatList)
