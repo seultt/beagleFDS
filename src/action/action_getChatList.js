@@ -1,7 +1,7 @@
 import axios from 'axios';
 import SERVER_ADDRESS from '../config'
 
-export const getChatList = (LAST_ID, LAST_LIKE) => {
+export const getChatList = (LAST_ID, LAST_LIKE, FILTER) => {
   return (dispatch) => {
     // getChatList 데이터 요청-로딩부분
     dispatch({
@@ -9,7 +9,9 @@ export const getChatList = (LAST_ID, LAST_LIKE) => {
     })
     
     // 데이터 가져오는 부분
-    axios.get(`${SERVER_ADDRESS}/api/chat-list?${LAST_ID}${LAST_LIKE}`, {
+    axios.get(
+      `${SERVER_ADDRESS}/api/chat-list?lastId=${LAST_ID}&lastLike=${LAST_LIKE}${FILTER}`
+      , {
       // CORS 문제 해결하려면 아래 header를 넣어줘야한다.
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -17,6 +19,7 @@ export const getChatList = (LAST_ID, LAST_LIKE) => {
     })
       .then(
         (res) => {
+          console.log(`${SERVER_ADDRESS}/api/chat-list?lastId=${LAST_ID}&lastLike=${LAST_LIKE}${FILTER}`)
           dispatch({
             type: 'GET_CHAT_LIST_SUCCESS',
             payload: res.data,
