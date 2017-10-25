@@ -101,7 +101,7 @@ class ModalCreateChat extends Component {
           <h2>Create Chat</h2>
           <div>채팅방 사진첨부</div>
           <div className="selecboxes">
-            <fieldset className="selectCity">
+            {/* <fieldset className="selectCity">
               {this.props.cities.map(city => {
                 return (
                   <div>
@@ -115,14 +115,14 @@ class ModalCreateChat extends Component {
                   </div>
                 )
               })}
-            </fieldset>
+            </fieldset> */}
             <div className="selecBox__where"> 
-            {/* <VirtualizedSelect 
+            <VirtualizedSelect 
               placeholder="여행장소"
               options={this.props.cities}
               onChange={(selectedCity) => this.setState({ selectedCity })}
               value={this.state.selectedCity}
-            /> */}
+            />
             </div>
             <div className="selecBox__when">
             <SingleDatePicker
