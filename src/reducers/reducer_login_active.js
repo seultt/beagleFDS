@@ -1,6 +1,7 @@
 const DEFAULT_STATE = {
   isLogin: false, // 로그인 여부
   currentUser: {
+    id: 0,
     nickname: '',// user.nickname,
     like: 0,// user.like
     photo: '',// user.profile_photo,
@@ -23,6 +24,7 @@ const authReducer = (
     return {
       ...state,
       currentUser: {
+        id: action.payload.id,
         nickname: action.payload.nickname,
         like: action.payload.like,
         photo: action.payload.photo,
