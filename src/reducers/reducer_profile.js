@@ -7,9 +7,13 @@ const myRooms = (state = INITIAL_STATE, action) => {
       break
 
     case 'PROFILE_ROOMS_SUCCESS':
-      return [
-        ...action.payload
-      ]
+      return action.payload
+
+    // case 'DELETE_REQUEST_REJECTED':
+    //   return action.payload
+
+    case 'PROFILE_ROOM_DELETE':
+      return action.payload
 
     default:
       return state
