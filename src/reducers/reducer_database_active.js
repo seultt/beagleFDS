@@ -20,17 +20,6 @@ const databaseReducer = (state = INITIAL_STATE, action = null) => {
       ...state,
     }
   }
-  if (action.type === 'GET_INFINITY_SCROLL_SUCCESS') {
-    return {
-      ...state,
-      chatList: [...action.payload.data]
-    }
-  }
-  if (action.type === 'GET_INFINITY_SCROLL_FAILED') {
-    return {
-      ...state,
-    }
-  }
   return {
     ...state,
   }

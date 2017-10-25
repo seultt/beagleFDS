@@ -10,22 +10,21 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import './react-virtualized-select_overrides.css';
-import { getChatList, doQuery } from '../../action/action_getChatList';
+import { getChatList } from '../../action/action_getChatList';
 
 
 class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultURI: '',
+      queryStringURI: '',
       selectedCity: '',
       selectedDate: '',
       selectedSort: {
-        label: '인기순',
-        value: 'like',
+        label: '최신순',
+        value: 'latest',
       },
-      // page: page++,
-      per_page: 5,
+      per_page: 0,
       requestSent: false,
     }
   }
@@ -38,13 +37,16 @@ class Filter extends Component {
   }
   
   querySearchResult = () => {
-    let sentQueryString = this.state.defaultURI;
+    // this.makeURI();
+    // let queryStringURI = this.state.queryStringURI;
+    let per_page = `per_page=${this.state.per_page+=6}`;
+    // console.log(queryStringURI);
+    console.log(per_page);
     if (this.state.requestSent) {
       return;
     }
     
-    // enumerate a slow query
-    setTimeout(this.props.doQuery('city_id=1&start_at=2016-03-10&sort=latest&per_page=5'), 1000);
+    setTimeout(this.props.getChatList(per_page), 1000);
     console.log('스크롤 내려왔나')
     this.setState({requestSent: true});
   }
@@ -60,19 +62,27 @@ class Filter extends Component {
     }
   }
 
-  onSearchHandler = () => {
-    let defaultURI = '';
+  makeURI = () => {
+    let queryStringURI = '';
     if (this.state.selectedCity) {
-      defaultURI += `city_id=${this.state.selectedCity.value}`;
+      queryStringURI += `city_id=${this.state.selectedCity.value}`;
     }
     if (this.state.selectedDate) {
-      defaultURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+      queryStringURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
     }
     if (this.state.selectedSort) {
-      defaultURI += `&sort=${this.state.selectedSort.value}`;
-      console.log(defaultURI);
+      queryStringURI += `&sort=${this.state.selectedSort.value}`;
     }
-    this.props.getChatList(defaultURI);
+    queryStringURI += `&startIndex=${this.state.startIndex}`
+    console.log(queryStringURI);
+    this.setState({
+      queryStringURI
+    })
+  }
+
+  onSearchHandler = () => {
+    this.makeURI();
+    this.props.getChatList(this.state.queryStringURI);
   }
 
   render() {
@@ -130,7 +140,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getChatList: (filterURI) => dispatch(getChatList(filterURI)),
-  doQuery: (infinityScrollURI) => dispatch(doQuery(infinityScrollURI))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
