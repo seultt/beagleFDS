@@ -15,3 +15,17 @@ export const createdTheLog = (log) => {
     payload: log
   }
 }
+
+export const resetTheReducerLogs = () => {
+  console.log()
+  return {
+    type: 'RESET_THE_LOGS'
+  }
+}
+
+export const enterTheNewUser = (user) => {
+  return {
+    type:'ENTER_THE_NEW_USER',
+    payload: user
+  }
+}

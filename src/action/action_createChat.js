@@ -15,7 +15,7 @@ export const postCreateToDB = (create, callback) => {
         payload: res
       })
 
-      callback(res.data[2].id)
+      callback(res.data[1].id)
     })
   }
 }

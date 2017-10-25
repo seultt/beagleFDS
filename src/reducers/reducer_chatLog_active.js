@@ -25,6 +25,12 @@ const chatLogReducer = (
       chattingLog: [...state.chattingLog, action.payload,]
     }
   }
+  if (action.type === 'RESET_THE_LOGS') {
+    return {
+      ...state,
+      chattingLog: [],
+    }
+  }
   
   return {
     ...state,

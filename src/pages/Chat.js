@@ -3,22 +3,21 @@ import {connect} from 'react-redux';
 import io from 'socket.io-client';
 import socketIoJWT from 'socketio-jwt';
 
-import {enterTheChat} from '../action/action_chatting'
+import {enterTheChat, resetTheReducerLogs} from '../action/action_chatting'
 
 import ChatRoom from './ChatRoom'
+import ChatSearch from './ChaSearch'
 import ChatInfo from './ChatInfo'
 import SERVER_ADDRESS from '../config'
 
-import message from '../images/icon_message.svg';
-import profile from '../images/icon_profile.svg';
-import arrow from '../images/icon_arrow_down.svg';
-import search from '../images/icon_search.svg';
 
 //  {'query': 'token=' + localStorage.getItem('jwtToken')}
-const socket = io.connect(`${SERVER_ADDRESS}/chat`, {'query': 'token=' + localStorage.jwtToken})
 
 class Chat extends Component {
-
+  constructor() {
+    super()
+    this.socket = io.connect(`${SERVER_ADDRESS}/chat`, {'query': 'token=' + localStorage.jwtToken})
+  }
   componentDidMount() {  
     if (!this.props.id) {
        console.log('room-id not found')
@@ -26,8 +25,14 @@ class Chat extends Component {
    }
    
    componentWillReceiveProps(nextProps) {  
-     socket.emit('room', {room: nextProps.id}, data => this.props.enterTheChat(data.logs.reverse()))
+     console.log('확인해봅시다')
+     this.props.resetTheReducerLogs()
+     this.socket.emit('room', {room: nextProps.id}, data => this.props.enterTheChat(data.logs.reverse()))
      
+   }
+
+   componentWillUnMount() {
+    this.socket.disconnect()
    }
 
   render() {
@@ -35,15 +40,11 @@ class Chat extends Component {
       <main className="chat-main">
         <div className="__container">
             {/* 채팅 대화창 */}
-            <ChatRoom socket={socket}/>
+            <ChatRoom socket={this.socket}/>
           {/* 채팅 정보창 */}
           <section className="info">
             {/*  대화 검색 */}
-            <div className="info__search">
-              <input type="text" />
-              <button><img src={search} alt="검색" /></button>
-              {/* <button onClick={() => this.props.history.push("/")}>홈으로 가기</button> */}
-              </div>
+            <ChatSearch />
             <ChatInfo />
           </section>
         </div>
@@ -57,7 +58,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  enterTheChat: (logs) => (dispatch(enterTheChat(logs)))
+  enterTheChat: (logs) => (dispatch(enterTheChat(logs))),
+  resetTheReducerLogs: () => (dispatch(resetTheReducerLogs()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat); 

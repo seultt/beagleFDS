@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import Highlighter from './Highlighter'
 
 import {createdTheLog, enterTheChat} from '../action/action_chatting'
 
@@ -23,6 +24,13 @@ class ChatRoom extends Component {
       this.props.createdTheLog(data)
     })
 
+    this.props.socket.on('user connected', data => {
+      console.log(`${data.nickname} 님이 들어오셨습니다..`)
+    })
+    this.props.socket.on('user disconnected', data => {
+      console.log(`${data.nickname} 님이 나갔습니다.`)
+    })
+
     // scroll Event 발생
     const target = document.querySelector('div.chatting__contents')
     target.addEventListener('scroll', this.handleOnScroll);
@@ -36,6 +44,7 @@ class ChatRoom extends Component {
       setTimeout(target.scrollTop = target.scrollHeight - (target.scrollHeight-700), 2000)      
     }
   }
+
 
   // 타겟의 scroll 위치 값 계산해주는 함수
   getDistFromBottom = () => {
@@ -155,6 +164,7 @@ class ChatRoom extends Component {
             if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at, id})
             } else {
+              console.log(i)
               return this.showYourMSG({message, created_at, user_id, id})
             }
           })}
@@ -205,7 +215,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createdTheLog: (log) => (dispatch(createdTheLog(log))),
-  enterTheChat: (logs) => (dispatch(enterTheChat(logs)))
+  enterTheChat: (logs) => (dispatch(enterTheChat(logs))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 
