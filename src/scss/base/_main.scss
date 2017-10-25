@@ -173,10 +173,17 @@
             font-size: 25px;
             color: #484848;
           }
+          .main__chat-list__card--content--name {
+            display: flex;
+            justify-content: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: #484848;
+          }
           span {
             font-size: 15px;
           }
-          p {
+          .main__chat-list__card--content--description {
             width: 284px;
             height: 126px;
             margin-top: 20px;

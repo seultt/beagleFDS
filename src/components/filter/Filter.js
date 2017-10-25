@@ -24,10 +24,11 @@ class Filter extends Component {
         label: '최신순',
         value: 'latest',
       },
-      per_page: 0,
+      add_list: 0,
       requestSent: false,
     }
   }
+
   componentDidMount = () => {
     window.addEventListener('scroll', this.handleOnScroll);
   }
@@ -37,16 +38,13 @@ class Filter extends Component {
   }
   
   querySearchResult = () => {
-    // this.makeURI();
-    // let queryStringURI = this.state.queryStringURI;
-    let per_page = `per_page=${this.state.per_page+=6}`;
-    // console.log(queryStringURI);
-    console.log(per_page);
+    let add_list = `per_page=${this.state.add_list+=6}`;
+    console.log(add_list);
     if (this.state.requestSent) {
       return;
     }
     
-    setTimeout(this.props.getChatList(per_page), 1000);
+    setTimeout(this.props.getChatList(add_list), 1000);
     console.log('스크롤 내려왔나')
     this.setState({requestSent: true});
   }
@@ -62,23 +60,23 @@ class Filter extends Component {
     }
   }
 
-  makeURI = () => {
-    let queryStringURI = '';
-    if (this.state.selectedCity) {
-      queryStringURI += `city_id=${this.state.selectedCity.value}`;
-    }
-    if (this.state.selectedDate) {
-      queryStringURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
-    }
-    if (this.state.selectedSort) {
-      queryStringURI += `&sort=${this.state.selectedSort.value}`;
-    }
-    queryStringURI += `&startIndex=${this.state.startIndex}`
-    console.log(queryStringURI);
-    this.setState({
-      queryStringURI
-    })
-  }
+  // makeURI = () => {
+  //   let queryStringURI = '';
+  //   if (this.state.selectedCity) {
+  //     queryStringURI += `city_id=${this.state.selectedCity.value}`;
+  //   }
+  //   if (this.state.selectedDate) {
+  //     queryStringURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+  //   }
+  //   if (this.state.selectedSort) {
+  //     queryStringURI += `&sort=${this.state.selectedSort.value}`;
+  //   }
+  //   queryStringURI += `&startIndex=${this.state.startIndex}`
+  //   console.log(queryStringURI);
+  //   this.setState({
+  //     queryStringURI
+  //   })
+  // }
 
   onSearchHandler = () => {
     this.makeURI();
@@ -139,7 +137,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: (filterURI) => dispatch(getChatList(filterURI)),
+  getChatList: (URI) => dispatch(getChatList(URI)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
