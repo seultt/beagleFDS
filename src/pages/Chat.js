@@ -27,7 +27,7 @@ class Chat extends Component {
    componentWillReceiveProps(nextProps) {  
      console.log('확인해봅시다')
      this.props.resetTheReducerLogs()
-     this.socket.emit('room', {room: nextProps.id}, data => this.props.enterTheChat(data.logs.reverse()))
+     this.socket.emit('room', {room: nextProps.id}, data => {this.props.enterTheChat(data.logs.reverse())})
      
    }
 
@@ -45,7 +45,7 @@ class Chat extends Component {
           <section className="info">
             {/*  대화 검색 */}
             <ChatSearch />
-            <ChatInfo />
+            <ChatInfo socket={this.socket} />
           </section>
         </div>
       </main>

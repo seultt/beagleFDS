@@ -5,7 +5,19 @@ import like from '../images/icon_like.svg';
 import point from '../images/icon_point.svg';
 import calendar from '../images/icon_calendar.svg';
 
+import {enterTheNewUser} from '../action/action_chatting'
+
 class ChatInfo extends Component {
+
+  componentDidMount () {
+    this.props.socket.on('user connected', data => {
+      const isUser = this.props.theRoom.currentUser.find(user => user.user_id === data.user_id)
+      if(!isUser) {
+        this.props.enterTheNewUser(data)
+      }
+    })
+  }
+
   render () {
     return (
       <div className="info__description">
@@ -67,4 +79,8 @@ const chatInfoToProps = (state) => ({
   cities : state.cities
 })
 
-export default connect(chatInfoToProps)(ChatInfo)
+const mapDispatchToProps = (dispatch) => ({
+  enterTheNewUser: (user)=> (dispatch(enterTheNewUser(user)))
+})
+
+export default connect(chatInfoToProps, mapDispatchToProps)(ChatInfo)
