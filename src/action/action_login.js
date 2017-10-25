@@ -19,7 +19,7 @@ export const updateUserInfo = (token) => {
           dispatch({
             type: 'LOGIN_USER_SUCCESS',
             payload: {
-              id: res.data.id,
+              nickname: res.data.nickname,
               like: res.data.like,
               photo: res.data.photo,
             }

@@ -10,12 +10,11 @@ class ChatList extends Component {
     this.props.getChatList();
   }
   render() {
-    console.log(this.props.ChatList);
     return (
       <section className="main__chat-list">
         <div className="main__chat-list__container">
           {/* main__chat-list__card */}
-          {this.props.ChatList.map( (list) => {
+          {this.props.chatList.map( (list) => {
             return(
               <article className="main__chat-list__card" key={list.id}>
                 <div className="main__chat-list__card--header">
@@ -35,7 +34,8 @@ class ChatList extends Component {
                   <div className="main__chat-list__card--content--text">
                     <strong>{list.city_name}</strong>
                     <span>{list.start_at.slice(0,4)}년 {list.start_at.slice(5,7)}월 {list.start_at.slice(8,10)}일</span>
-                    <p>{list.description}</p>
+                    <p className="main__chat-list__card--content--name">{list.name}</p>
+                    <p className="main__chat-list__card--content--description">{list.description}</p>
                   </div>
                   <Link to={`/chat/${list.chatId}`}>
                     <div className="main__chat-list__card--content--btn">
@@ -56,7 +56,8 @@ class ChatList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ChatList: state.databaseReducer.chatList,
+  chatList: state.databaseReducer.chatList,
+  // chatList: state.ChatListData.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
   getChatList: () => dispatch(getChatList())
