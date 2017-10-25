@@ -15,3 +15,10 @@ export const createdTheLog = (log) => {
     payload: log
   }
 }
+
+export const resetTheReducerLogs = () => {
+  console.log()
+  return {
+    type: 'RESET_THE_LOGS'
+  }
+}
