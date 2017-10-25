@@ -13,7 +13,6 @@ export const getMyRooms = (user_id) => {
     axios.get(`${SERVER_ADDRESS}/api/profile?id=${user_id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Access-Control-Allow-Origin': `${SERVER_ADDRESS}`,
       }
     })
     .then(res => {
@@ -48,23 +47,24 @@ export const getMyRooms = (user_id) => {
 export const exitTheRoom = (user_id, room_id) => {
   return (dispatch, getState) => {
     
-    return axios.delete(`${SERVER_ADDRESS}/api/profile?id=${user_id}&roomId=${room_id}`, {
+    return axios.delete(`${SERVER_ADDRESS}/api/profile/delete?user_id=${user_id}&id=${room_id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Access-Control-Allow-Origin': `${SERVER_ADDRESS}`,
       }
     })
     .then(res => {
       // res에는 룸 넘버
       console.log('방나오기 성공', res)
 
-      const roomList = getState()
+      const roomList = getState().myRooms
+      console.log('겟스테이트', roomList)
       const newRoomList = roomList.map(rooms => {
         // room의 id와 res의 id가 다른 값만 반환 
         return rooms.filter(room => {
-          return room.id !== res.id
+          return room.id !== res.data.id
         })
       })
+      console.log('뉴룸리스트', newRoomList)
     
       dispatch({
         type: 'PROFILE_ROOM_DELETE',
