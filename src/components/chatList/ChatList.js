@@ -14,7 +14,7 @@ class ChatList extends Component {
       <section className="main__chat-list">
         <div className="main__chat-list__container">
           {/* main__chat-list__card */}
-          {this.props.ChatList.map( (list) => {
+          {this.props.chatList.map( (list) => {
             return(
               <article className="main__chat-list__card" key={list.id}>
                 <div className="main__chat-list__card--header">
@@ -56,7 +56,8 @@ class ChatList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ChatList: state.databaseReducer.chatList,
+  chatList: state.databaseReducer.chatList,
+  // chatList: state.ChatListData.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
   getChatList: () => dispatch(getChatList())
