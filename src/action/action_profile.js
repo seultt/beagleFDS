@@ -10,8 +10,11 @@ export const getMyRooms = (user_id) => {
       type: 'PROFILE_ROOMS_REQUEST'
     })
 
-    axios.get(`${SERVER_ADDRESS}/profile?id=${user_id}`, {
-      Authorization: `Bearer ${token}`
+    axios.get(`${SERVER_ADDRESS}/api/profile?id=${user_id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': `${SERVER_ADDRESS}`,
+      }
     })
     .then(res => {
       console.log('요청왔어여', res.data[1])
@@ -25,37 +28,56 @@ export const getMyRooms = (user_id) => {
   }
 }
 
-// 궁금증, 스토어를 바꾸지 않는 ajax함수는 어디에 넣어야 하는가? query를 하나 만들어야 하는가?
-export const deleteMyRoom = (user_id, room_id) => {
-  return (dispatch) => {
+// export const deleteMyRoom = (user_id, room_id) => {
+//   return (dispatch) => {
     
-    return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
-      Authorization: `Bearer ${token}`
-    })
-    .then(res => {
-      console.log('삭제되어따', res)
+//     return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
+//       Authorization: `Bearer ${token}`
+//     })
+//     .then(res => {
+//       console.log('삭제되어따', res)
 
-      // dispatch({
-      //   type: 'PROFILE_ROOM_DELETE'
-      // })
-    })
-    .catch(e => console.log(e.message))
-  }
-}
+//       // dispatch({
+//       //   type: 'PROFILE_ROOM_DELETE'
+//       // })
+//     })
+//     .catch(e => console.log(e.message))
+//   }
+// }
 
 export const exitTheRoom = (user_id, room_id) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     
-    return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
-      Authorization: `Bearer ${token}`
+    return axios.delete(`${SERVER_ADDRESS}/api/profile?id=${user_id}&roomId=${room_id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': `${SERVER_ADDRESS}`,
+      }
     })
     .then(res => {
-      console.log('방나옴', res)
+      // res에는 룸 넘버
+      console.log('방나오기 성공', res)
+
+      const roomList = getState()
+      const newRoomList = roomList.map(rooms => {
+        // room의 id와 res의 id가 다른 값만 반환 
+        return rooms.filter(room => {
+          return room.id !== res.id
+        })
+      })
+    
+      dispatch({
+        type: 'PROFILE_ROOM_DELETE',
+        payload: newRoomList
+      })
+    })
+    .catch(e => {
+      console.log(e.message)
 
       // dispatch({
-      //   type: 'PROFILE_ROOM_DELETE'
+      //   type: 'DELETE_REQUEST_REJECTED',
+      //   payload: roomList
       // })
     })
-    .catch(e => console.log(e.message))
   }
 }
