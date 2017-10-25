@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getChatList } from '../../action/action_getChatList';
+import { getChatRoomFromDB } from '../../action/action_createChat';
 import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
 
@@ -37,9 +38,11 @@ class ChatList extends Component {
                     <p className="main__chat-list__card--content--name">{list.name}</p>
                     <p className="main__chat-list__card--content--description">{list.description}</p>
                   </div>
-                  <Link to={`/chat/${list.chatId}`}>
+                  <Link to={`/chat/${list.id}`}>
                     <div className="main__chat-list__card--content--btn">
-                      <a><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                      <a
+                        onClick={() =>{this.props.getChatRoomFromDB({id: list.id, user_id: this.props.user_id})}}
+                      ><img src={travel} alt="대화버튼" />함께 여행하기</a>
                     </div>
                   </Link>
                   <p>{list.current_users} / 5명</p>
@@ -57,9 +60,11 @@ class ChatList extends Component {
 
 const mapStateToProps = (state) => ({
   chatList: state.databaseReducer.chatList,
+  user_id: state.userData.currentUser.id,
   // chatList: state.ChatListData.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: () => dispatch(getChatList())
+  getChatList: () => dispatch(getChatList()),
+  getChatRoomFromDB: ({id, user_id}) => dispatch(getChatRoomFromDB({id, user_id}))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList)
