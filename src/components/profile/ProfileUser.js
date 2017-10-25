@@ -14,7 +14,7 @@ class ProfileUser extends Component {
                 <img src={this.props.currentUser.photo} alt="사용자 이미지" />
               </li>
               <li className="profile__user--info__name">
-                <strong>{this.props.currentUser.id}</strong>
+                <strong>{this.props.currentUser.nickname}</strong>
               </li>
               <li className="profile__user--info__like">
                 <img src={like} alt="좋아요" />
@@ -29,7 +29,6 @@ class ProfileUser extends Component {
           <article className="profile__user--tab">
             <ul>
               <li className="profile_user--tab--on"><a>참여한 대화방</a></li>
-              <li><a>개설한 대화방</a></li>
             </ul>
           </article>
         </div>
