@@ -10,7 +10,6 @@ class ChatList extends Component {
     this.props.getChatList();
   }
   render() {
-    console.log(this.props.ChatList);
     return (
       <section className="main__chat-list">
         <div className="main__chat-list__container">
