@@ -17,7 +17,7 @@ class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      queryStringURI: '',
+      filterURI: '',
       selectedCity: '',
       selectedDate: '',
       selectedSort: {
@@ -40,15 +40,13 @@ class Filter extends Component {
   // 스크롤이 마지막에 왔을 때 쿼리 스트링 보내는 함수
   querySearchResult = () => {
     // 마지막 대화방의 id와 like를 파라미터로 넘겨준다.
-    let lastId = `per_page=${this.props.chatList[this.props.chatList.length - 1].id}`;
-    let lastLike = `&lastLike=${this.props.chatList[this.props.chatList.length - 1].like}`;
-    console.log(lastId);
-    console.log(lastLike);
+    let lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
+    let lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
     this.setState({
       lastId,
       lastLike,
-    })
-    setTimeout(this.props.getChatList(lastId), 1000);
+    });
+    setTimeout(this.props.getChatList(lastId, lastLike, ''), 1000);
   }
 
   // 스크롤이 마지막 왔을 때 이벤트
@@ -65,26 +63,27 @@ class Filter extends Component {
 
   // 필터링 쿼리 스트링 만들기
   makeFilterURI = () => {
-    let queryStringURI = '';
+    let filterURI = '';
     if (this.state.selectedCity) {
-      queryStringURI += `city_id=${this.state.selectedCity.value}`;
+      filterURI += `&city_id=${this.state.selectedCity.value}`;
     }
     if (this.state.selectedDate) {
-      queryStringURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+      filterURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
     }
     if (this.state.selectedSort) {
-      queryStringURI += `&sort=${this.state.selectedSort.value}`;
+      filterURI += `&sort=${this.state.selectedSort.value}`;
     }
-    console.log(queryStringURI);
+    console.log(filterURI);
     this.setState({
-      queryStringURI
+      filterURI
     })
   }
 
   // 검색버튼 핸들러
   onSearchHandler = () => {
     this.makeFilterURI();
-    this.props.getChatList(this.state.queryStringURI);
+    console.log(this.state.filterURI)
+    this.props.getChatList('', '', this.state.filterURI);
   }
 
   render() {
@@ -143,7 +142,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: (URI) => dispatch(getChatList(URI)),
+  getChatList: (LAST_ID, LAST_LIKE, FILTER) => dispatch(getChatList(LAST_ID, LAST_LIKE, FILTER)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
