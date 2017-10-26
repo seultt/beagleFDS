@@ -15,7 +15,7 @@ export const updateUserInfo = (token) => {
     })
       .then( 
         (res) => {
-          console.log(res);
+          // console.log(res);
           dispatch({
             type: 'LOGIN_USER_SUCCESS',
             payload: {

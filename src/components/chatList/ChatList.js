@@ -7,9 +7,6 @@ import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
 
 class ChatList extends Component {
-  componentWillMount = () => {
-    this.props.getChatList();
-  }
   render() {
     return (
       <section className="main__chat-list">
@@ -64,7 +61,6 @@ const mapStateToProps = (state) => ({
   // chatList: state.ChatListData.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: () => dispatch(getChatList()),
   getChatRoomFromDB: ({id, user_id}) => dispatch(getChatRoomFromDB({id, user_id}))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

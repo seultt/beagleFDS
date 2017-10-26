@@ -72,7 +72,7 @@ class ModalCreateChat extends Component {
   }
 
   createPayloadAndPostToDB = () => {
-    if (!this.state.date || !this.state.selectedCity || !this.state.name || !this.state.description ) {
+    if (!this.state.date || !this.state.selectedCity.value || !this.state.name || !this.state.description ) {
       return;
     }
     
@@ -80,7 +80,7 @@ class ModalCreateChat extends Component {
 
     this.props.postCreateToDB({
       start_at: start_at,
-      city_id: this.state.selectedCity,
+      city_id: this.state.selectedCity.value,
       photo: this.state.photo,
       name: this.state.name,
       description: this.state.description,
