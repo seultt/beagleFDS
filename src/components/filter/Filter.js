@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import sortBy from 'lodash/sortBy';
+import isEmpty from 'lodash/isEmpty';
 import arrow from '../../images/icon_arrow_down.svg';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-dates/initialize';
@@ -40,8 +40,19 @@ class Filter extends Component {
   // 스크롤이 마지막에 왔을 때 쿼리 스트링 보내는 함수
   querySearchResult = () => {
     // 마지막 대화방의 id와 like를 파라미터로 넘겨준다.
-    let lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
-    let lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
+    let lastId = 0;
+    let lastLike = 0;
+
+    if(!isEmpty(this.props.chatList)) {
+      console.log(this.props.chatList)
+      // startndex를 따로 안쓰고 이런식으로 하려고 하시는거죠?
+      // 이 부분만 보면 문제 없어보이는s
+
+      lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
+      lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
+    }
+    // 위에 this.props.chatList[this.props.chatList.length - 1].id 이 함수가 리스트가 업성서 못가져온다 undefined 되서 화면을 못그려줬거든요z
+    
     this.setState({
       lastId,
       lastLike,
@@ -82,8 +93,8 @@ class Filter extends Component {
   // 검색버튼 핸들러
   onSearchHandler = () => {
     this.makeFilterURI();
-    console.log(this.state.filterURI)
-    this.props.getChatList('', '', this.state.filterURI);
+    let filterURI = this.state.filterURI;
+    this.props.getChatList('', '', filterURI);
   }
 
   render() {
