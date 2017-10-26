@@ -10,9 +10,11 @@ const databaseReducer = (state = INITIAL_STATE, action = null) => {
    }
   }
   if (action.type === 'GET_CHAT_LIST_SUCCESS') {
+    console.log(action.payload)
     return {
       ...state,
-      chatList: [...action.payload]
+      // chatList: [...this.state.chatList, ...action.payload],
+      chatList: [...action.payload],
     }
   }
   if (action.type === 'GET_CHAT_LIST_FAILED') {

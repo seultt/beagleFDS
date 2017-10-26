@@ -50,6 +50,14 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
       }
     } 
   }
+  if (action.type === 'ENTER_THE_NEW_USER')  {
+     
+    return {
+      ...state,
+      isLoading: false,
+      currentUser: [...state.currentUser, action.payload],
+    } 
+  }
   return {
     ...state,
   }

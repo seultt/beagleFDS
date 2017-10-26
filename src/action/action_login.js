@@ -20,6 +20,7 @@ export const updateUserInfo = (token) => {
             type: 'LOGIN_USER_SUCCESS',
             payload: {
               id: res.data.id,
+              nickname: res.data.nickname,
               like: res.data.like,
               photo: res.data.photo,
             }

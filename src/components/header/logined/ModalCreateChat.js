@@ -17,7 +17,7 @@ class ModalCreateChat extends Component {
 
     this.state = {
       date: '',
-      selectedCity: 0,
+      selectedCity: '',
       photo: null,
       name: '',
       description: '',

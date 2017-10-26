@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import sortBy from 'lodash/sortBy';
+// import sortBy from 'lodash/sortBy';
 import arrow from '../../images/icon_arrow_down.svg';
 import VirtualizedSelect from 'react-virtualized-select';
 import 'react-dates/initialize';
@@ -17,15 +17,15 @@ class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      queryStringURI: '',
+      filterURI: '',
       selectedCity: '',
       selectedDate: '',
       selectedSort: {
         label: '최신순',
         value: 'latest',
       },
-      add_list: 0,
-      requestSent: false,
+      lastId: 0,
+      lastLike: 0,
     }
   }
 
@@ -37,18 +37,19 @@ class Filter extends Component {
     window.removeEventListener('scroll', this.handleOnScroll);
   }
   
+  // 스크롤이 마지막에 왔을 때 쿼리 스트링 보내는 함수
   querySearchResult = () => {
-    let add_list = `per_page=${this.state.add_list+=6}`;
-    console.log(add_list);
-    if (this.state.requestSent) {
-      return;
-    }
-    
-    setTimeout(this.props.getChatList(add_list), 1000);
-    console.log('스크롤 내려왔나')
-    this.setState({requestSent: true});
+    // 마지막 대화방의 id와 like를 파라미터로 넘겨준다.
+    let lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
+    let lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
+    this.setState({
+      lastId,
+      lastLike,
+    });
+    setTimeout(this.props.getChatList(lastId, lastLike, ''), 1000);
   }
 
+  // 스크롤이 마지막 왔을 때 이벤트
   handleOnScroll = () => {
     var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
@@ -60,27 +61,29 @@ class Filter extends Component {
     }
   }
 
-  // makeURI = () => {
-  //   let queryStringURI = '';
-  //   if (this.state.selectedCity) {
-  //     queryStringURI += `city_id=${this.state.selectedCity.value}`;
-  //   }
-  //   if (this.state.selectedDate) {
-  //     queryStringURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
-  //   }
-  //   if (this.state.selectedSort) {
-  //     queryStringURI += `&sort=${this.state.selectedSort.value}`;
-  //   }
-  //   queryStringURI += `&startIndex=${this.state.startIndex}`
-  //   console.log(queryStringURI);
-  //   this.setState({
-  //     queryStringURI
-  //   })
-  // }
+  // 필터링 쿼리 스트링 만들기
+  makeFilterURI = () => {
+    let filterURI = '';
+    if (this.state.selectedCity) {
+      filterURI += `&city_id=${this.state.selectedCity.value}`;
+    }
+    if (this.state.selectedDate) {
+      filterURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
+    }
+    if (this.state.selectedSort) {
+      filterURI += `&sort=${this.state.selectedSort.value}`;
+    }
+    console.log(filterURI);
+    this.setState({
+      filterURI
+    })
+  }
 
+  // 검색버튼 핸들러
   onSearchHandler = () => {
-    this.makeURI();
-    this.props.getChatList(this.state.queryStringURI);
+    this.makeFilterURI();
+    console.log(this.state.filterURI)
+    this.props.getChatList('', '', this.state.filterURI);
   }
 
   render() {
@@ -134,10 +137,12 @@ class Filter extends Component {
 const mapStateToProps = (state) => ({
   cities: state.cities,
   sort: state.sort,
+  chatList: state.databaseReducer.chatList,
+  // chatList: state.ChatListData.chatList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatList: (URI) => dispatch(getChatList(URI)),
+  getChatList: (LAST_ID, LAST_LIKE, FILTER) => dispatch(getChatList(LAST_ID, LAST_LIKE, FILTER)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

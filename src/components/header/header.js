@@ -65,6 +65,7 @@ class Header extends Component {
     const SNS_NAME = e.target.value;
     window.addEventListener('message', this.tokenHandler);
     const popupWindow = window.open(`${SERVER_ADDRESS}/auth/${SNS_NAME}`);
+    console.log('들어왔냐!!');
     this.setState({
       popupWindow,
       showModal: false,

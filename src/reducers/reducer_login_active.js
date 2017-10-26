@@ -1,7 +1,8 @@
 const DEFAULT_STATE = {
   isLogin: false, // 로그인 여부
   currentUser: {
-    id: 0,// user.id,
+    id: 0,
+    nickname: '',// user.nickname,
     like: 0,// user.like
     photo: '',// user.profile_photo,
   }, // 로그인한 유저의 정보
@@ -24,6 +25,7 @@ const authReducer = (
       ...state,
       currentUser: {
         id: action.payload.id,
+        nickname: action.payload.nickname,
         like: action.payload.like,
         photo: action.payload.photo,
       }
@@ -39,7 +41,7 @@ const authReducer = (
   if (action.type === 'LOGOUT') {
     return {
       ...state,
-      nickname:'',
+      nickname: '',
       profilePhoto: '',
     }
   }

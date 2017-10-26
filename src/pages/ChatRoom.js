@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import Highlighter from './Highlighter'
 
 import {createdTheLog, enterTheChat} from '../action/action_chatting'
 
@@ -23,6 +24,13 @@ class ChatRoom extends Component {
       this.props.createdTheLog(data)
     })
 
+    this.props.socket.on('user connected', data => {
+      console.log(`${data.nickname} 님이 들어오셨습니다..`)
+    })
+    this.props.socket.on('user disconnected', data => {
+      console.log(`${data.nickname} 님이 나갔습니다.`)
+    })
+
     // scroll Event 발생
     const target = document.querySelector('div.chatting__contents')
     target.addEventListener('scroll', this.handleOnScroll);
@@ -36,6 +44,7 @@ class ChatRoom extends Component {
       setTimeout(target.scrollTop = target.scrollHeight - (target.scrollHeight-700), 2000)      
     }
   }
+
 
   // 타겟의 scroll 위치 값 계산해주는 함수
   getDistFromBottom = () => {
@@ -117,19 +126,16 @@ class ChatRoom extends Component {
     // 서버에 채팅로그 저장
     // const token = localStorage.getItem('jwtToken');
     // this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
-
-    let newMessage = this.state.message
-    const hour = new Date().getHours();
-    const minutes = new Date().getMinutes();
-    // 내 페이지에 나의 새 메세지를 표시
-    this.setState({
-      message: '',
-    })
+    
     // 다른 사용자에게 새 메시지를 전달
-    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
+    this.props.socket.emit('new chat', {message: this.state.message, room_id: this.props.id, user_id: this.props.me}, data => {
       console.log('도착')
       console.log(data)
       this.props.createdTheLog(data) 
+    })
+
+    this.setState({
+      message: '',
     })
   }
 
@@ -155,6 +161,7 @@ class ChatRoom extends Component {
             if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at, id})
             } else {
+              console.log(i)
               return this.showYourMSG({message, created_at, user_id, id})
             }
           })}
@@ -173,7 +180,10 @@ class ChatRoom extends Component {
             }
           })} */}
         </div>
-        <div className="chatting__input">
+        <form 
+          className="chatting__input"
+          onSubmit={this.sendMessage}
+        >
           <input 
             type="text" 
             placeholder="type your message..."
@@ -189,7 +199,7 @@ class ChatRoom extends Component {
               send
             </button>
           </div>
-        </div>
+        </form>
       </section>
     );
   }
@@ -205,7 +215,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createdTheLog: (log) => (dispatch(createdTheLog(log))),
-  enterTheChat: (logs) => (dispatch(enterTheChat(logs)))
+  enterTheChat: (logs) => (dispatch(enterTheChat(logs))),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom); 

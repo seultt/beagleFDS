@@ -7,7 +7,8 @@ import TheRoom from './reducer_TheRoom_active';
 import ChatListData from './reducer_chatList_data';
 import databaseReducer from './reducer_database_active';
 import userData from './reducer_login_active';
-import myRooms from './reducer_profile'
+import myRooms from './reducer_profile';
+import chatSearchText from './reducer_chatSearchText_active';
 
 const reducers = combineReducers ({
   chatLogs: ChatLogReducer,
@@ -18,7 +19,8 @@ const reducers = combineReducers ({
   theRoom: TheRoom,
   ChatListData,
   userData,
-  myRooms
+  myRooms,
+  chatSearchText,
 })
 
 export default reducers;
