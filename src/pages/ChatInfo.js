@@ -37,7 +37,7 @@ class ChatInfo extends Component {
             </h3>
             <div>
               <p><span><img src={calendar} alt="여행 날짜"/></span>{this.props.theRoom.start_at}</p>
-            {this.props.theRoom.description}
+              <p>{this.props.theRoom.description}</p>
             </div>
           </div>
           <div className="description__travel--map">
