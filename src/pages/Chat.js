@@ -25,13 +25,14 @@ class Chat extends Component {
    }
    
    componentWillReceiveProps(nextProps) {  
-     console.log('확인해봅시다')
+     console.log('room id 갱신')
      this.props.resetTheReducerLogs()
      this.socket.emit('room', {room: nextProps.id}, data => {this.props.enterTheChat(data.logs.reverse())})
      
    }
 
    componentWillUnmount() {
+     console.log('disconnect')
     this.socket.disconnect()
    }
 
