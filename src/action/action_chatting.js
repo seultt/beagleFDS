@@ -16,6 +16,7 @@ export const createdTheLog = (log) => {
 }
 
 export const resetTheReducerLogs = () => {
+  // console.log('reset the logs!!')
   return {
     type: 'RESET_THE_LOGS'
   }

@@ -19,20 +19,22 @@ class Chat extends Component {
     this.socket = io.connect(`${SERVER_ADDRESS}/chat`, {'query': 'token=' + localStorage.jwtToken})
   }
   componentDidMount() {  
+    console.log(this.props.id + '룸아이디')
     if (!this.props.id) {
        console.log('room-id not found')
+     } else {
+      this.socket.emit('room', {room: this.props.id})
      }
    }
    
    componentWillReceiveProps(nextProps) {  
      console.log('room id 갱신')
-     this.props.resetTheReducerLogs()
      this.socket.emit('room', {room: nextProps.id}, data => {this.props.enterTheChat(data.logs.reverse())})
-     
-   }
+   } 
 
    componentWillUnmount() {
      console.log('disconnect')
+     this.props.resetTheReducerLogs()
     this.socket.disconnect()
    }
 
