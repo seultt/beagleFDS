@@ -50,7 +50,7 @@ class ProfileChatList extends Component {
           </div>
           <div className="profile__chat-list--card--header--right">
             <img src={calendar} alt="달력" />
-            <span>{room.start_at}</span>
+            <span>{room.start_at.slice(0,4)}년 {room.start_at.slice(5,7)}월 {room.start_at.slice(8,10)}일</span>
           </div>
         </div>
         <div className="profile__chat-list--card--text">
