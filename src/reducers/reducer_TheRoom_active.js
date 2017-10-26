@@ -58,6 +58,16 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
       currentUser: [...state.currentUser, action.payload],
     } 
   }
+
+  if (action.type === 'EXIT_THE_USER') {
+    
+    return {
+      ...state,
+      isLoading: false,
+      currentUser: action.payload
+    } 
+  }
+
   return {
     ...state,
   }
