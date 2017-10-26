@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getChatList } from '../action/action_getChatList';
 import MainBanner from '../components/mainBanner/MainBanner';
 import Filter from '../components/filter/Filter';
 import ChatList from '../components/chatList/ChatList';
 
 
-export default class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
     }
+  }
+  // 대화방 리스트 미리 가져온다.
+  componentWillMount = () => {
+    this.props.getChatList();
   }
   render() {
     return (
@@ -21,3 +27,7 @@ export default class Main extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  getChatList: () => dispatch(getChatList()),
+});
+export default connect(null, mapDispatchToProps)(Main)
