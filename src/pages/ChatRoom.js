@@ -126,19 +126,16 @@ class ChatRoom extends Component {
     // 서버에 채팅로그 저장
     // const token = localStorage.getItem('jwtToken');
     // this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
-
-    let newMessage = this.state.message
-    const hour = new Date().getHours();
-    const minutes = new Date().getMinutes();
-    // 내 페이지에 나의 새 메세지를 표시
-    this.setState({
-      message: '',
-    })
+    
     // 다른 사용자에게 새 메시지를 전달
-    this.props.socket.emit('new chat', {message: newMessage, created_at: `${hour}시 ${minutes}분`, user_id: this.props.me}, data => {
+    this.props.socket.emit('new chat', {message: this.state.message, room_id: this.props.id, user_id: this.props.me}, data => {
       console.log('도착')
       console.log(data)
       this.props.createdTheLog(data) 
+    })
+
+    this.setState({
+      message: '',
     })
   }
 
