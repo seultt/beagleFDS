@@ -31,7 +31,7 @@ class Chat extends Component {
      
    }
 
-   componentWillUnMount() {
+   componentWillUnmount() {
     this.socket.disconnect()
    }
 

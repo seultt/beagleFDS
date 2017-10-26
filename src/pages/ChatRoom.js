@@ -183,7 +183,10 @@ class ChatRoom extends Component {
             }
           })} */}
         </div>
-        <div className="chatting__input">
+        <form 
+          className="chatting__input"
+          onSubmit={this.sendMessage}
+        >
           <input 
             type="text" 
             placeholder="type your message..."
@@ -199,7 +202,7 @@ class ChatRoom extends Component {
               send
             </button>
           </div>
-        </div>
+        </form>
       </section>
     );
   }
