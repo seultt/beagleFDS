@@ -129,8 +129,7 @@ class ChatRoom extends Component {
     
     // 다른 사용자에게 새 메시지를 전달
     this.props.socket.emit('new chat', {message: this.state.message, room_id: this.props.id, user_id: this.props.me}, data => {
-      console.log('도착')
-      console.log(data)
+      console.log('새로운 메세지 전달')
       this.props.createdTheLog(data) 
     })
 
@@ -161,7 +160,6 @@ class ChatRoom extends Component {
             if(log.user_id === this.props.me) {
               return this.showMyMSG({message, created_at, id})
             } else {
-              console.log(i)
               return this.showYourMSG({message, created_at, user_id, id})
             }
           })}
