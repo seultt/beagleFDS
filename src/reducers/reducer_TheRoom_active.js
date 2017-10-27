@@ -68,6 +68,28 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
     } 
   }
 
+  if (action.type === 'RESET_THE_ROOM') {
+    
+    return {
+      ...state,
+      isLoading: false,
+      currentUser: [{
+        user_id: 0,
+        nickname: 'loading....',
+        profile_photo: ''
+      }],
+      chattingInfo: {
+        id: 0,
+        name: '',
+        description: '',
+        photo: '',
+        start_at: '',
+        city_id: 1,
+        creator: 0
+      }
+    } 
+  }
+
   return {
     ...state,
   }
