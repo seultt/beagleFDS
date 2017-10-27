@@ -40,11 +40,16 @@ class ChatRoom extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     const target = document.querySelector('div.chatting__contents')
     if (prevProps.chatLogs.length !== this.props.chatLogs.length) {
-      console.log('들어왔다')
       setTimeout(target.scrollTop = target.scrollHeight - (target.scrollHeight-700), 2000)      
+    }
+    if (prevProps.chatLogs[prevProps.chatLogs.length-1] !== this.props.chatLogs[this.props.chatLogs.length-1]){
+      target.scrollTop = target.scrollHeight
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.currentUser)
+  }
 
   // 타겟의 scroll 위치 값 계산해주는 함수
   getDistFromBottom = () => {
@@ -75,7 +80,7 @@ class ChatRoom extends Component {
         <div className="contents__me--box">
           <div className="text-field">
             <p>{message}</p>
-            <span className="chat-date">{created_at}</span>
+            <span className="chat-date">{created_at.slice(5,7)}월 {created_at.slice(8,10)}일</span>
           </div>
         </div>
       </article>
@@ -88,13 +93,13 @@ class ChatRoom extends Component {
       <article key={id} className="contents__another">
         <div className="contents__another--box">
           <span><img src={
-            this.props.currentUser.find( another => another.id === user_id ) ? this.props.currentUser.find( another => another.id === user_id ).profile_photo : ''
-            } alt="사용자"/>{
-            this.props.currentUser.find( another => another.id === user_id ) ? this.props.currentUser.find( another => another.id === user_id ).nickname : 'user waiting...'
+            this.props.currentUser.find( another => another.user_id === user_id ) ? this.props.currentUser.find( another => another.user_id === user_id ).profile_photo : ''
+            } alt="익명"/>{
+            this.props.currentUser.find( another => another.user_id === user_id ) ? this.props.currentUser.find( another => another.user_id === user_id ).nickname : '(알수없음)'
             }</span>
           <div className="text-field">
             <p>{message}</p>
-            <span className="chat-date">{created_at}</span>
+            <span className="chat-date">{created_at.slice(5,7)}월 {created_at.slice(8,10)}일</span>
           </div>
         </div>
       </article>

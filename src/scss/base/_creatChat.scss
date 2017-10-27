@@ -1,18 +1,18 @@
 .create-chat {
   margin: 40px 47px;
+  h2 {
+    color: $main_color;
+    font-size: 24px;
+    font-weight: bold;
+  }
 }
 
-h2 {
-  color: $main_color;
-  font-size: 24px;
-  font-weight: bold;
-}
 
 %input_design {
   display: flex;
   width: 390px;
-  border-radius: 4px ;
-  border: 1px solid #DBDBDB ;
+  border-radius: 4px;
+  border: 1px solid #DBDBDB;
 }
 
 .selecboxes {

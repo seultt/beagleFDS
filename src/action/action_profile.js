@@ -27,27 +27,10 @@ export const getMyRooms = (user_id) => {
   }
 }
 
-// export const deleteMyRoom = (user_id, room_id) => {
-//   return (dispatch) => {
-    
-//     return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
-//       Authorization: `Bearer ${token}`
-//     })
-//     .then(res => {
-//       console.log('삭제되어따', res)
-
-//       // dispatch({
-//       //   type: 'PROFILE_ROOM_DELETE'
-//       // })
-//     })
-//     .catch(e => console.log(e.message))
-//   }
-// }
-
 export const exitTheRoom = (user_id, room_id) => {
   return (dispatch, getState) => {
     
-    return axios.delete(`${SERVER_ADDRESS}/api/profile/delete?user_id=${user_id}&id=${room_id}`, {
+    return axios.delete(`${SERVER_ADDRESS}/api/profile/delete/${room_id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -58,11 +41,14 @@ export const exitTheRoom = (user_id, room_id) => {
 
       const roomList = getState().myRooms
       console.log('겟스테이트', roomList)
-      const newRoomList = roomList.map(rooms => {
-        // room의 id와 res의 id가 다른 값만 반환 
-        return rooms.filter(room => {
-          return room.id !== res.data.id
-        })
+      // const newRoomList = roomList.map(rooms => {
+      //   // room의 id와 res의 id가 다른 값만 반환 
+      //   return rooms.filter(room => {
+      //     return room.id !== parseInt(res.data.id)
+      //   })
+      // })
+      const newRoomList = roomList.filter(room => {
+        return room.chat_room_id !== parseInt(res.data.id)
       })
       console.log('뉴룸리스트', newRoomList)
     
@@ -70,14 +56,44 @@ export const exitTheRoom = (user_id, room_id) => {
         type: 'PROFILE_ROOM_DELETE',
         payload: newRoomList
       })
+
+    })
+    .then(() => {
+      // 삭제된 유저를 제외하고 리스트를 돌려준다. 
+      const userList = getState().theRoom.currentUser
+      // id가 맞는지 확인할것 
+      const userId = getState().userData.currentUser.id
+      console.log('현재로는 의미없는 코드입니다. 서버에 가서 유저 데이터를 가져온 다음에 넣어줘야합니다.')
+      const newUserList = userList.filter(user => {
+        return user.user_id !== userId
+      })
+      console.log('뉴 유저리스트', newUserList)
+      dispatch({
+        type: 'EXIT_THE_USER',
+        payload: newUserList
+      })
     })
     .catch(e => {
       console.log(e.message)
-
-      // dispatch({
-      //   type: 'DELETE_REQUEST_REJECTED',
-      //   payload: roomList
-      // })
     })
+  }
+}
+// 유저아이디를 가지고 소속되어있는 모든 방의 아이디를 가져옴 
+export const getRoomIds = () => {
+  return (dispatch) => {
+    return axios.get(`${SERVER_ADDRESS}/api/chat-rooms/ids`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(roomIds =>{
+      // roomIds는 배열로 들어온다.
+      console.log('roomIds', roomIds)
+      dispatch({
+        type: 'PROFILE_ROOM_IDS',
+        payload: roomIds.data
+      })
+    })
+    .catch(e => console.log('roomIdsFailed', e.message))
   }
 }

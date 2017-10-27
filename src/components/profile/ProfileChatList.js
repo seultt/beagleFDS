@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import calendar from '../../images/icon_calendar.svg';
-// 프로필 작성 해야한다.
+// 프로필 작성 해야한다. 
 import {exitTheRoom} from '../../action/action_profile'
 import {getChatRoomFromDB} from '../../action/action_createChat'
 
@@ -13,17 +13,6 @@ class ProfileChatList extends Component {
     // this.deleteRoom = this.deleteRoom.bind(this)
     this.exitButton = this.exitButton.bind(this)
   }
-
-  // deleteButton(id) {
-  //   return (
-  //     <div className="profile__chat-list--card--footer--right">
-  //       <Link to={`/chat/${id}`}>
-  //         <a>들어가기</a>
-  //       </ Link>
-  //       <a onClick={}>삭제하기</a>
-  //     </div>
-  //   )
-  // }
 
   exitButton(user_id, room_id) {
     return (
@@ -50,7 +39,7 @@ class ProfileChatList extends Component {
           </div>
           <div className="profile__chat-list--card--header--right">
             <img src={calendar} alt="달력" />
-            <span>{room.start_at}</span>
+            <span>{room.start_at.slice(0,4)}년 {room.start_at.slice(5,7)}월 {room.start_at.slice(8,10)}일</span>
           </div>
         </div>
         <div className="profile__chat-list--card--text">
