@@ -11,6 +11,7 @@ import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import './react-virtualized-select_overrides.css';
 import { getChatList } from '../../action/action_getChatList';
+import { getFilteringChatList } from '../../action/aciton_filteringChatList';
 
 
 class Filter extends Component {
@@ -52,7 +53,8 @@ class Filter extends Component {
       lastId,
       lastLike,
     });
-    setTimeout(this.props.getChatList(lastId, lastLike, ''), 1000);
+    console.log(lastId, lastLike);
+    setTimeout(this.props.getChatList(lastId, lastLike), 1000);
   }
 
   // 스크롤이 마지막 왔을 때 이벤트
@@ -71,7 +73,7 @@ class Filter extends Component {
   makeFilterURI = () => {
     let filterURI = '';
     if (this.state.selectedCity) {
-      filterURI += `&city_id=${this.state.selectedCity.value}`;
+      filterURI += `city_id=${this.state.selectedCity.value}`;
     }
     if (this.state.selectedDate) {
       filterURI += `&start_at=${this.state.selectedDate.format('YYYY-MM-DD')}`;
@@ -89,7 +91,9 @@ class Filter extends Component {
   onSearchHandler = () => {
     this.makeFilterURI();
     let filterURI = this.state.filterURI;
-    this.props.getChatList('', '', filterURI);
+    if (!isEmpty(this.state.filterURI)) {
+      this.props.getFilteringChatList(filterURI);
+    }
   }
 
   render() {
@@ -149,6 +153,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getChatList: (LAST_ID, LAST_LIKE, FILTER) => dispatch(getChatList(LAST_ID, LAST_LIKE, FILTER)),
+  getFilteringChatList: (filterURI) => dispatch(getFilteringChatList(filterURI)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
