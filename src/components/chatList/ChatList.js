@@ -7,6 +7,7 @@ import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
 
 class ChatList extends Component {
+
   render() {
     return (
       <section className="main__chat-list">
