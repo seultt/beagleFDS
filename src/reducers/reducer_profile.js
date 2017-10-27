@@ -15,6 +15,9 @@ const myRooms = (state = INITIAL_STATE, action) => {
     case 'PROFILE_ROOM_DELETE':
       return action.payload
 
+    case 'PROFILE_ROOM_IDS':
+      return action.payload
+
     default:
       return state
   }
