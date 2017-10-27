@@ -44,14 +44,9 @@ class Filter extends Component {
     let lastLike = 0;
 
     if(!isEmpty(this.props.chatList)) {
-      console.log(this.props.chatList)
-      // startndex를 따로 안쓰고 이런식으로 하려고 하시는거죠?
-      // 이 부분만 보면 문제 없어보이는s
-
       lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
       lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
     }
-    // 위에 this.props.chatList[this.props.chatList.length - 1].id 이 함수가 리스트가 업성서 못가져온다 undefined 되서 화면을 못그려줬거든요z
     
     this.setState({
       lastId,
@@ -84,7 +79,7 @@ class Filter extends Component {
     if (this.state.selectedSort) {
       filterURI += `&sort=${this.state.selectedSort.value}`;
     }
-    console.log(filterURI);
+    console.log(`filterURI: ${filterURI}`);
     this.setState({
       filterURI
     })

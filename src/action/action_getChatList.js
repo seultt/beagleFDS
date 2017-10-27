@@ -19,7 +19,6 @@ export const getChatList = (LAST_ID, LAST_LIKE, FILTER) => {
     })
       .then(
         (res) => {
-          // console.log(`${SERVER_ADDRESS}/api/chat-list?lastId=${LAST_ID}&lastLike=${LAST_LIKE}${FILTER}`)
           dispatch({
             type: 'GET_CHAT_LIST_SUCCESS',
             payload: res.data,
