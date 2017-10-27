@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import io from 'socket.io-client';
 import socketIoJWT from 'socketio-jwt';
 
-import {enterTheChat, resetTheReducerLogs} from '../action/action_chatting'
+import {enterTheChat, resetTheReducerLogs, resetTheReducerRoom} from '../action/action_chatting'
 
 import ChatRoom from './ChatRoom'
-import ChatSearch from './ChaSearch'
+// import ChatSearch from './ChaSearch'
 import ChatInfo from './ChatInfo'
 import SERVER_ADDRESS from '../config'
 
@@ -35,6 +35,7 @@ class Chat extends Component {
    componentWillUnmount() {
      console.log('disconnect')
      this.props.resetTheReducerLogs()
+     this.props.resetTheReducerRoom()
     this.socket.disconnect()
    }
 
@@ -47,7 +48,7 @@ class Chat extends Component {
           {/* 채팅 정보창 */}
           <section className="info">
             {/*  대화 검색 */}
-            <ChatSearch />
+            {/* <ChatSearch /> */}
             <ChatInfo socket={this.socket} />
           </section>
         </div>
@@ -62,7 +63,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   enterTheChat: (logs) => (dispatch(enterTheChat(logs))),
-  resetTheReducerLogs: () => (dispatch(resetTheReducerLogs()))
+  resetTheReducerLogs: () => (dispatch(resetTheReducerLogs())),
+  resetTheReducerRoom: () => (dispatch(resetTheReducerRoom()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat); 

@@ -18,10 +18,14 @@ class Profile extends Component {
     )
   }
 }
-
+//onClick={() => {this.props.getMyRooms(this.props.user_id)}}
 const mapStateToProps = (state) => ({
   photo: state.userData.currentUser.photo,
   user_id: state.userData.currentUser.id,
 })
+
+// const mapDispatchToProps = (dispatch) => ({
+//   getMyRooms: (user_id) => dispatch(getMyRooms(user_id))
+// })
 
 export default connect(mapStateToProps)(Profile)

@@ -80,7 +80,7 @@ class ChatRoom extends Component {
         <div className="contents__me--box">
           <div className="text-field">
             <p>{message}</p>
-            <span className="chat-date">{created_at}</span>
+            <span className="chat-date">{created_at.slice(5,7)}월 {created_at.slice(8,10)}일</span>
           </div>
         </div>
       </article>
@@ -99,7 +99,7 @@ class ChatRoom extends Component {
             }</span>
           <div className="text-field">
             <p>{message}</p>
-            <span className="chat-date">{created_at}</span>
+            <span className="chat-date">{created_at.slice(5,7)}월 {created_at.slice(8,10)}일</span>
           </div>
         </div>
       </article>
