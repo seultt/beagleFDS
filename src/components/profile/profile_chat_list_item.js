@@ -55,7 +55,7 @@ class ProfileChatListItem extends Component {
         <div className="profile__chat-list--card--footer">
           <div className="profile__chat-list--card--footer--left">
             <div className="profile__chat-list--card--footer--users">
-              {users.map(user => <img src={user.profile_photo} alt="사용자 이미지" />)}
+              {users.map(user => <img key={user.user_id} src={user.profile_photo} alt="사용자 이미지" />)}
             </div>
           </div>
         </div>
