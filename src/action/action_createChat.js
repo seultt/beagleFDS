@@ -14,14 +14,24 @@ export const postCreateToDB = (create, callback) => {
       }
     })
     .then(res => {
-      console.log(res)
+      console.log(res.data)
 
-       dispatch({
-        type: 'GET_A_ROOM_SUCCESS',
-        payload: res
+      axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${res.data.id}/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       })
+      .then(res => {
+        // console.log(res)
+  
+         dispatch({
+          type: 'GET_A_ROOM_SUCCESS',
+          payload: res
+        })
+      })
+      .catch(e => console.log(e.message))
 
-      callback(res.data[1].id)
+      callback(res.data.id)
     })
   }
 }
