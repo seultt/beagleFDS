@@ -1,9 +1,32 @@
+.create {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 510px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+.create__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
 .create-chat {
   margin: 40px 47px;
   h2 {
     color: $main_color;
     font-size: 24px;
     font-weight: bold;
+    margin-bottom: 16px;
   }
 }
 
@@ -57,3 +80,18 @@
   }
 }
 
+.create__chat--buttons {
+  button {
+    width: 190px;
+    height: 61px;
+    background-color: #4d4b4a;
+    border-radius: 3px;
+    color: #fff;
+  }
+  .del__button {
+    margin-right: 10px;
+  }
+  .create__button {
+    background-color: $main-color
+  }
+}

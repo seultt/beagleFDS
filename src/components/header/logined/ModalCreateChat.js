@@ -94,8 +94,8 @@ class ModalCreateChat extends Component {
     return (
       <ReactModal
         isOpen={this.props.showModal}
-        className="join"
-        overlayClassName="join__overlay"
+        className="create"
+        overlayClassName="create__overlay"
       >
         <div className="create-chat">
           <h2>Create Chat</h2>
@@ -152,18 +152,20 @@ class ModalCreateChat extends Component {
               />
             </div>
           </div>
-          <div>
+          <div className="create__chat--buttons">
             <button 
-              type="button"
-              onClick={this.createPayloadAndPostToDB}
-            >
-              채팅방 생성
-            </button>
-            <button 
+              className="del__button"
               type="button"
               onClick={this.props.showModalCreateClose}
             >
               취소
+            </button>
+            <button 
+              className="create__button"
+              type="button"
+              onClick={this.createPayloadAndPostToDB}
+            >
+              채팅방 생성
             </button>
           </div>
         </div>
