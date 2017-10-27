@@ -36,8 +36,9 @@ class ChatInfo extends Component {
               <a href="/"><img src={like} alt="좋아요 버튼"/></a>
             </h3>
             <div>
-              <p><span><img src={calendar} alt="여행 날짜"/></span>{this.props.theRoom.start_at}</p>
-              <p>{this.props.theRoom.description}</p>
+              <p className="about__name">{this.props.theRoom.name}</p>
+              <p className="about__description">{this.props.theRoom.description}</p>
+              <p className="about__date"><span><img src={calendar} alt="여행 날짜"/></span>{this.props.theRoom.start_at.slice(5,7)}월 {this.props.theRoom.start_at.slice(8,10)}일</p>
             </div>
           </div>
           <div className="description__travel--map">
@@ -50,7 +51,7 @@ class ChatInfo extends Component {
           </div>
         </div>     
         <div className="info__users">
-          <h3>사람</h3>
+          <h3>대화 상대</h3>
           <ul>
             {this.props.theRoom.currentUser.map((user, i) => {
               return (
