@@ -8,6 +8,8 @@ import _ from 'lodash'
 import calendar from '../../images/icon_calendar.svg';
 import SERVER_ADDRESS from '../../config'
 
+import ProfileChatListItemButtons from './profilet_chat_list_item_buttons'
+
 class ProfileChatListItem extends Component {
   constructor(props) {
     super(props)
@@ -58,6 +60,7 @@ class ProfileChatListItem extends Component {
               {users.map(user => <img key={user.user_id} src={user.profile_photo} alt="사용자 이미지" />)}
             </div>
           </div>
+          <ProfileChatListItemButtons id={this.props.id} />
         </div>
       </article>
     )
