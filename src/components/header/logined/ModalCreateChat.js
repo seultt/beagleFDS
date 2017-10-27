@@ -99,7 +99,7 @@ class ModalCreateChat extends Component {
       >
         <div className="create-chat">
           <h2>Create Chat</h2>
-          <div>채팅방 사진첨부</div>
+          {/* <div>채팅방 사진첨부</div> */}
           <div className="selecboxes">
             {/* <fieldset className="selectCity">
               {this.props.cities.map(city => {

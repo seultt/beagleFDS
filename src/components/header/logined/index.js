@@ -11,7 +11,7 @@ export default class Logined extends Component {
     return (
       <ul className="menu__login-after">
         <Profile />
-        <Alarm />
+        {/* <Alarm /> */}
         <CreateChat />
         <LogOut 
           logout = {this.props.logout}
