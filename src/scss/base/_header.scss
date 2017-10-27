@@ -59,6 +59,45 @@ header {
     @include respond-to(large-screens) { 
       min-width: 988px; 
       height: 60px; 
+      .menu__login-after {
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+        a.menu__createChat {
+          display: block;
+          width: 120px;
+          line-height: 35px;
+          background-color: #fff;
+          border: 1px solid #0099ff;
+          color: #0099ff;
+          font-size: 15px;
+          &:hover, 
+          &:active,
+          &:focus {
+            background-color: $main_color;
+            color: #fff;
+          }
+        }
+
+        
+        a.menu__logout {
+          width: 120px;
+          line-height: 35px;
+          background-color: #fff;
+          border: 1px solid #0099ff;
+          color: #0099ff;
+          font-size: 15px;
+          &:hover, 
+          &:active,
+          &:focus {
+            background-color: $main_color;
+            color: #fff;
+          }
+        }
+        a.menu__createChat-mobile {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -68,7 +107,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 130px;
     height: 32px;
     line-height: 28px;
     border: 1px solid $main_color;
@@ -82,6 +121,7 @@ header {
   }
 
   .menu__login-after {
+    width: 250px;
     li {
       position: relative;
       a span.red_circle {
