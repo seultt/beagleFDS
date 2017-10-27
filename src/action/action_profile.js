@@ -27,23 +27,6 @@ export const getMyRooms = (user_id) => {
   }
 }
 
-// export const deleteMyRoom = (user_id, room_id) => {
-//   return (dispatch) => {
-    
-//     return axios.delete(`${SERVER_ADDRESS}/profile?id=${user_id}&roomId=${room_id}`, {
-//       Authorization: `Bearer ${token}`
-//     })
-//     .then(res => {
-//       console.log('삭제되어따', res)
-
-//       // dispatch({
-//       //   type: 'PROFILE_ROOM_DELETE'
-//       // })
-//     })
-//     .catch(e => console.log(e.message))
-//   }
-// }
-
 export const exitTheRoom = (user_id, room_id) => {
   return (dispatch, getState) => {
     
@@ -89,11 +72,25 @@ export const exitTheRoom = (user_id, room_id) => {
     })
     .catch(e => {
       console.log(e.message)
-
-      // dispatch({
-      //   type: 'DELETE_REQUEST_REJECTED',
-      //   payload: roomList
-      // })
     })
+  }
+}
+// 유저아이디를 가지고 소속되어있는 모든 방의 아이디를 가져옴 
+export const getRoomIds = () => {
+  return (dispatch) => {
+    return axios.get(`${SERVER_ADDRESS}/api/chat-rooms/ids`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(roomIds =>{
+      // roomIds는 배열로 들어온다.
+      console.log('roomIds', roomIds)
+      dispatch({
+        type: 'PROFILE_ROOM_IDS',
+        payload: roomIds.data
+      })
+    })
+    .catch(e => console.log('roomIdsFailed', e.message))
   }
 }
