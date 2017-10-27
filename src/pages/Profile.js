@@ -9,7 +9,7 @@ class Profile extends Component {
     return (
       <main className="profile">
         <ProfileUser />
-        <ProfileChatListAlpha />
+        <ProfileChatList />
       </main>
     )
   }
