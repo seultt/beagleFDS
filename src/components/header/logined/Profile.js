@@ -10,8 +10,7 @@ class Profile extends Component {
       <Link to={`/profile`}>
         <li>
           <a 
-            className="menu__profile menu_icon"
-            onClick={() => {this.props.getMyRooms(this.props.user_id)}}>
+            className="menu__profile menu_icon">
             <img src={this.props.photo} alt="프로필" />
           </a>
         </li>
@@ -25,8 +24,4 @@ const mapStateToProps = (state) => ({
   user_id: state.userData.currentUser.id,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  getMyRooms: (user_id) => dispatch(getMyRooms(user_id))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps)(Profile)
