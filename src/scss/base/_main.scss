@@ -134,7 +134,7 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1em;
-        padding: 1em;
+        padding: 1.5em;
         .main__chat-list__card--header--profile {
           display: flex;
           align-items: center;
@@ -166,6 +166,7 @@
         padding: 1em;
         color: #777;
         .main__chat-list__card--content--text {
+          position: relative;
           width: 100%;
           margin-bottom: 25px;
           strong {
@@ -173,28 +174,34 @@
             font-size: 25px;
             color: #484848;
           }
+          span {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            font-size: 13px;
+          }
           .main__chat-list__card--content--name {
             display: flex;
+            height: 10px;
             justify-content: left;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 500;
             color: #484848;
           }
-          span {
-            font-size: 15px;
-          }
           .main__chat-list__card--content--description {
+            display: flex;
+            justify-content: left;
             width: 284px;
-            height: 126px;
-            margin-top: 20px;
-            font-size: 15px;
+            height: 20px;
+            margin-top: 10px;
+            font-size: 14px;
             color: #777;
             line-height: 21px;
             overflow: hidden;
             white-space: wrap;
             text-overflow: ellipsis;
             word-wrap: break-word;
-            -webkit-line-clamp: 6;
+            -webkit-line-clamp: 1;
             -webkit-box-orient: vertical; 
           }
         }
@@ -227,7 +234,7 @@
         p {
           display: flex;
           justify-content: center;
-          margin-top: 10px;
+          margin-top: 20px;
           font-size: 12px;
           color: #d9d9d9;
         }
@@ -239,7 +246,8 @@
         background: rgba(0, 0, 0, 0.05);
         overflow: hidden;
         img {
-          height: 230px;
+          width: 100%;
+          
         }
       }
     }

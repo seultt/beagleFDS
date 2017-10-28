@@ -9,10 +9,10 @@ export default class LogOut extends Component {
     return (
       <li>
         <a
-          className="menu__createChat btn"
+          className="menu__logout btn"
           onClick={this.props.logout}
         >
-        TEST LOGOUT
+        Logout
         </a>
       </li>
     )

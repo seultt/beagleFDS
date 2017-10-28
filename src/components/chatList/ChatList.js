@@ -5,8 +5,18 @@ import { getChatList } from '../../action/action_getChatList';
 import { getChatRoomFromDB } from '../../action/action_createChat';
 import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
+import axios from 'axios';
+import SERVER_ADDRESS from '../../config';
 
 class ChatList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      usersInfo: [],
+    }
+    this.token = localStorage.getItem('jwtToken')
+  }
+
   render() {
     return (
       <section className="main__chat-list">
@@ -14,7 +24,7 @@ class ChatList extends Component {
           {/* main__chat-list__card */}
           {this.props.chatList.map( (list) => {
             return(
-              <article className="main__chat-list__card" key={list.id}>{list.id}
+              <article className="main__chat-list__card" key={list.id}>
                 <div className="main__chat-list__card--header">
                   <div className="main__chat-list__card--header--profile">
                     <img src={list.profile_photo} alt="대화방 개설자 프로필 사진" />
@@ -26,7 +36,7 @@ class ChatList extends Component {
                   </div>
                 </div>
                 <div className="main__chat-list__card--image">
-                  <img src={list.photo} alt="대화방 사진" />
+                  <img src={this.props.cities.find(city => city.value === list.city_id).img} alt="대화방 사진" />
                 </div>
                 <div className="main__chat-list__card--content">
                   <div className="main__chat-list__card--content--text">
@@ -42,7 +52,7 @@ class ChatList extends Component {
                       ><img src={travel} alt="대화버튼" />함께 여행하기</a>
                     </div>
                   </Link>
-                  <p>{list.current_users} / 5명</p>
+                  {/* <p>{this.state.usersInfo.length} / 5명</p> */}
                 </div>
               </article>
             )
@@ -58,6 +68,8 @@ class ChatList extends Component {
 const mapStateToProps = (state) => ({
   chatList: state.databaseReducer.chatList,
   user_id: state.userData.currentUser.id,
+  cities: state.cities,
+
   // chatList: state.ChatListData.chatList,
 });
 const mapDispatchToProps = (dispatch) => ({
