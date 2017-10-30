@@ -129,6 +129,8 @@ class ModalCreateChat extends Component {
               date={this.state.date} // momentPropTypes.momentObj or null
               onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
               focused={this.state.focused} // PropTypes.bool
+              displayFormat="YYYY-MM-DD"
+              placeholder="여행 날짜"
               onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
             />
             </div>

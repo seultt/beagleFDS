@@ -134,7 +134,7 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1em;
-        padding: 1.5em;
+        padding: 1.3em;
         .main__chat-list__card--header--profile {
           display: flex;
           align-items: center;
@@ -142,7 +142,7 @@
           font-weight: 700;
         }
         .main__chat-list__card--header--profile img {
-          margin-right: 20px;
+          margin-right: 13px;
           width: 42px;
           height: 42px;
           border-radius: 50%;
@@ -163,7 +163,7 @@
       }
       .main__chat-list__card--content {
         font-size: 1em;
-        padding: 1em;
+        padding: 1.3em;
         color: #777;
         .main__chat-list__card--content--text {
           position: relative;
