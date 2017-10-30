@@ -19,7 +19,7 @@
   justify-content: center;
   height: 397px;
   background-color: skyblue;
-  background: url(https://upload.wikimedia.org/wikipedia/commons/c/c3/004_-_15.07.16_-_Budapest_-_Kettenbr%C3%BCcke%2C_Parlament.jpg) no-repeat 0 15%;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/004_-_15.07.16_-_Budapest_-_Kettenbr%C3%BCcke%2C_Parlament.jpg/1524px-004_-_15.07.16_-_Budapest_-_Kettenbr%C3%BCcke%2C_Parlament.jpg") no-repeat 0 15%;
   background-size: cover;
 
   article {
@@ -134,7 +134,7 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1em;
-        padding: 1.5em;
+        padding: 1.3em;
         .main__chat-list__card--header--profile {
           display: flex;
           align-items: center;
@@ -142,7 +142,7 @@
           font-weight: 700;
         }
         .main__chat-list__card--header--profile img {
-          margin-right: 20px;
+          margin-right: 13px;
           width: 42px;
           height: 42px;
           border-radius: 50%;
@@ -163,7 +163,7 @@
       }
       .main__chat-list__card--content {
         font-size: 1em;
-        padding: 1em;
+        padding: 1.3em;
         color: #777;
         .main__chat-list__card--content--text {
           position: relative;

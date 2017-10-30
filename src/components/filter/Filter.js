@@ -109,7 +109,7 @@ class Filter extends Component {
                 onDateChange={selectedDate => this.setState({ selectedDate })}
                 focused={this.state.focused}
                 onFocusChange={({ focused }) => this.setState({ focused })}
-                displayFormat="YYYY년 MM월 DD일"
+                displayFormat="YYYY-MM-DD"
                 placeholder="여행 날짜"
                 isOutsideRange={() => false}
               />
