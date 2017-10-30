@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
@@ -79,6 +80,7 @@ class Header extends Component {
       token: null,
       isLogin: false,
     });
+    this.props.history.push('/');
   }
 
   // 로그인 토글(모달창 오픈, isLogin 변경)
@@ -140,4 +142,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(withRouter(Header));

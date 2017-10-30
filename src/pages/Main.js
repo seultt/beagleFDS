@@ -14,7 +14,7 @@ class Main extends Component {
     }
   }
   // 대화방 리스트 미리 가져온다.
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.props.getChatList();
   }
   render() {
