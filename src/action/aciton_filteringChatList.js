@@ -10,7 +10,7 @@ export const getFilteringChatList = (FILTER, LAST_ID) => {
     console.log(FILTER);
     // 데이터 가져오는 부분
     axios.get(
-      `${SERVER_ADDRESS}/api/chat-list?${FILTER}&${LAST_ID}`
+      `${SERVER_ADDRESS}/api/chat-rooms?${FILTER}&${LAST_ID}`
       , {
       // CORS 문제 해결하려면 아래 header를 넣어줘야한다.
       headers: {
