@@ -23,6 +23,7 @@ const authReducer = (
   if (action.type === 'LOGIN_USER_SUCCESS') {
     return {
       ...state,
+      isLogin: !state.isLogin,
       currentUser: {
         id: action.payload.id,
         nickname: action.payload.nickname,
