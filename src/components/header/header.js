@@ -14,13 +14,15 @@ class Header extends Component {
     this.state = {
       popupWindow: null,
       showModal: false,
-      isLogin: false, // 로그인 여부
       token: null,  // 토큰 여부
     };
   }
 
   // 토큰 핸들러
   tokenHandler = (e) => {
+    if (typeof e.data === 'object') {
+      return
+    }
     const token = e.data;
     localStorage.setItem('jwtToken', token);
     this.state.popupWindow.close();
@@ -30,9 +32,7 @@ class Header extends Component {
       complete: true,
     });
     this.props.updateUserInfo(this.state.token);
-    this.setState({
-      isLogin: true,
-    })
+    console.log("tokenHandler : " + this.props.isLogin);
   }
 
   componentWillMount() {
@@ -40,9 +40,10 @@ class Header extends Component {
     if (ExistedToken) {
       this.setState({
         token: ExistedToken,
-        isLogin: true,
       })
     }
+    console.log("componentWillMount : " + this.props.isLogin);
+    // this.props.isLogin;
     // if (localStorage.jwtToken) {
     //   this.setState({
     //     token: localStorage.jwtToken,
@@ -66,19 +67,18 @@ class Header extends Component {
     const SNS_NAME = e.target.value;
     window.addEventListener('message', this.tokenHandler);
     const popupWindow = window.open(`${SERVER_ADDRESS}/auth/${SNS_NAME}`);
-    console.log('들어왔냐!!');
     this.setState({
       popupWindow,
       showModal: false,
     });
+    console.log("login : " + this.props.isLogin);
   }
 
   // 로그아웃 클릭시 (테스트)
   logout = () => {
-    delete localStorage.jwtToken
+    delete localStorage.jwtToken;
     this.setState({
       token: null,
-      isLogin: false,
     });
     this.props.history.push('/');
   }
@@ -86,7 +86,6 @@ class Header extends Component {
   // 로그인 토글(모달창 오픈, isLogin 변경)
   toggleLogin = () => {
     this.setState({ 
-      isLogin: !this.state.isLogin,
       showModal: !this.state.showModal,
     });
   }
@@ -102,6 +101,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log("render : " + this.props.isLogin);
     return(
       <header>
         <ModalLogin 
@@ -112,9 +112,10 @@ class Header extends Component {
           login={this.login}
         />
         <div className="__container">
-          <h1><a href="/"><img src={logo} /></a></h1>
+          <h1><a href="/"><img src={logo} alt="로고" /></a></h1>
           <div className="menu">
-            { !this.state.isLogin ? (
+            {
+              !this.props.isLogin ? (
               // 로그인 전
               <a
                 className="menu__login-before btn"
@@ -135,11 +136,13 @@ class Header extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => ({
+  isLogin: state.userData.isLogin,
+})
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserInfo: (token) => dispatch(updateUserInfo(token))
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
