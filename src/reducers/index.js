@@ -2,11 +2,11 @@ import { combineReducers, } from 'redux';
 import chatLogs from './reducer_logs';
 import initialCities from './reducer_initial_cities';
 import iniialSort from './reducer_initial_sort';
-import theRoom from './reducer_theRoom';
 import databaseReducer from './reducer_database_active';
+import theRoom from './reducer_theRoom';
 import userData from './reducer_login_active';
 import myRooms from './reducer_profile';
-import chatSearchText from './reducer_chatSearchText_active';
+// import outputModal from './reducer_showModal';
 
 const reducers = combineReducers ({
   chatLogs,
@@ -16,7 +16,7 @@ const reducers = combineReducers ({
   theRoom,
   userData,
   myRooms,
-  chatSearchText,
+  // outputModal,
 })
 
 export default reducers;

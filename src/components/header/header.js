@@ -6,13 +6,14 @@ import Logined from './logined';
 import logo from '../../images/logo.svg';
 import SERVER_ADDRESS from '../../config';
 import { updateUserInfo, logout } from '../../action/action_login';
+import { showModal } from '../../action/action_showModal';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       popupWindow: null,
-      showModal: false,
+      // showModal: false,
     };
   }
 
@@ -50,21 +51,9 @@ class Header extends Component {
     }
   }
 
-  // 로그인 토글(모달창 오픈, isLogin 변경)
-  toggleLogin = () => {
-    this.setState({ 
-      showModal: !this.state.showModal,
-    });
-  }
-
-  // 로그인 모달창 열기
-  handleModalOpenLogin = () => {
-    this.setState({ showModal: true });
-  }
-
-  // 로그인 모달창 닫기
-  handleModalCloseLogin = () => {
-    this.setState({ showModal: false });
+  // 로그인 모달창 핸들러 열기
+  modalHandler = () => {
+    this.props.modal()
   }
 
   componentWillMount() {
@@ -98,9 +87,8 @@ class Header extends Component {
     return(
       <header>
         <ModalLogin 
-          showModal={this.state.showModal}
-          toggleLogin={this.toggleLogin}
-          handleModalCloseLogin={this.handleModalCloseLogin}
+          checkModal={this.props.checkModal}
+          closeModal={this.modalHandler}
           currentUser={this.currentUser}
           login={this.login}
         />
@@ -109,13 +97,13 @@ class Header extends Component {
           <div className="menu">
             {
               !this.props.isLogin ? (
-              // 로그인 전
-              <a
-                className="menu__login-before btn"
-                onClick={this.handleModalOpenLogin}
-              >
-                Sign Up
-              </a>
+                // 로그인 전
+                <a
+                  className="menu__login-before btn"
+                  onClick={this.modalHandler}
+                >
+                  Sign Up
+                </a>
               ) : (
                 // 로그인 후
                 <Logined 
@@ -131,11 +119,13 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => ({
   isLogin: state.userData.isLogin,
+  checkModal: state.userData.showModal,
 })
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserInfo: (token) => dispatch(updateUserInfo(token)),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    modal: () => dispatch(showModal())
   }
 }
 
