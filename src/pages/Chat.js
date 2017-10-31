@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import io from 'socket.io-client';
 import socketIoJWT from 'socketio-jwt';
 
-import {enterTheChat, resetTheReducerLogs, resetTheReducerRoom} from '../action/action_chatting'
+import { resetTheReducerRoom } from '../action/action_chatRoom'
+import {enterTheChat, resetTheReducerLogs} from '../action/action_chatting'
 
-import ChatRoom from './ChatRoom'
+import ChatRoom from '../components/chat/ChatRoom'
 // import ChatSearch from './ChaSearch'
-import ChatInfo from './ChatInfo'
+import ChatInfo from '../components/chat/ChatInfo'
 import SERVER_ADDRESS from '../config'
 
 

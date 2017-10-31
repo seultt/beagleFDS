@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import Highlighter from './Highlighter'
 
-import {createdTheLog, enterTheChat} from '../action/action_chatting'
+import {createdTheLog, enterTheChat} from '../../action/action_chatting'
 
 class ChatRoom extends Component {
 
@@ -48,7 +48,7 @@ class ChatRoom extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.currentUser)
+    console.log(nextProps.currentUsers)
   }
 
   // 타겟의 scroll 위치 값 계산해주는 함수
@@ -93,9 +93,9 @@ class ChatRoom extends Component {
       <article key={id} className="contents__another">
         <div className="contents__another--box">
           <span><img src={
-            this.props.currentUser.find( another => another.user_id === user_id ) ? this.props.currentUser.find( another => another.user_id === user_id ).profile_photo : ''
+            this.props.currentUsers.find( another => another.user_id === user_id ) ? this.props.currentUsers.find( another => another.user_id === user_id ).profile_photo : ''
             } alt="익명"/>{
-            this.props.currentUser.find( another => another.user_id === user_id ) ? this.props.currentUser.find( another => another.user_id === user_id ).nickname : '(알수없음)'
+            this.props.currentUsers.find( another => another.user_id === user_id ) ? this.props.currentUsers.find( another => another.user_id === user_id ).nickname : '(알수없음)'
             }</span>
           <div className="text-field">
             <p>{message}</p>
@@ -212,8 +212,8 @@ const mapStateToProps = (state) => ({
   id: state.theRoom.chattingInfo.id,
   chatLogs: state.chatLogs.chattingLog,
   me: state.userData.currentUser.id,
-  currentUser: state.theRoom.currentUser,
-  profile_photo: state.theRoom.currentUser.profile_photo,
+  currentUsers: state.theRoom.currentUsers,
+  profile_photo: state.theRoom.currentUsers.profile_photo,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getChatList } from '../action/action_getChatList';
 import MainBanner from '../components/mainBanner/MainBanner';
@@ -14,7 +13,7 @@ class Main extends Component {
     }
   }
   // 대화방 리스트 미리 가져온다.
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.props.getChatList();
   }
   render() {

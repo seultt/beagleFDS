@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
 import SERVER_ADDRESS from '../../config';
-import { updateUserInfo } from '../../action/action_login';
+import { updateUserInfo, logout } from '../../action/action_login';
 
 class Header extends Component {
   constructor(props) {
@@ -13,51 +13,19 @@ class Header extends Component {
     this.state = {
       popupWindow: null,
       showModal: false,
-      isLogin: false, // 로그인 여부
-      token: null,  // 토큰 여부
     };
   }
 
   // 토큰 핸들러
   tokenHandler = (e) => {
+    if (typeof e.data === 'object') return;
     const token = e.data;
     localStorage.setItem('jwtToken', token);
     this.state.popupWindow.close();
     this.setState({
       popupWindow: null,
-      token,
-      complete: true,
     });
-    this.props.updateUserInfo(this.state.token);
-    this.setState({
-      isLogin: true,
-    })
-  }
-
-  componentWillMount() {
-    const ExistedToken = localStorage.getItem('jwtToken')
-    if (ExistedToken) {
-      this.setState({
-        token: ExistedToken,
-        isLogin: true,
-      })
-    }
-    // if (localStorage.jwtToken) {
-    //   this.setState({
-    //     token: localStorage.jwtToken,
-    //     isLogin: true,
-    //   })
-    // }
-  }
-
-  componentDidMount() {
-    if (this.state.token) {
-      this.props.updateUserInfo(this.state.token)
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('message', this.tokenHandler)
+    this.props.updateUserInfo(localStorage.getItem('jwtToken'));
   }
 
   // 로그인 클릭시
@@ -65,26 +33,26 @@ class Header extends Component {
     const SNS_NAME = e.target.value;
     window.addEventListener('message', this.tokenHandler);
     const popupWindow = window.open(`${SERVER_ADDRESS}/auth/${SNS_NAME}`);
-    console.log('들어왔냐!!');
     this.setState({
       popupWindow,
       showModal: false,
     });
   }
 
-  // 로그아웃 클릭시 (테스트)
+  // 로그아웃 클릭시
   logout = () => {
-    delete localStorage.jwtToken
-    this.setState({
-      token: null,
-      isLogin: false,
-    });
+    if (window.confirm('로그아웃 하시겠습니까?') === true) {
+      delete localStorage.jwtToken; // 토큰 삭제
+      this.props.logout();  // 리듀서 액션 처리
+      this.props.history.push('/'); // index 페이지로 리다이렉션
+    } else {
+      return;
+    }
   }
 
   // 로그인 토글(모달창 오픈, isLogin 변경)
   toggleLogin = () => {
     this.setState({ 
-      isLogin: !this.state.isLogin,
       showModal: !this.state.showModal,
     });
   }
@@ -99,6 +67,33 @@ class Header extends Component {
     this.setState({ showModal: false });
   }
 
+  componentWillMount() {
+    const ExistedToken = localStorage.getItem('jwtToken')
+    if (ExistedToken) {
+      this.props.updateUserInfo();
+      // this.props.isLogin = true 이런식으로 리덕스는 사용할 수 없으므로
+      // 위처럼 this.props.updateUserInfo() 액션을 날려서 store의 스테이트를 업데이트 쳐준다.
+    }
+    // getItem을 안쓸때 아래처럼 쓰면 됨
+    // this.props.isLogin;
+    // if (localStorage.jwtToken) {
+    //   this.setState({
+    //     token: localStorage.jwtToken,
+    //     isLogin: true,
+    //   })
+    // }
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken')) {
+      this.props.updateUserInfo(localStorage.getItem('jwtToken'))
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this.tokenHandler)
+  }
+
   render() {
     return(
       <header>
@@ -110,9 +105,10 @@ class Header extends Component {
           login={this.login}
         />
         <div className="__container">
-          <h1><a href="/"><img src={logo} /></a></h1>
+          <h1><a href="/"><img src={logo} alt="로고" /></a></h1>
           <div className="menu">
-            { !this.state.isLogin ? (
+            {
+              !this.props.isLogin ? (
               // 로그인 전
               <a
                 className="menu__login-before btn"
@@ -133,11 +129,14 @@ class Header extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => ({
+  isLogin: state.userData.isLogin,
+})
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUserInfo: (token) => dispatch(updateUserInfo(token))
+    updateUserInfo: (token) => dispatch(updateUserInfo(token)),
+    logout: () => dispatch(logout())
   }
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

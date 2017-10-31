@@ -1,7 +1,7 @@
 const INITIAL_DATA = {
   isLoading: false,
   isError: false,
-  currentUser: [{
+  currentUsers: [{
     user_id: 0,
     nickname: 'loading....',
     profile_photo: ''
@@ -38,7 +38,7 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
     return {
       ...state,
       isLoading: false,
-      currentUser: action.payload.data[0],
+      currentUsers: action.payload.data[0],
       chattingInfo: {
         id: action.payload.data[1].id,
         name: action.payload.data[1].name,
@@ -55,7 +55,7 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
     return {
       ...state,
       isLoading: false,
-      currentUser: [...state.currentUser, action.payload],
+      currentUsers: [...state.currentUsers, action.payload],
     } 
   }
 
@@ -64,7 +64,7 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
     return {
       ...state,
       isLoading: false,
-      currentUser: action.payload
+      currentUsers: action.payload
     } 
   }
 
@@ -73,7 +73,7 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
     return {
       ...state,
       isLoading: false,
-      currentUser: [{
+      currentUsers: [{
         user_id: 0,
         nickname: 'loading....',
         profile_photo: ''

@@ -1,20 +1,18 @@
 const DEFAULT_STATE = {
   isLogin: false, // 로그인 여부
-  currentUser: {
-    id: 0,
-    nickname: '',// user.nickname,
-    like: 0,// user.like
-    photo: '',// user.profile_photo,
-  }, // 로그인한 유저의 정보
-  signingIn: false, // 회원가입 여부
-  complete: true,
+  currentUser: { // 로그인한 유저의 정보
+    id: 0,  //
+    nickname: '', // user.nickname,
+    like: 0,  // user.like
+    photo: '',  // user.profile_photo,
+  },
 }
 
 const authReducer = (
   state = DEFAULT_STATE, 
   action = null
 ) => {
-  if (action.type === 'LOGIN_USER_REQUEST' ) {
+  if (action.type === 'LOGIN_USER_REQUEST') {
     return {
       ...state,
     }
@@ -23,6 +21,7 @@ const authReducer = (
   if (action.type === 'LOGIN_USER_SUCCESS') {
     return {
       ...state,
+      isLogin: !state.isLogin,
       currentUser: {
         id: action.payload.id,
         nickname: action.payload.nickname,
@@ -41,10 +40,15 @@ const authReducer = (
   if (action.type === 'LOGOUT') {
     return {
       ...state,
-      nickname: '',
-      profilePhoto: '',
+      isLogin: !state.isLogin,  // true된 isLogin 값을 false로 반환
+      currentUser: {
+        id: '',
+        nickname: '',
+        profilePhoto: '',
+      }
     }
   }
+
   return {
     ...state,
   }
