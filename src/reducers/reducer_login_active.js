@@ -1,5 +1,6 @@
 const DEFAULT_STATE = {
   isLogin: false, // 로그인 여부
+  showModal: false,
   currentUser: { // 로그인한 유저의 정보
     id: 0,  //
     nickname: '', // user.nickname,
@@ -12,6 +13,13 @@ const authReducer = (
   state = DEFAULT_STATE, 
   action = null
 ) => {
+  if (action.type === 'CLICK_SHOW_MODAL') {
+    return {
+      ...state,
+      showModal: !state.showModal,
+    }
+  }
+
   if (action.type === 'LOGIN_USER_REQUEST') {
     return {
       ...state,
@@ -22,6 +30,7 @@ const authReducer = (
     return {
       ...state,
       isLogin: !state.isLogin,
+      showModal : !state.showModal,
       currentUser: {
         id: action.payload.id,
         nickname: action.payload.nickname,

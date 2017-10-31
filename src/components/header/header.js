@@ -51,13 +51,8 @@ class Header extends Component {
     }
   }
 
-  // 로그인 모달창 열기
-  handleModalOpenLogin = () => {
-    this.props.modal()
-  }
-
-  // 로그인 모달창 닫기
-  handleModalCloseLogin = () => {
+  // 로그인 모달창 핸들러 열기
+  modalHandler = () => {
     this.props.modal()
   }
 
@@ -92,8 +87,8 @@ class Header extends Component {
     return(
       <header>
         <ModalLogin 
-          showModal={this.props.checkModal}
-          handleModalCloseLogin={this.handleModalCloseLogin}
+          checkModal={this.props.checkModal}
+          closeModal={this.modalHandler}
           currentUser={this.currentUser}
           login={this.login}
         />
@@ -105,7 +100,7 @@ class Header extends Component {
                 // 로그인 전
                 <a
                   className="menu__login-before btn"
-                  onClick={this.handleModalOpenLogin}
+                  onClick={this.modalHandler}
                 >
                   Sign Up
                 </a>
@@ -124,7 +119,7 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => ({
   isLogin: state.userData.isLogin,
-  checkModal: state.outputModal.showModal,
+  checkModal: state.userData.showModal,
 })
 const mapDispatchToProps = (dispatch) => {
   return {

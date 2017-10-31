@@ -6,7 +6,7 @@ import databaseReducer from './reducer_database_active';
 import theRoom from './reducer_theRoom';
 import userData from './reducer_login_active';
 import myRooms from './reducer_profile';
-import outputModal from './reducer_showModal';
+// import outputModal from './reducer_showModal';
 
 const reducers = combineReducers ({
   chatLogs,
@@ -16,7 +16,7 @@ const reducers = combineReducers ({
   theRoom,
   userData,
   myRooms,
-  outputModal,
+  // outputModal,
 })
 
 export default reducers;
