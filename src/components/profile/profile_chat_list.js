@@ -2,22 +2,23 @@
 // 룸에서 나가기를 누르면 배열에 있는 룸 아이디를 삭제해서 리렌더
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import _ from 'lodash'
 
 import ProfileChatListItem from './profile_chat_list_item'
-import {getRoomIds} from '../../action/action_profile'
+import {getRooms} from '../../action/action_profile'
 
 class ProfileChatListAlpha extends Component {
   componentDidMount() {
-    this.props.getRoomIds()
+    this.props.getRooms()
   }
 
   render() {
-    if(!this.props.roomIds[0]) return <div>'키 요청 보내는중'</div>
+    if(_.isEmpty(this.props.rooms[0])) return <div></div>
     return (
       <section className="profile__chat-list">
         <div className="profile__chat-list--container">
-          {this.props.roomIds.map(roomId => {
-            return <ProfileChatListItem key={roomId.chat_room_id} id={roomId.chat_room_id} />
+          {this.props.rooms.map(room => {
+            return <ProfileChatListItem key={room[1].chat_room_id} info={room} />
           })}
         </div>
       </section>
@@ -26,11 +27,11 @@ class ProfileChatListAlpha extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  roomIds: state.myRooms
+  rooms: state.myRooms
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getRoomIds: (user_id) => dispatch(getRoomIds(user_id))
+  getRooms: () => dispatch(getRooms())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileChatListAlpha)

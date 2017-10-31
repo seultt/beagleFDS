@@ -26,7 +26,7 @@ export const getMyRooms = (user_id) => {
     .catch(e => console.log('failed!!!!', e.message))
   }
 }
-
+// delete루트가 생길 경우 사용할 액션 크리에이터 
 export const deleteTheRoom = (room_id) => {
   return (dispatch, getState) => {
 
@@ -68,15 +68,15 @@ export const exitTheRoom = (room_id) => {
 
       const roomList = getState().myRooms
       console.log('겟스테이트', roomList)
-      const newRoomList = roomList.map(rooms => {
-        // room의 id와 res의 id가 다른 값만 반환 
-        return rooms.filter(room => {
-          return room.id !== parseInt(res.data.id)
-        })
-      })
-      // const newRoomList = roomList.filter(room => {
-      //   return room.chat_room_id !== parseInt(res.data.id)
+      // const newRoomList = roomList.map(rooms => {
+      //   // room의 id와 res의 id가 다른 값만 반환 
+      //   return rooms.filter(room => {
+      //     return room.id !== parseInt(res.data.id)
+      //   })
       // })
+      const newRoomList = roomList.filter(room => {
+        return room[1].id !== parseInt(res.data.id)
+      })
       console.log('뉴룸리스트', newRoomList)
     
       dispatch({
@@ -90,22 +90,24 @@ export const exitTheRoom = (room_id) => {
     })
   }
 }
+
+// 임시 액션 크리에이터, 원 루트가 완성되면 삭제 
 // 유저아이디를 가지고 소속되어있는 모든 방의 아이디를 가져옴 
-export const getRoomIds = () => {
+export const getRooms = () => {
   return (dispatch) => {
-    return axios.get(`${SERVER_ADDRESS}/api/chat-rooms/ids`, {
+    return axios.get(`${SERVER_ADDRESS}/api/profile/rooms`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(roomIds =>{
+    .then(rooms =>{
       // roomIds는 배열로 들어온다.
-      console.log('roomIds', roomIds)
+      console.log('rooms', rooms)
       dispatch({
-        type: 'PROFILE_ROOM_IDS',
-        payload: roomIds.data
+        type: 'PROFILE_ROOMS',
+        payload: rooms.data
       })
     })
-    .catch(e => console.log('roomIdsFailed', e.message))
+    .catch(e => console.log('roomsFailed', e.message))
   }
 }
