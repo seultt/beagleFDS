@@ -27,7 +27,34 @@ export const getMyRooms = (user_id) => {
   }
 }
 
-export const exitTheRoom = (user_id, room_id) => {
+export const deleteTheRoom = (room_id) => {
+  return (dispatch, getState) => {
+
+    return axios.delete(`${SERVER_ADDRESS}/api/profile/delete/${room_id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(roomId => {
+      console.log(roomId)
+
+      const roomList = getState().myRooms
+      const newRoomList = roomList.map(rooms => {
+        return rooms.filter(room => {
+          return room.id !== roomId.data.id
+        })
+      })
+
+      dispatch({
+        type: 'PROFILE_ROOM_DELETE',
+        payload: newRoomList
+      })
+    })
+    .catch(e => console.log(e.message))
+  }
+}
+
+export const exitTheRoom = (room_id) => {
   return (dispatch, getState) => {
     
     return axios.delete(`${SERVER_ADDRESS}/api/profile/delete/${room_id}`, {
@@ -41,15 +68,15 @@ export const exitTheRoom = (user_id, room_id) => {
 
       const roomList = getState().myRooms
       console.log('겟스테이트', roomList)
-      // const newRoomList = roomList.map(rooms => {
-      //   // room의 id와 res의 id가 다른 값만 반환 
-      //   return rooms.filter(room => {
-      //     return room.id !== parseInt(res.data.id)
-      //   })
-      // })
-      const newRoomList = roomList.filter(room => {
-        return room.chat_room_id !== parseInt(res.data.id)
+      const newRoomList = roomList.map(rooms => {
+        // room의 id와 res의 id가 다른 값만 반환 
+        return rooms.filter(room => {
+          return room.id !== parseInt(res.data.id)
+        })
       })
+      // const newRoomList = roomList.filter(room => {
+      //   return room.chat_room_id !== parseInt(res.data.id)
+      // })
       console.log('뉴룸리스트', newRoomList)
     
       dispatch({
@@ -57,21 +84,6 @@ export const exitTheRoom = (user_id, room_id) => {
         payload: newRoomList
       })
 
-    })
-    .then(() => {
-      // 삭제된 유저를 제외하고 리스트를 돌려준다. 
-      const userList = getState().theRoom.currentUser
-      // id가 맞는지 확인할것 
-      const userId = getState().userData.currentUser.id
-      console.log('현재로는 의미없는 코드입니다. 서버에 가서 유저 데이터를 가져온 다음에 넣어줘야합니다.')
-      const newUserList = userList.filter(user => {
-        return user.user_id !== userId
-      })
-      console.log('뉴 유저리스트', newUserList)
-      dispatch({
-        type: 'EXIT_THE_USER',
-        payload: newUserList
-      })
     })
     .catch(e => {
       console.log(e.message)

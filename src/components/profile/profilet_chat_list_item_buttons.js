@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import {exitTheRoom} from '../../action/action_profile'
-import {getChatRoomFromDB} from '../../action/action_createChat'
+import {getChatRoomFromDB} from '../../action/action_chatRoom'
 
 class ProfileChatListItemButtons extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class ProfileChatListItemButtons extends Component {
               >들어가기</a>
             </ li>
           </ Link>
-          <a onClick={() => {this.props.exitTheRoom(this.props.user_id, this.props.id)}}>나가기</a>
+          <a onClick={() => {this.props.exitTheRoom(this.props.id)}}>나가기</a>
         </div>
       )
     }
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  exitTheRoom: (user_id, room_id) => dispatch(exitTheRoom(user_id, room_id)),
+  exitTheRoom: (room_id) => dispatch(exitTheRoom(room_id)),
   getChatRoomFromDB: ({id, user_id}) => dispatch(getChatRoomFromDB({id, user_id}))
 })
 
