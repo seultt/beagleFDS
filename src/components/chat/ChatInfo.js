@@ -5,7 +5,7 @@ import like from '../../images/icon_like.svg';
 import point from '../../images/icon_point.svg';
 import calendar from '../../images/icon_calendar.svg';
 
-import MyFancyComponent from './Map'
+import GoogleMap from './Map'
 
 import {enterTheNewUser} from '../../action/action_chatRoom'
 
@@ -47,7 +47,7 @@ class ChatInfo extends Component {
                 <span><img src={point}/></span>{this.props.cities.find(city => city.value === this.props.theRoom.city_id).label}</p>
               <a href="/">+ 자세히 보기</a>
             </h3>
-            <MyFancyComponent city={this.props.cities.find(city => city.value === this.props.theRoom.city_id)}/>
+            <div><GoogleMap /></div>
           </div>
         </div>     
         <div className="info__users">
