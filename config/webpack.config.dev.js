@@ -133,7 +133,7 @@ module.exports = {
           // smaller than specified limit in bytes as data URLs to avoid requests.
           // A missing `test` is equivalent to a match.
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
@@ -255,6 +255,7 @@ module.exports = {
               /\.jpe?g$/,
               /\.png$/,
               /\.scss$/, // 여기 추가
+              /\.svg$/,
             ],
             loader: require.resolve('file-loader'),
             options: {
