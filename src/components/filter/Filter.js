@@ -83,7 +83,6 @@ class Filter extends Component {
   // 검색버튼 핸들러
   onSearchHandler = () => {
     let filterURI = '';
-    let lastId = 0;
 
     if (this.state.selectedCity) {
       filterURI += `city_id=${this.state.selectedCity.value}`;
