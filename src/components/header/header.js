@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
 import logo from '../../images/logo.svg';
 import SERVER_ADDRESS from '../../config';
-import { updateUserInfo } from '../../action/action_login';
+import { updateUserInfo, logout } from '../../action/action_login';
 
 class Header extends Component {
   constructor(props) {
@@ -14,52 +13,19 @@ class Header extends Component {
     this.state = {
       popupWindow: null,
       showModal: false,
-      token: null,  // 토큰 여부
     };
   }
 
   // 토큰 핸들러
   tokenHandler = (e) => {
-    if (typeof e.data === 'object') {
-      return
-    }
+    if (typeof e.data === 'object') return;
     const token = e.data;
     localStorage.setItem('jwtToken', token);
     this.state.popupWindow.close();
     this.setState({
       popupWindow: null,
-      token,
-      complete: true,
     });
-    this.props.updateUserInfo(this.state.token);
-    console.log("tokenHandler : " + this.props.isLogin);
-  }
-
-  componentWillMount() {
-    const ExistedToken = localStorage.getItem('jwtToken')
-    if (ExistedToken) {
-      this.setState({
-        token: ExistedToken,
-      })
-    }
-    console.log("componentWillMount : " + this.props.isLogin);
-    // this.props.isLogin;
-    // if (localStorage.jwtToken) {
-    //   this.setState({
-    //     token: localStorage.jwtToken,
-    //     isLogin: true,
-    //   })
-    // }
-  }
-
-  componentDidMount() {
-    if (this.state.token) {
-      this.props.updateUserInfo(this.state.token)
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('message', this.tokenHandler)
+    this.props.updateUserInfo(localStorage.getItem('jwtToken'));
   }
 
   // 로그인 클릭시
@@ -71,16 +37,17 @@ class Header extends Component {
       popupWindow,
       showModal: false,
     });
-    console.log("login : " + this.props.isLogin);
   }
 
-  // 로그아웃 클릭시 (테스트)
+  // 로그아웃 클릭시
   logout = () => {
-    delete localStorage.jwtToken;
-    this.setState({
-      token: null,
-    });
-    this.props.history.push('/');
+    if (window.confirm('로그아웃 하시겠습니까?') === true) {
+      delete localStorage.jwtToken; // 토큰 삭제
+      this.props.logout();  // 리듀서 액션 처리
+      this.props.history.push('/'); // index 페이지로 리다이렉션
+    } else {
+      return;
+    }
   }
 
   // 로그인 토글(모달창 오픈, isLogin 변경)
@@ -100,8 +67,34 @@ class Header extends Component {
     this.setState({ showModal: false });
   }
 
+  componentWillMount() {
+    const ExistedToken = localStorage.getItem('jwtToken')
+    if (ExistedToken) {
+      this.props.updateUserInfo();
+      // this.props.isLogin = true 이런식으로 리덕스는 사용할 수 없으므로
+      // 위처럼 this.props.updateUserInfo() 액션을 날려서 store의 스테이트를 업데이트 쳐준다.
+    }
+    // getItem을 안쓸때 아래처럼 쓰면 됨
+    // this.props.isLogin;
+    // if (localStorage.jwtToken) {
+    //   this.setState({
+    //     token: localStorage.jwtToken,
+    //     isLogin: true,
+    //   })
+    // }
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('jwtToken')) {
+      this.props.updateUserInfo(localStorage.getItem('jwtToken'))
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this.tokenHandler)
+  }
+
   render() {
-    console.log("render : " + this.props.isLogin);
     return(
       <header>
         <ModalLogin 
@@ -141,7 +134,8 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUserInfo: (token) => dispatch(updateUserInfo(token))
+    updateUserInfo: (token) => dispatch(updateUserInfo(token)),
+    logout: () => dispatch(logout())
   }
 }
 

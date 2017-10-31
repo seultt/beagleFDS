@@ -150,7 +150,6 @@ const mapStateToProps = (state) => ({
   cities: state.cities,
   sort: state.sort,
   chatList: state.databaseReducer.chatList,
-  // chatList: state.ChatListData.chatList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
