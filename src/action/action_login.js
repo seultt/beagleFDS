@@ -6,7 +6,7 @@ export const updateUserInfo = (token) => {
   return (dispatch) => {
     dispatch({
       type: 'LOGIN_USER_REQUEST',
-    })
+    });
     axios.get(`${SERVER_ADDRESS}/login`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -15,7 +15,6 @@ export const updateUserInfo = (token) => {
     })
       .then( 
         (res) => {
-          // console.log(res);
           dispatch({
             type: 'LOGIN_USER_SUCCESS',
             payload: {
@@ -35,5 +34,14 @@ export const updateUserInfo = (token) => {
           console.error(error);
         }
       )
+  }
+}
+
+// 로그아웃 클릭시
+export const logout = () => {
+  return (dispatch) => {
+    dispatch({
+      type: 'LOGOUT'
+    })
   }
 }
