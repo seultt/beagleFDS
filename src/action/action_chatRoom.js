@@ -59,3 +59,17 @@ export const getChatRoomFromDB = ({id, user_id}) => {
     .catch(e => console.log(e.message))
   }
 }
+
+export const enterTheNewUser = (user) => {
+  return {
+    type:'ENTER_THE_NEW_USER',
+    payload: user
+  }
+}
+
+export const resetTheReducerRoom = () => {
+  // console.log('reset the logs!!')
+  return {
+    type: 'RESET_THE_ROOM'
+  }
+}
