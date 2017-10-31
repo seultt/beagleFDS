@@ -10,8 +10,6 @@ const databaseReducer = (state = INITIAL_STATE, action = null) => {
    }
   }
   if (action.type === 'GET_CHAT_LIST_SUCCESS') {
-    console.log('리듀서 데이터')
-    console.log(action.payload)
     return {
       ...state,
       chatList: [...state.chatList, ...action.payload],
