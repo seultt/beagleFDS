@@ -9,7 +9,7 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import VirtualizedSelect from 'react-virtualized-select';
 
-import {postCreateToDB} from '../../../action/action_createChat'
+import {postCreateToDB} from '../../../action/action_chatRoom'
 
 class ModalCreateChat extends Component {
   constructor(props) {

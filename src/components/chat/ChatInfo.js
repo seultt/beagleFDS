@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import like from '../images/icon_like.svg';
-import point from '../images/icon_point.svg';
-import calendar from '../images/icon_calendar.svg';
+import like from '../../images/icon_like.svg';
+import point from '../../images/icon_point.svg';
+import calendar from '../../images/icon_calendar.svg';
 
 import MyFancyComponent from './Map'
 
-import {enterTheNewUser} from '../action/action_chatting'
+import {enterTheNewUser} from '../../action/action_chatRoom'
 
 class ChatInfo extends Component {
 
   componentDidMount () {
     this.props.socket.on('user connected', data => {
-      const isUser = this.props.theRoom.currentUser.find(user => user.user_id === data.user_id)
+      const isUser = this.props.theRoom.currentUsers.find(user => user.user_id === data.user_id)
       if(!isUser) {
         this.props.enterTheNewUser(data)
       }
@@ -26,10 +26,10 @@ class ChatInfo extends Component {
         <div className="description__travel">
           <div className="description__travel--about">
             <h3>
-              <p><span><img src={this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator).profile_photo}/></span>
+              <p><span><img src={this.props.theRoom.currentUsers.find(user => user.user_id === this.props.theRoom.creator).profile_photo}/></span>
                 {
-                  this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator)
-                    ? this.props.theRoom.currentUser.find(user => user.user_id === this.props.theRoom.creator).nickname
+                  this.props.theRoom.currentUsers.find(user => user.user_id === this.props.theRoom.creator)
+                    ? this.props.theRoom.currentUsers.find(user => user.user_id === this.props.theRoom.creator).nickname
                     : 'user not found'
                   }
                 </p>
@@ -53,7 +53,7 @@ class ChatInfo extends Component {
         <div className="info__users">
           <h3>대화 상대</h3>
           <ul>
-            {this.props.theRoom.currentUser.map((user, i) => {
+            {this.props.theRoom.currentUsers.map((user, i) => {
               return (
                 <li key={user.user_id}>
                   <span><img src={user.profile_photo} alt="photoo"/></span>
@@ -70,7 +70,7 @@ class ChatInfo extends Component {
 
 const chatInfoToProps = (state) => ({
   theRoom: {
-    currentUser: state.theRoom.currentUser,
+    currentUsers: state.theRoom.currentUsers,
     name: state.theRoom.chattingInfo.name,
     id: state.theRoom.chattingInfo.id,
     description: state.theRoom.chattingInfo.description,
