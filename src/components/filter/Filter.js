@@ -70,7 +70,6 @@ class Filter extends Component {
       lastLike,
     });
 
-    // 필터 후 인피니티스크롤 막음 (추후 삭제 됨)
     setTimeout(this.props.getChatList(lastId, lastLike, condition), 1000);
   }
 
