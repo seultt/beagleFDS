@@ -8,16 +8,18 @@ const myRooms = (state = INITIAL_STATE, action) => {
 
     case 'PROFILE_ROOMS_SUCCESS':
       return action.payload
-
+      break
     // case 'DELETE_REQUEST_REJECTED':
     //   return action.payload
 
     case 'PROFILE_ROOM_DELETE':
       return action.payload
+      break
 
-    case 'PROFILE_ROOM_IDS':
+    case 'PROFILE_ROOMS':
       return action.payload
-
+      break
+      
     default:
       return state
   }

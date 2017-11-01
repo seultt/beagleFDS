@@ -1,6 +1,7 @@
 import axios from 'axios';
 import SERVER_ADDRESS from '../config';
 
+
 // 유저정보 AJAX 업데이트
 export const updateUserInfo = (token) => {
   return (dispatch) => {

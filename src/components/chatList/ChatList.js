@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getChatList } from '../../action/action_getChatList';
 import { getChatRoomFromDB } from '../../action/action_chatRoom';
 import like from '../../images/icon_like.svg';
 import travel from '../../images/icon_travel.svg';
-import axios from 'axios';
-import SERVER_ADDRESS from '../../config';
+
 
 class ChatList extends Component {
   constructor(props) {

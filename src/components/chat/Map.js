@@ -70,7 +70,7 @@ class GoogleMap extends Component {
     const selectedCity = this.props.cities.find(city => city.value === this.props.city_id)
 
     new google.maps.Map(this.refs.map, {
-      zoom: 11,
+      zoom: 10,
       center: {
         lat: selectedCity.lat,
         lng: selectedCity.lng
