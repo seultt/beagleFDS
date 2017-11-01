@@ -26,6 +26,7 @@ class Filter extends Component {
         value: 'latest',
       },
       lastId: 0,
+      lastLike: 0,
     }
   }
 
@@ -41,6 +42,7 @@ class Filter extends Component {
   querySearchResult = () => {
     // 마지막 대화방의 id와 like를 파라미터로 넘겨준다.
     let lastId = 0;
+    let lastLike = 0;
     let city = '';
     let date = '';
     const sort = this.state.selectedSort.value;
@@ -56,16 +58,20 @@ class Filter extends Component {
     const condition = `city_id=${city}&start_at=${date}&sort=${sort}`;
     console.log(condition)
 
-    if(!isEmpty(this.props.chatList)) {
+    if (!isEmpty(this.props.chatList)) {
       lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
     }
-    
+
+    if (!isEmpty(this.props.chatList)) {
+      lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
+    }
     this.setState({
       lastId,
+      lastLike,
     });
 
     // 필터 후 인피니티스크롤 막음 (추후 삭제 됨)
-    setTimeout(this.props.getChatList(lastId, condition), 1000);
+    setTimeout(this.props.getChatList(lastId, lastLike, condition), 1000);
   }
 
   // 스크롤이 마지막 왔을 때 이벤트
