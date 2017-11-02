@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProfileUser from '../components/profile/ProfileUser';
-import ProfileChatList from '../components/profile/ProfileChatList';
-import ProfileChatListAlpha from '../components/profile/profile_chat_list'
+import ProfileChatList from '../components/profile/profileChatList'
 
 
 class Profile extends Component {
@@ -9,7 +8,7 @@ class Profile extends Component {
     return (
       <main className="profile">
         <ProfileUser />
-        <ProfileChatListAlpha />
+        <ProfileChatList />
       </main>
     )
   }

@@ -8,35 +8,14 @@ import _ from 'lodash'
 import calendar from '../../images/icon_calendar.svg';
 import SERVER_ADDRESS from '../../config'
 
-import ProfileChatListItemButtons from './profilet_chat_list_item_buttons'
+import ProfileChatListItemButtons from './profiletChatListItemButtons'
 
 class ProfileChatListItem extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   usersInfo: [],
-    //   roomInfo: {}
-    // }
 
-    // this.token = localStorage.getItem('jwtToken')
     this.showRooms = this.showRooms.bind(this)
   }
-
-  // componentDidMount() {
-  //   axios.get(`${SERVER_ADDRESS}/api/chat-rooms/${this.props.id}`, {
-  //     headers: {
-  //       'Authorization': `Bearer ${this.token}`
-  //     }
-  //   })
-  //   .then(room => {
-  //     this.setState({
-  //       usersInfo: room.data[0],
-  //       roomInfo: room.data[1]
-  //     })
-  //     console.log()
-  //   })
-  //   .catch(e => console.log(e))
-  // }
 
   showRooms(info) {
     return (
@@ -60,7 +39,7 @@ class ProfileChatListItem extends Component {
               {info[0].map(user => <img key={user.user_id} src={user.profile_photo} alt="사용자 이미지" />)}
             </div>
           </div>
-          <ProfileChatListItemButtons id={this.props.info[1].id} />
+          <ProfileChatListItemButtons id={this.props.info[1].id} isCreator={this.props.isCreator}/>
         </div>
       </article>
     )

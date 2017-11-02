@@ -15,10 +15,6 @@ const myRooms = (state = INITIAL_STATE, action) => {
     case 'PROFILE_ROOM_DELETE':
       return action.payload
       break
-
-    case 'PROFILE_ROOMS':
-      return action.payload
-      break
       
     default:
       return state

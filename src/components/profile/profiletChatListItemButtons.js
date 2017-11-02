@@ -2,13 +2,27 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {exitTheRoom} from '../../action/action_profile'
+import {exitTheRoom, deleteTheRoom} from '../../action/action_profile'
 import {getChatRoomFromDB} from '../../action/action_chatRoom'
 
 class ProfileChatListItemButtons extends Component {
   constructor(props) {
     super(props)
 
+    this.deleteButton = this.deleteButton.bind(this)
+    this.exitButton = this.exitButton.bind(this)
+  }
+
+  deleteButton() {
+    return (
+      <a onClick={() => {this.props.deleteTheRoom(this.props.id)}}>삭제하기</a>
+    )
+  }
+
+  exitButton() {
+    return (
+      <a onClick={() => {this.props.exitTheRoom(this.props.id)}}>나가기</a>
+    )
   }
 
   render() {
@@ -21,7 +35,11 @@ class ProfileChatListItemButtons extends Component {
               >들어가기</a>
             </ li>
           </ Link>
-          <a onClick={() => {this.props.exitTheRoom(this.props.id)}}>나가기</a>
+            {
+            this.props.isCreator
+              ? this.deleteButton()
+              : this.exitButton()
+            }
         </div>
       )
     }
@@ -33,6 +51,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   exitTheRoom: (room_id) => dispatch(exitTheRoom(room_id)),
+  deleteTheRoom: (room_id) => dispatch(deleteTheRoom(room_id)),
   getChatRoomFromDB: ({id, user_id}) => dispatch(getChatRoomFromDB({id, user_id}))
 })
 
