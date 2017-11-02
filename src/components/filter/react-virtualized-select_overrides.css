@@ -13,7 +13,8 @@
   border-color: none !important;
 }
 .Select-placeholder {
-  margin-top: 5px;
+  margin-top: 10px !important;
+  margin-left: 0 !important;
   padding-left: 0;
   font-weight: 300;
   font-size: 19px;
@@ -32,7 +33,8 @@
   border-top-color: none;
 }
 .Select-value {
-  margin-top: 5px;
+  margin-top: 10px !important;
+  margin-left: 0 !important;
   padding-left: 0 !important;
   font-size: 19px;
   font-weight: 300;
