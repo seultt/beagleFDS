@@ -16,7 +16,7 @@ const authReducer = (
   if (action.type === 'CLICK_SHOW_MODAL') {
     return {
       ...state,
-      showModal: !state.showModal,
+      showModal: action.payload.showModal,
     }
   }
 
@@ -29,8 +29,8 @@ const authReducer = (
   if (action.type === 'LOGIN_USER_SUCCESS') {
     return {
       ...state,
-      isLogin: !state.isLogin,
-      showModal : !state.showModal,
+      isLogin: action.payload.isLogin,
+      showModal : action.payload.showModal,
       currentUser: {
         id: action.payload.id,
         nickname: action.payload.nickname,
@@ -49,7 +49,7 @@ const authReducer = (
   if (action.type === 'LOGOUT') {
     return {
       ...state,
-      isLogin: !state.isLogin,  // true된 isLogin 값을 false로 반환
+      isLogin: action.payload.isLogin,
       currentUser: {
         id: '',
         nickname: '',

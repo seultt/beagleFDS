@@ -7,7 +7,7 @@ import {
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 // import ReduxPromise from 'redux-promise';
 
 import reducers from './reducers'
@@ -17,7 +17,7 @@ import './scss/main.scss';
 import Header from './components/header/header';
 import Profile from './pages/Profile';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
 
 class App extends Component {
   render() {
