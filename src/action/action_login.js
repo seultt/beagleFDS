@@ -4,7 +4,7 @@ import SERVER_ADDRESS from '../config';
 
 // 유저정보 AJAX 업데이트
 export const updateUserInfo = (token) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: 'LOGIN_USER_REQUEST',
     });
@@ -19,6 +19,8 @@ export const updateUserInfo = (token) => {
           dispatch({
             type: 'LOGIN_USER_SUCCESS',
             payload: {
+              isLogin: !getState().userData.isLogin,
+              showModal: !getState().userData.showModal,
               id: res.data.id,
               nickname: res.data.nickname,
               like: res.data.like,
@@ -40,9 +42,12 @@ export const updateUserInfo = (token) => {
 
 // 로그아웃 클릭시
 export const logout = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
-      type: 'LOGOUT'
+      type: 'LOGOUT',
+      payload: {
+        isLogin: !getState().userData.isLogin,
+      }
     })
   }
 }
