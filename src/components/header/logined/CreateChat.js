@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import ModalCreateChat from './ModalCreateChat';
 
-export default class CreateChat extends Component {
+class CreateChat extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,6 +23,7 @@ export default class CreateChat extends Component {
   }
 
   render () {
+    console.log(this.props.id+'채팅방 들어가기 전 id값')
     return (
       <li>
         <ModalCreateChat 
@@ -30,7 +32,7 @@ export default class CreateChat extends Component {
         />
         <a 
           className="menu__createChat btn"
-          onClick={this.shwModalCreateOpen}         
+          onClick={!this.props.id ? (this.shwModalCreateOpen) : ''}
         >Travel Chat +</a>
         {/* <a className="menu__createChat-mobile btn">+</a> */}
       </li>
@@ -38,3 +40,8 @@ export default class CreateChat extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  id: state.theRoom.chattingInfo.id,
+})
+
+export default connect (mapStateToProps)(CreateChat);
