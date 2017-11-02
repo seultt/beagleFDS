@@ -13,8 +13,7 @@ class Header extends Component {
     super(props);
     this.state = {
       popupWindow: null,
-      // showModal: false,
-    };
+    }
   }
 
   // 토큰 핸들러
@@ -56,7 +55,7 @@ class Header extends Component {
     this.props.modal()
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     const ExistedToken = localStorage.getItem('jwtToken')
     if (ExistedToken) {
       this.props.updateUserInfo();
@@ -73,14 +72,14 @@ class Header extends Component {
     // }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if (localStorage.getItem('jwtToken')) {
-      this.props.updateUserInfo(localStorage.getItem('jwtToken'))
+      this.props.updateUserInfo(localStorage.getItem('jwtToken'));
     }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('message', this.tokenHandler)
+  componentWillUnmount = () => {
+    window.removeEventListener('message', this.tokenHandler);
   }
 
   render() {
