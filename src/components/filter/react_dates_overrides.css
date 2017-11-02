@@ -6,6 +6,8 @@
   border: none !important;
 }
 .DateInput_displayText {
+  margin-top: 5px !important;
+  margin-left: 0 !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
