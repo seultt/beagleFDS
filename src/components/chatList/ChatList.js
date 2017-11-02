@@ -43,13 +43,21 @@ class ChatList extends Component {
                     <p className="main__chat-list__card--content--name">{list.name}</p>
                     <p className="main__chat-list__card--content--description">{list.description}</p>
                   </div>
-                  <Link to={`/chat/${list.id}`}>
+                  {this.props.user_id? (  
+                    <Link to={`/chat/${list.id}`}>
+                      <div className="main__chat-list__card--content--btn">
+                        <a
+                          onClick={() =>{this.props.getChatRoomFromDB({id: list.id, user_id: this.props.user_id})}}
+                        ><img src={travel} alt="대화버튼" />함께 여행하기</a>
+                      </div>
+                    </Link>
+                  ) : (
                     <div className="main__chat-list__card--content--btn">
                       <a
-                        onClick={() =>{this.props.getChatRoomFromDB({id: list.id, user_id: this.props.user_id})}}
+                        onClick={()=>alert('로그인 해주세요')}
                       ><img src={travel} alt="대화버튼" />함께 여행하기</a>
                     </div>
-                  </Link>
+                  )}
                   {/* <p>{this.state.usersInfo.length} / 5명</p> */}
                 </div>
               </article>
