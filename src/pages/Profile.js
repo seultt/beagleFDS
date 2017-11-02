@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProfileUser from '../components/profile/ProfileUser';
-import ProfileChatList from '../components/profile/profileChatList'
+import ProfileChatList from '../components/profile/ProfileChatList'
 
 
 class Profile extends Component {
