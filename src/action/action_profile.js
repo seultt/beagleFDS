@@ -13,7 +13,6 @@ export const deleteTheRoom = (room_id) => {
       }
     })
     .then(res => {
-      console.log('방 삭제 성공',res)
 
       const roomList = getState().myRooms
       const newRoomList = roomList.map(rooms => {
@@ -40,18 +39,13 @@ export const exitTheRoom = (room_id) => {
       }
     })
     .then(res => {
-      // res에는 룸 넘버
-      console.log('방나오기 성공', res)
 
       const roomList = getState().myRooms
-      console.log('겟스테이트', roomList)
       const newRoomList = roomList.map(rooms => {
         return rooms.filter(room => {
           return room[1].id !== res.data.id
         })
       })
-
-      console.log('뉴룸리스트', newRoomList)
     
       dispatch({
         type: 'PROFILE_ROOM_DELETE',
@@ -79,7 +73,6 @@ export const getRooms = () => {
     })
     .then(rooms =>{
       // roomIds는 배열로 들어온다.
-      console.log('rooms', rooms)
       const ownedRooms = []
       const participatedRooms = []
       const myRooms = []
@@ -96,7 +89,7 @@ export const getRooms = () => {
 
       myRooms.push(ownedRooms)
       myRooms.push(participatedRooms)
-      console.log(myRooms)
+
       dispatch({
         type: 'PROFILE_ROOMS_SUCCESS',
         payload: myRooms
