@@ -19,7 +19,6 @@ export const getChatList = (LAST_ID, LAST_LIKE, condition) => {
     })
       .then(
         (res) => {
-          console.log(`${SERVER_ADDRESS}/api/chat-rooms?lastId=${LAST_ID}&lastLike=${LAST_LIKE}&${condition}`)
           dispatch({
             type: 'GET_CHAT_LIST_SUCCESS',
             payload: res.data,
