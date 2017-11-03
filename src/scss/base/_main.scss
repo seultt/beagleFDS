@@ -231,6 +231,9 @@
               background-color: #0099ff;
               color: #fff;
             }
+            &:hover svg {
+              fill: #fff;
+            }
             &:visited {
               text-decoration: none;
               color: #222;

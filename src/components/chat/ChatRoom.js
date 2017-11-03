@@ -131,7 +131,7 @@ class ChatRoom extends Component {
     // 서버에 채팅로그 저장
     // const token = localStorage.getItem('jwtToken');
     // this.props.sendMessageFromDB({message: this.state.message, user_id : this.props.me.userId, id: this.props.id});
-    
+    if(!this.state.message) return
     // 다른 사용자에게 새 메시지를 전달
     this.props.socket.emit('new chat', {message: this.state.message, room_id: this.props.id, user_id: this.props.me}, data => {
       console.log('새로운 메세지 전달')
@@ -195,6 +195,7 @@ class ChatRoom extends Component {
           />
           <div className="chatting-__input--buttons">
             <button 
+            disabled ={!this.state.message}
               className="buttons-send" 
               type="button"
               onClick={this.sendMessage}

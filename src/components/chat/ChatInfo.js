@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import like from '../../images/icon_like.svg';
+import {IconLike} from '../../images/icons';
 import point from '../../images/icon_point.svg';
 import calendar from '../../images/icon_calendar.svg';
 
 import GoogleMap from './Map'
 
-import {enterTheNewUser} from '../../action/action_chatRoom'
+import {enterTheNewUser, userLikeTheCreator} from '../../action/action_chatRoom'
 
 class ChatInfo extends Component {
 
@@ -33,7 +33,13 @@ class ChatInfo extends Component {
                     : 'user not found'
                   }
                 </p>
-              <a href="/"><img src={like} alt="좋아요 버튼"/></a>
+              <a
+                onClick={() => this.props.userLikeTheCreator(this.props.theRoom.id)}
+              >
+              <IconLike 
+                liked={this.props.theRoom.liked}
+              />
+              </a>
             </h3>
             <div>
               <p className="about__name">{this.props.theRoom.name}</p>
@@ -77,13 +83,15 @@ const chatInfoToProps = (state) => ({
     photo: state.theRoom.chattingInfo.photo,
     start_at: state.theRoom.chattingInfo.start_at,
     city_id: state.theRoom.chattingInfo.city_id,
-    creator: state.theRoom.chattingInfo.creator
+    creator: state.theRoom.chattingInfo.creator,
+    liked: state.theRoom.liked,
   },
   cities : state.cities
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  enterTheNewUser: (user)=> (dispatch(enterTheNewUser(user)))
+  enterTheNewUser: (user)=> (dispatch(enterTheNewUser(user))),
+  userLikeTheCreator: (user)=> (dispatch(userLikeTheCreator(user)))
 })
 
 export default connect(chatInfoToProps, mapDispatchToProps)(ChatInfo)

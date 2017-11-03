@@ -73,3 +73,24 @@ export const resetTheReducerRoom = () => {
     type: 'RESET_THE_ROOM'
   }
 }
+
+export const userLikeTheCreator = (id) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'LIKE_REQUEST'
+    })
+    axios.patch(`${SERVER_ADDRESS}/api/chat-rooms/${id}/like`)
+    .then(res => {
+      dispatch({
+        type: 'LIKE_SUCCESS',
+        payload: res.ok
+      })
+    })
+    .catch(e => console.log('like Failed', e.message))    
+  }
+}
+// export const userLikeTheCreator = (id) => {
+//   return {
+//     type: 'LIKE_SUCCESS'
+//   }
+// }
