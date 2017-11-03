@@ -213,7 +213,7 @@
         .main__chat-list__card--content--btn {
           display: flex;
           justify-content: center;
-          a {
+          span {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -223,6 +223,7 @@
             border: 1px solid #d9d9d9;
             font-weight: 600;
             color: #222;
+            cursor: pointer;
             img {
               margin-right: 15px;
             }

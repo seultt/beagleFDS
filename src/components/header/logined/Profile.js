@@ -9,10 +9,10 @@ class Profile extends Component {
     return (
       <Link to={`/profile`}>
         <li>
-          <a 
+          <span 
             className="menu__profile menu_icon">
             <img src={this.props.photo} alt="프로필" />
-          </a>
+          </span>
         </li>
       </Link>
     )
