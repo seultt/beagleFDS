@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getChatRoomFromDB } from '../../action/action_chatRoom';
+import {IconTravel} from '../../images/icons';
 import like from '../../images/icon_like.svg';
-import travel from '../../images/icon_travel.svg';
 
 
 class ChatList extends Component {
@@ -48,14 +48,14 @@ class ChatList extends Component {
                       <div className="main__chat-list__card--content--btn">
                         <span
                           onClick={() =>{this.props.getChatRoomFromDB({id: list.id, user_id: this.props.user_id})}}
-                        ><img src={travel} alt="대화버튼" />함께 여행하기</span>
+                        ><IconTravel/>함께 여행하기</span>
                       </div>
                     </Link>
                   ) : (
                     <div className="main__chat-list__card--content--btn">
                       <span
                         onClick={()=>alert('로그인 해주세요')}
-                      ><img src={travel} alt="대화버튼" />함께 여행하기</span>
+                      ><IconTravel/>함께 여행하기</span>
                     </div>
                   )}
                   {/* <p>{this.state.usersInfo.length} / 5명</p> */}

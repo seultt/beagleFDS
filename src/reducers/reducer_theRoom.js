@@ -21,7 +21,8 @@ const INITIAL_DATA = {
     start_at: '',
     city_id: 1,
     creator: 0
-  }
+  },
+  liked: false,
 }
 
 const getTheRoom = (state = INITIAL_DATA, action = null) => {
@@ -88,6 +89,19 @@ const getTheRoom = (state = INITIAL_DATA, action = null) => {
         creator: 0
       }
     } 
+  }
+
+  if(action.type === 'LIKE_REQUEST'){
+    return {
+      ...state,
+    }
+  }
+
+  if(action.type === 'LIKE_SUCCESS'){
+    return {
+      ...state,
+      liked: !state.liked,
+    }
   }
 
   return {

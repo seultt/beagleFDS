@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ModalLogin from './loginModal/modalLogin';
 import Logined from './logined';
-import logo from '../../images/logo.svg';
+import {Logo} from '../../images/icons';
+
 import SERVER_ADDRESS from '../../config';
 import { updateUserInfo, logout } from '../../action/action_login';
 import { showModal } from '../../action/action_showModal';
@@ -92,7 +93,7 @@ class Header extends Component {
           login={this.login}
         />
         <div className="__container">
-          <h1><a href="/"><img src={logo} alt="로고" /></a></h1>
+          <h1><a href="/"><Logo/></a></h1>
           <div className="menu">
             {
               !this.props.isLogin ? (
