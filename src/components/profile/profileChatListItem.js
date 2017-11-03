@@ -1,12 +1,13 @@
 // profile_chat_list에서 룸 아이디인 key값을 가지고 와서 component did mount에서 axios 요청보낸다.
 // 결과값을 스테이트에 저장한다.
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import _ from 'lodash'
 
 import calendar from '../../images/icon_calendar.svg';
-import SERVER_ADDRESS from '../../config'
+
+import {getChatRoomFromDB} from '../../action/action_chatRoom'
 
 import ProfileChatListItemButtons from './profiletChatListItemButtons'
 
@@ -20,16 +21,18 @@ class ProfileChatListItem extends Component {
   showRooms(info) {
     return (
       <article key={info[1].id} className="profile__chat-list--card">
-        <div className="profile__chat-list--card--header">
-          <div className="profile__chat-list--card--header--left">
-            <strong>{info[1].name}</strong>
-            <span> / {this.props.cities.find(city => city.value === info[1].city_id).label}</span>
+        <Link to={`/chat/${this.props.info[1].id}`} onClick={() =>{this.props.getChatRoomFromDB({id: this.props.info[1].id, user_id: this.props.user_id})}}>
+          <div className="profile__chat-list--card--header">
+            <div className="profile__chat-list--card--header--left">
+              <strong>{info[1].name}</strong>
+              <span> / {this.props.cities.find(city => city.value === info[1].city_id).label}</span>
+            </div>
+            <div className="profile__chat-list--card--header--right">
+              <img src={calendar} alt="달력" />
+              <span>{info[1].start_at.slice(0,4)}년 {info[1].start_at.slice(5,7)}월 {info[1].start_at.slice(8,10)}일</span>
+            </div>
           </div>
-          <div className="profile__chat-list--card--header--right">
-            <img src={calendar} alt="달력" />
-            <span>{info[1].start_at.slice(0,4)}년 {info[1].start_at.slice(5,7)}월 {info[1].start_at.slice(8,10)}일</span>
-          </div>
-        </div>
+        </ Link>
         <div className="profile__chat-list--card--text">
           {info[1].description}
         </div>
@@ -52,7 +55,12 @@ class ProfileChatListItem extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cities: state.cities
+  cities: state.cities,
+  user_id: state.userData.currentUser.id
 })
 
-export default connect(mapStateToProps)(ProfileChatListItem)
+const mapDispatchToProps = (dispatch) => ({
+  getChatRoomFromDB: ({id, user_id}) => dispatch(getChatRoomFromDB({id, user_id}))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileChatListItem)
