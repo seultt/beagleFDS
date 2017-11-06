@@ -59,7 +59,7 @@ class Header extends Component {
   componentWillMount = () => {
     const ExistedToken = localStorage.getItem('jwtToken')
     if (ExistedToken) {
-      this.props.updateUserInfo();
+      this.props.updateUserInfo(localStorage.getItem('jwtToken'));
       // this.props.isLogin = true 이런식으로 리덕스는 사용할 수 없으므로
       // 위처럼 this.props.updateUserInfo() 액션을 날려서 store의 스테이트를 업데이트 쳐준다.
     }
