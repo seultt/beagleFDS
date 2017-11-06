@@ -1,11 +1,10 @@
 import axios from 'axios'
 import SERVER_ADDRESS from '../config'
 
-const token = localStorage.getItem('jwtToken')
-
 // delete루트가 생길 경우 사용할 액션 크리에이터 
 export const deleteTheRoom = (room_id) => {
   return (dispatch, getState) => {
+    const token = localStorage.getItem('jwtToken')
 
     return axios.delete(`${SERVER_ADDRESS}/api/profile/chatRooms/${room_id}`, {
       headers: {
@@ -32,6 +31,7 @@ export const deleteTheRoom = (room_id) => {
 
 export const exitTheRoom = (room_id) => {
   return (dispatch, getState) => {
+    const token = localStorage.getItem('jwtToken')
     
     return axios.delete(`${SERVER_ADDRESS}/api/profile/chatList/${room_id}`, {
       headers: {
@@ -62,6 +62,8 @@ export const exitTheRoom = (room_id) => {
 // 유저아이디를 가지고 소속되어있는 모든 방의 아이디를 가져옴 
 export const getRooms = () => {
   return (dispatch, getState) => {
+    const token = localStorage.getItem('jwtToken')
+    
     dispatch({
       type: 'PROFILE_ROOMS_REQUEST'
     })

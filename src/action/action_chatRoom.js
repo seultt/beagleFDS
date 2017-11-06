@@ -1,10 +1,10 @@
 import axios from 'axios';
 import SERVER_ADDRESS from '../config'
 
-const token = localStorage.getItem('jwtToken')
-
 export const postCreateToDB = (create, callback) => {
   return (dispatch) => {
+    const token = localStorage.getItem('jwtToken')
+
     dispatch({
       type: 'GET_A_ROOM_REQUEST',
     })
@@ -38,6 +38,7 @@ export const postCreateToDB = (create, callback) => {
 
 export const getChatRoomFromDB = ({id, user_id}) => {
   return (dispatch) => {
+    const token = localStorage.getItem('jwtToken')
 
     dispatch({
       type: 'GET_A_ROOM_REQUEST',
@@ -76,6 +77,8 @@ export const resetTheReducerRoom = () => {
 
 export const userLikeTheCreator = (id) => {
   return (dispatch) => {
+    const token = localStorage.getItem('jwtToken')
+    
     dispatch({
       type: 'LIKE_REQUEST'
     })
