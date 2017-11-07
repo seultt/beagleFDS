@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import {IconLike} from '../../images/icons';
-import point from '../../images/icon_point.svg';
-import calendar from '../../images/icon_calendar.svg';
-
+import {IconLike, IconCalendar, IconPoint} from '../../images/icons';
 import GoogleMap from './Map'
 
 import {enterTheNewUser, userLikeTheCreator} from '../../action/action_chatRoom'
@@ -44,13 +41,13 @@ class ChatInfo extends Component {
             <div>
               <p className="about__name">{this.props.theRoom.name}</p>
               <p className="about__description">{this.props.theRoom.description}</p>
-              <p className="about__date"><span><img src={calendar} alt="여행 날짜"/></span>{this.props.theRoom.start_at.slice(5,7)}월 {this.props.theRoom.start_at.slice(8,10)}일</p>
+              <p className="about__date"><span><IconCalendar/></span>{this.props.theRoom.start_at.slice(5,7)}월 {this.props.theRoom.start_at.slice(8,10)}일</p>
             </div>
           </div>
           <div className="description__travel--map">
             <h3>
               <p>
-                <span><img src={point}/></span>{this.props.cities.find(city => city.value === this.props.theRoom.city_id).label}</p>
+                <span><IconPoint/></span>{this.props.cities.find(city => city.value === this.props.theRoom.city_id).label}</p>
               <a href="/">+ 자세히 보기</a>
             </h3>
             <div><GoogleMap /></div>

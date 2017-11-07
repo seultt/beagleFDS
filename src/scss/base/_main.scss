@@ -160,10 +160,8 @@
           font-weight: 400;
           font-size: 15px;
         }
-        .main__chat-list__card--header--like img {
-          width: 20px;
-          height: 15px;
-          margin-right: 10px;
+        .main__chat-list__card--header--like .darkLike {
+          fill: #646464;
         }
       }
       .main__chat-list__card--content {

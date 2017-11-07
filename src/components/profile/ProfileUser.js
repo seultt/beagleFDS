@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import like from '../../images/icon_like.svg';
-import setting from '../../images/btn_set.svg';
+import {IconLike, IconSetting} from '../../images/icons';
 
 class ProfileUser extends Component {
   render() {
@@ -17,12 +16,12 @@ class ProfileUser extends Component {
                 <strong>{this.props.currentUser.nickname}</strong>
               </li>
               <li className="profile__user--info__like">
-                <img src={like} alt="좋아요" />
+                <IconLike className="darkLike" />
                 <span>{this.props.currentUser.like}</span>
               </li>
               <li className="profile__user--info__btn">
                 <a>Logout</a>
-                <a><img src={setting} alt="사용자 환경설정" /></a>
+                <a><IconSetting/></a>
               </li>
             </ul>
           </article>
