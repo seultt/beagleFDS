@@ -20,10 +20,10 @@ class ProfileChatList extends Component {
       <section className="profile__chat-list">
         <div className="profile__chat-list--container">
           {this.props.myRooms[0].map(room => {
-            return <ProfileChatListItem key={room[1].chat_room_id} info={room} isCreator={true} />
+            return <ProfileChatListItem key={room[1].id} info={room} isCreator={true} />
           })}
           {this.props.myRooms[1].map(room => {
-            return <ProfileChatListItem key={room[1].chat_room_id} info={room} isCreator={false}/>
+            return <ProfileChatListItem key={room[1].id} info={room} isCreator={false}/>
           })}
         </div>
       </section>

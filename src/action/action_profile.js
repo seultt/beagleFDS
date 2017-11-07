@@ -81,7 +81,6 @@ export const getRooms = () => {
       const currentUserId = getState().userData.currentUser.id
 
       rooms.data.map(room => {
-        console.log(room[1].creator, currentUserId, '********')
         if(room[1].creator === currentUserId) {
           ownedRooms.push(room)
         } else {
