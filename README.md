@@ -2,6 +2,8 @@
 
 비슷한 사람들끼리 여행갈 수 있도록 사람을 연결해주는 채팅 서비스
 
+[Beagle](https://beagle.yujin-min.com)
+
 ---
 
 ## 서비스 목표
