@@ -34,10 +34,8 @@
         display: flex;
         align-items: center;
         margin-right: 30px;
-        img {
-          margin-right: 5px;
-          width: 20px;
-          height: 15px;
+        .darkLike {
+          fill: #646464;
         }
         span {
           font-size: 15px;

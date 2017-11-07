@@ -5,7 +5,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import _ from 'lodash'
 
-import calendar from '../../images/icon_calendar.svg';
+import {IconLike, IconCalendar} from '../../images/icons';
+// import calendar from '../../images/icon_calendar.svg';
 
 import {getChatRoomFromDB} from '../../action/action_chatRoom'
 
@@ -28,7 +29,7 @@ class ProfileChatListItem extends Component {
               <span> / {this.props.cities.find(city => city.value === info[1].city_id).label}</span>
             </div>
             <div className="profile__chat-list--card--header--right">
-              <img src={calendar} alt="달력" />
+              <IconCalendar/>
               <span>{info[1].start_at.slice(0,4)}년 {info[1].start_at.slice(5,7)}월 {info[1].start_at.slice(8,10)}일</span>
             </div>
           </div>

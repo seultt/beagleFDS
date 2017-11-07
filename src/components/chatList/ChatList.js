@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getChatRoomFromDB } from '../../action/action_chatRoom';
-import {IconTravel} from '../../images/icons';
-import like from '../../images/icon_like.svg';
+import {IconTravel, IconLike} from '../../images/icons';
 
 
 class ChatList extends Component {
@@ -29,7 +28,7 @@ class ChatList extends Component {
                     <strong>{list.nickname}</strong>
                   </div>
                   <div className="main__chat-list__card--header--like">
-                    <img src={like} alt="좋아요" />
+                    <IconLike className="darkLike"/>
                     <span>{list.like}</span>
                   </div>
                 </div>
