@@ -23,7 +23,6 @@ class CreateChat extends Component {
   }
 
   render () {
-    console.log(this.props.id+'채팅방 들어가기 전 id값')
     return (
       <li>
         <ModalCreateChat 
@@ -32,7 +31,7 @@ class CreateChat extends Component {
         />
         <a 
           className="menu__createChat btn"
-          onClick={!this.props.id ? (this.shwModalCreateOpen) : ''}
+          onClick={!this.props.id ? (this.shwModalCreateOpen) : () => {}}
         >Travel Chat +</a>
         {/* <a className="menu__createChat-mobile btn">+</a> */}
       </li>
