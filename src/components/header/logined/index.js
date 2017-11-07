@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Profile from './Profile';
-import Alarm  from './Alarm';
+// import Alarm  from './Alarm';
 import CreateChat from './CreateChat';
 import LogOut from './LogOut';
 
