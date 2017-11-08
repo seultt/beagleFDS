@@ -27,19 +27,15 @@ class Filter extends Component {
       },
       lastId: 0,
       lastLike: 0,
+      condition: '',
     }
   }
 
-  componentDidMount = () => {
-    window.addEventListener('scroll', this.handleOnScroll);
-  }
-
-  componentWillUnmount = () => {
-    window.removeEventListener('scroll', this.handleOnScroll);
-  }
-  
   // 스크롤이 마지막에 왔을 때 쿼리 스트링 보내는 함수
   querySearchResult = () => {
+    if(!isEmpty(this.props.chatList)) {
+      if(this.state.lastId === this.props.chatList[this.props.chatList.length - 1].id) return
+    }
     // 마지막 대화방의 id와 like를 파라미터로 넘겨준다.
     let lastId = 0;
     let lastLike = 0;
@@ -56,29 +52,28 @@ class Filter extends Component {
     }
     
     const condition = `city_id=${city}&start_at=${date}&sort=${sort}`;
-    console.log(condition)
 
     if (!isEmpty(this.props.chatList)) {
-      lastId = `${this.props.chatList[this.props.chatList.length - 1].id}`;
+      lastId = this.props.chatList[this.props.chatList.length - 1].id;
     }
 
     if (!isEmpty(this.props.chatList)) {
-      lastLike = `${this.props.chatList[this.props.chatList.length - 1].like}`;
+      lastLike = this.props.chatList[this.props.chatList.length - 1].like;
     }
     this.setState({
       lastId,
       lastLike,
+      condition,
     });
-
     setTimeout(this.props.getChatList(lastId, lastLike, condition), 1000);
   }
 
   // 스크롤이 마지막 왔을 때 이벤트
   handleOnScroll = () => {
-    var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    var clientHeight = document.documentElement.clientHeight || window.innerHeight;
-    var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+    let scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    let scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+    let clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
     if (scrolledToBottom) {
       this.querySearchResult();
@@ -100,6 +95,14 @@ class Filter extends Component {
     }
     console.log(`filterURI: ${filterURI}`);
     this.props.getFilteringChatList(filterURI);
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('scroll', this.handleOnScroll);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('scroll', this.handleOnScroll);
   }
 
   render() {
